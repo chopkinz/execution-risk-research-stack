@@ -1,0 +1,25 @@
+seed: 42
+symbol: "XAUUSD=X"
+interval: "5m"
+period: "60d"
+session:
+  start: "08:30"
+  end: "10:30"
+portfolio:
+  initial_cash: 100000.0
+risk:
+  max_position_size: 1.0
+  max_trades_per_day: 2
+  max_daily_loss_pct: 0.02
+  max_drawdown_pct: 0.2
+  max_gross_exposure: 500000.0
+execution:
+  spread_bps: 1.5
+  min_spread: 0.02
+  slippage_k: 0.12
+  delay_bars: 0
+  fee_bps: 0.7
+strategy:
+  threshold: 0.0004
+  qty: 1.0
+montecarlo_paths: 500
