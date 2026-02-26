@@ -2,6 +2,12 @@
 
 Institutional-grade, execution-aware, risk-first systematic trading research infrastructure.
 
+## Repository network
+
+- Flagship (this repo): `https://github.com/chopkinz/execution-risk-research-stack`
+- Execution module: `https://github.com/chopkinz/execution-sim-lab`
+- Risk module: `https://github.com/chopkinz/risk-engine-lab`
+
 ## Core principles
 
 - Deterministic runs (fixed seed, config-driven).
@@ -65,15 +71,24 @@ tests/
 ## Current limitations
 
 See:
+
 - `docs/limitations.md`
 - `docs/roadmap.md`
 
 ## Repo split plan
 
 See `docs/repo_split_plan.md` for extraction path into:
+
 - execution-sim-lab
 - risk-engine-lab
 
 Extraction-ready local folders are already included:
+
 - `execution-sim-lab/`
 - `risk-engine-lab/`
+
+## Release cadence
+
+- Initial baseline release tag: `v0.1.0`
+- Flagship is the integration/orchestration surface.
+- Module repos can be versioned independently after extraction hardening.
