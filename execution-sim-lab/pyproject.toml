@@ -7,7 +7,8 @@ name = "execution-sim-lab"
 version = "0.1.0"
 description = "Execution simulation package"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["pandas>=2.2.0", "matplotlib>=3.8.0"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["execution_sim_lab"]

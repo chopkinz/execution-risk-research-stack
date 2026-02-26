@@ -9,5 +9,6 @@ description = "Risk engine package"
 requires-python = ">=3.11"
 dependencies = []
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["risk_engine_lab"]
