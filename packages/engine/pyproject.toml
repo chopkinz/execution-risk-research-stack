@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meridian-engine"
+version = "0.1.0"
+description = "Unified execution/risk/backtest engine for Meridian Terminal"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2.0",
+  "numpy>=1.26.0",
+  "pyarrow>=15.0.0",
+  "yfinance>=0.2.54",
+  "PyYAML>=6.0.1",
+  "matplotlib>=3.8.0",
+  "plotly>=6.0.0",
+  "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+
+[project.scripts]
+meridian-demo = "engine.scripts.demo:main"
+meridian-export-artifacts = "engine.scripts.export_artifacts:main"
+meridian-session = "engine.scripts.session_cli:main"
+meridian-backtest = "engine.scripts.backtest_cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["engine*"]

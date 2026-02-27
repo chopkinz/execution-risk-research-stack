@@ -1,0 +1,26 @@
+{
+  "run_id": "demo_run",
+  "timestamp_utc": "2026-02-26T20:23:15.222784+00:00",
+  "instrument": "SYNTH_NDX",
+  "timeframe": "15m",
+  "start": "2026-01-05T14:30:00+00:00",
+  "end": "2026-01-08T17:15:00+00:00",
+  "trades": 2,
+  "win_rate": 0.0,
+  "profit_factor": 0.0,
+  "max_drawdown_pct": 0.0,
+  "sharpe": 11.224972160321828,
+  "total_return_pct": 79.77477044420651,
+  "cagr_pct": 7.451946000460723e+31,
+  "notes": "Deterministic offline synthetic demo run.",
+  "risk": {
+    "max_daily_loss_pct": 0.02,
+    "max_exposure_pct": 500.0,
+    "kill_switch_drawdown_pct": 0.2
+  },
+  "execution": {
+    "spread_model": "bps_plus_min_spread",
+    "slippage_model": "volatility_scaled_linear",
+    "fees_model": "fee_bps"
+  }
+}

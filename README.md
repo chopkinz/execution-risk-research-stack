@@ -1,159 +1,97 @@
-# execution-risk-research-stack
+# Meridian Terminal
 
-Institutional-grade, execution-aware, risk-first systematic trading research infrastructure.
+Meridian Terminal is a single self-contained product with:
 
-## Overview
+- `apps/web`: Next.js App Router + TypeScript + Tailwind + Bun UI
+- `packages/engine`: unified Python execution/risk/backtest/reporting engine
 
-This repository is the flagship orchestrator for a deterministic, modular trading research stack.  
-It separates signal generation from risk approval, execution simulation, portfolio accounting, and reporting so each layer can be validated independently.
+No external repo is required for core functionality. The web app runs the local Python engine and renders artifacts produced inside this repository.
 
-## Repository Network
+## Monorepo Layout
 
-- Flagship (integration layer): `https://github.com/chopkinz/execution-risk-research-stack`
-- Execution module (extractable): `https://github.com/chopkinz/execution-sim-lab`
-- Risk module (extractable): `https://github.com/chopkinz/risk-engine-lab`
-
-## System Flow
-
-```mermaid
-flowchart LR
-  D[Market Data] --> F[Feature Pipeline]
-  F --> S[Strategy]
-  S --> O[OrderIntent]
-  O --> R[RiskEngine]
-  R -->|Approved| E[Execution Simulator]
-  R -->|Rejected| RL[Rejection Logs]
-  E --> FL[Fills]
-  FL --> P[Portfolio Accounting]
-  P --> M[Metrics and Report]
+```text
+.
+├── apps/
+│   └── web/
+├── packages/
+│   └── engine/
+├── Makefile
+└── .github/workflows/ci.yml
 ```
 
-## Design Principles
+## Research Runtime
 
-- Deterministic runs through fixed seeds and config-driven parameters.
-- Risk-first architecture: strategy cannot mutate portfolio or execute directly.
-- Execution-aware fills with spread, slippage, latency, and transaction fees.
-- No-lookahead feature pipeline behavior tested explicitly.
-- Modular boundaries designed for future extraction into standalone repos.
+Web API routes in `apps/web`:
 
-## What This Repo Contains
+- `POST /api/research/run`
+  - runs the engine demo and writes artifacts to `apps/web/public/research/latest`
+  - streams engine logs over SSE
+- `GET /api/research/status`
+  - reports artifact readiness and latest run timestamp
+- `GET /api/session?symbols=QQQ,SPY`
+  - returns session high/low, open/close, volume, and pattern for use by the Terminal view or other clients.
 
-| Area | Purpose |
-| --- | --- |
-| `src/core` | Shared contracts: types, config, clock, logging |
-| `src/data` | Loaders, storage, validation, calendar, resampling |
-| `src/features` | Leak-safe feature transformations |
-| `src/strategy` | Signal intent generation only |
-| `src/risk` | Risk approvals/rejections with reasons |
-| `src/execution` | Fill simulation and cost/latency models |
-| `src/portfolio` | Position state, cash/equity, PnL, exposure |
-| `src/backtest` | Event loop, metrics, reporting, walkforward, sweep, Monte Carlo |
-| `src/viz` | Artifact viewer dashboard |
-| `scripts` | Operational entry points |
-| `configs` | Reproducible run definitions |
-| `tests` | Core correctness checks |
-| `docs` | Architecture, assumptions, limitations, roadmap, split plan |
+## Artifact Contract
 
-## Quickstart (3 Commands)
+Engine writes directly into `apps/web/public/research/latest/`:
 
-```bash
-python -m venv .venv && source .venv/bin/activate
-make install
-make verify
-```
-
-`make verify` is the canonical validation command and runs:
-
-- dependency install
-- offline deterministic demo run
-- pytest suite
-- UI smoke check (`ui-check`)
-
-## Run UI
-
-```bash
-make ui
-```
-
-This launches `ui/app.py` (Streamlit).  
-The UI includes a **Run Demo** button that calls the demo pipeline in-process (no shell subprocess required).
-
-## Additional Operations
-
-```bash
-make demo
-make test
-make ui-check
-```
-
-## Demo Artifacts
-
-`scripts/demo.py` writes a deterministic offline run to `outputs/demo_run/`:
-
+- `summary.json`
 - `equity_curve.png`
 - `drawdown.png`
 - `risk_rejections.png`
 - `report.md`
-- `run.log`
-- csv artifacts (`trades.csv`, `equity_curve.csv`, `risk_rejections.csv`, metrics)
+- optional: `monte_carlo_dd.png`
 
-### Screenshot References
+`/research` renders run metadata, artifacts, markdown report, and streaming run logs.
 
-![Equity Curve](outputs/demo_run/equity_curve.png)
-![Drawdown](outputs/demo_run/drawdown.png)
-![Risk Rejections](outputs/demo_run/risk_rejections.png)
-
-## Configuration and Reproducibility
-
-- Base configs live under `configs/` (for example `nas100_momentum.yaml`).
-- Determinism is controlled by `seed` and explicit config values for strategy/risk/execution.
-- Experiment scripts are designed to run from config with consistent run metadata.
-
-## Testing
-
-Run full suite:
+## One-Command Dev Experience
 
 ```bash
-python -m pytest -q
+make install
+make dev
 ```
 
-Core coverage includes:
+Additional targets:
 
-- accounting correctness
-- risk rejection logic
-- no-lookahead safeguards
-- execution cost application
-- offline demo artifact generation
+- `make run` -> generate latest research artifacts (full backtest)
+- `make backtest` -> same as make run (full backtest, writes to web public)
+- `make session` -> run session CLI (highs, lows, patterns) in terminal
+- `make test` -> run Python engine tests
+- `make verify` -> run engine + tests + web lint/build verification
 
-## Documentation Index
+## Terminal & Session CLI
 
-- Architecture: `docs/architecture.md`
-- Assumptions: `docs/assumptions.md`
-- Limitations: `docs/limitations.md`
-- Roadmap: `docs/roadmap.md`
-- Repo extraction plan: `docs/repo_split_plan.md`
+**Web:** Open **Terminal** in the app (or `/terminal`) for a mobile-friendly view: session high/low, open/close, change%, volume, and pattern (HH/HL, LH/LL, etc.) for QQQ, SPY, GLD, UUP. Auto-refreshes every minute.
 
-## Loom Walkthrough Outline
+**Real terminal (e.g. from phone over SSH):**
 
-Use this flow for a 3-5 minute hiring-manager demo:
+```bash
+# Session (highs, lows, patterns)
+make session
+# Or with symbols:
+PYTHONPATH=packages/engine/src packages/engine/.venv/bin/python -m engine.scripts.session_cli QQQ SPY GLD
 
-1. Positioning: risk-first execution-aware infrastructure, not alpha marketing.
-2. Architecture: walk through `Strategy -> Risk -> Execution -> Portfolio -> Metrics`.
-3. Verification: run `make verify` and show pass.
-4. Artifacts: open `outputs/demo_run` and explain report + risk rejects.
-5. UI: run `make ui`, click **Run Demo**, confirm generated outputs.
+# Full backtest (strategy → risk → execution), prints summary to terminal
+PYTHONPATH=packages/engine/src packages/engine/.venv/bin/python -m engine.scripts.backtest_cli --out apps/web/public/research/latest
+# Or if installed via pip:
+meridian-backtest --out apps/web/public/research/latest
+```
 
-## Repo Split and Module Extraction
+Shows session highs, lows, patterns, and a tiny ASCII chart. Use any terminal (Termius, Blink, iSH, etc.) to SSH into a box that has the repo and run the above for morning trading. Run `meridian-backtest` (or the python -m command) to execute the full backtest and see the summary in the terminal; use `--out apps/web/public/research/latest` so the web app shows the same run under Research and Terminal.
 
-This flagship already includes extraction-ready module folders:
+## Termius (SSH from phone)
 
-- `execution-sim-lab/`
-- `risk-engine-lab/`
+See **[docs/TERMIUS_SSH.md](docs/TERMIUS_SSH.md)** for enabling SSH and connecting with Termius. From repo root run `./scripts/termius-info.sh` to print your Host, User, Port and the exact path to use after login.
 
-See `docs/repo_split_plan.md` for step-by-step extraction and import migration guidance.
+## Environment
 
-## Release Notes
+- Optional: set `RUN_ENGINE=true` if you want to restrict engine execution to certain environments (by default the run endpoint allows execution).
 
-- Current baseline tag: `v0.1.0`
-- Flagship is the orchestration surface.
-- Module repos can adopt independent semantic versioning post extraction hardening.
+## CI
+
+GitHub Actions (`.github/workflows/ci.yml`) runs:
+
+- Python dependency install
+- engine test suite
+- fast engine smoke run that writes web artifacts
+- Bun install + web verify (`lint` + `build`)

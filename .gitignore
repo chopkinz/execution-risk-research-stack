@@ -6,3 +6,9 @@ outputs/
 data_cache/
 *.log
 *.egg-info/
+ui/node_modules/
+ui/.next/
+.env
+.env.*
+ui/.env
+ui/.env.*
