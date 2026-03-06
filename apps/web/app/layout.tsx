@@ -4,7 +4,6 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Meridian Terminal",
-  description: "Market visualization and execution-aware research workflows in a clean institutional interface."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
