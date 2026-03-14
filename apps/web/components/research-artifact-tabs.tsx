@@ -56,7 +56,11 @@ export function ResearchArtifactTabs({ urls }: ArtifactTabsProps) {
           border: 1,
           borderColor: "divider",
           bgcolor: "background.paper",
-          minHeight: 320,
+          minHeight: 280,
+          maxHeight: "min(55vh, 420px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {content && !showPlaceholder ? (
@@ -65,12 +69,18 @@ export function ResearchArtifactTabs({ urls }: ArtifactTabsProps) {
             src={content}
             alt={`${tab} chart`}
             onError={onImageError}
-            sx={{ width: "100%", height: "auto", display: "block", verticalAlign: "middle" }}
+            sx={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              width: "auto",
+              height: "auto",
+              objectFit: "contain",
+              display: "block",
+            }}
           />
         ) : (
           <Box
             sx={{
-              height: 320,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -78,6 +88,8 @@ export function ResearchArtifactTabs({ urls }: ArtifactTabsProps) {
               py: 4,
               textAlign: "center",
               bgcolor: "action.hover",
+              width: "100%",
+              minHeight: 280,
             }}
           >
             <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>

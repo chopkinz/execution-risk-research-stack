@@ -1,5 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { getResearchLatestDir } from "./repo";
 
 export type Summary = {
   run_id: string;
@@ -29,7 +30,7 @@ export type Summary = {
 };
 
 function artifactDir(): string {
-  return path.join(process.cwd(), "public", "research", "latest");
+  return getResearchLatestDir();
 }
 
 export async function readSummary(): Promise<Summary | null> {

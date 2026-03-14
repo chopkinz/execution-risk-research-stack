@@ -1,12 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import { getResearchLatestDir } from "../../../../lib/repo";
 
 const REQUIRED = ["summary.json", "equity_curve.png", "drawdown.png", "risk_rejections.png", "report.md"];
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const latestDir = path.join(process.cwd(), "public", "research", "latest");
+  const latestDir = getResearchLatestDir();
   const exists = fs.existsSync(latestDir);
   const files = exists ? fs.readdirSync(latestDir) : [];
   const missing = REQUIRED.filter((name) => !files.includes(name));
@@ -30,11 +31,16 @@ export async function GET() {
     }
   }
 
-  return Response.json({
-    ready,
-    lastRunAtUtc,
-    missing,
-    readyRiskLab,
-    readyExecutionLab,
-  });
+  return Response.json(
+    {
+      ready,
+      lastRunAtUtc,
+      missing,
+      readyRiskLab,
+      readyExecutionLab,
+    },
+    {
+      headers: { "Cache-Control": "no-store, max-age=0" },
+    }
+  );
 }

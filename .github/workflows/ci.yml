@@ -35,6 +35,9 @@ jobs:
       - name: Engine tests
         run: PYTHONPATH=packages/engine/src python -m pytest -q packages/engine/tests
 
+      - name: Ensure artifact directory exists
+        run: mkdir -p apps/web/public/research/latest
+
       - name: Engine smoke run
         run: PYTHONPATH=packages/engine/src python -m engine.scripts.demo --out apps/web/public/research/latest
 

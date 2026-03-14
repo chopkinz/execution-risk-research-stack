@@ -22,7 +22,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useThemeMode } from "./providers/ThemeProvider";
 
-const LOGO_URL = "/assets/logos/meridian-logo1.png";
+const LOGO_URL = "/assets/logos/meridian-logo-1.png";
 
 const NAV_LINKS = [
   { href: "/markets", label: "Markets" },

@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as MuiThemeProvider, useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createMeridianTheme } from "../../lib/theme";
+import { createMeridianTheme, LIGHT_PALETTE } from "../../lib/theme";
 
 const STORAGE_KEY = "meridian-color-mode";
 
@@ -26,6 +26,21 @@ export function useThemeMode() {
   const ctx = useContext(ThemeContext);
   if (!ctx) throw new Error("useThemeMode must be used inside ThemeProvider");
   return ctx;
+}
+
+function ThemeSync({ mode }: { mode: Mode }) {
+  const theme = useTheme();
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", mode);
+    root.style.setProperty("--meridian-primary", theme.palette.primary.main);
+    root.style.setProperty("--meridian-bg-default", theme.palette.background.default);
+    root.style.setProperty("--meridian-bg-paper", theme.palette.background.paper);
+    root.style.setProperty("--meridian-text-primary", theme.palette.text.primary);
+    root.style.setProperty("--meridian-text-secondary", theme.palette.text.secondary);
+    root.style.setProperty("--meridian-divider", theme.palette.divider as string);
+  }, [mode, theme]);
+  return null;
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -55,8 +70,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#fafafa",
-          color: "#1a1a1a",
+          backgroundColor: LIGHT_PALETTE.background.default,
+          color: LIGHT_PALETTE.text.primary,
         }}
         suppressHydrationWarning
       />
@@ -67,6 +82,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     <ThemeContext.Provider value={value}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
+        <ThemeSync mode={mode} />
         {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>

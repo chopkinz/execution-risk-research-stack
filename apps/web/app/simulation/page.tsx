@@ -59,10 +59,36 @@ const INSTRUMENT_GROUPS: { label: string; symbols: SymbolOption[] }[] = [
 const INTERVALS = ["1m", "5m", "15m", "1h", "1d"];
 const PERIODS = ["5d", "30d", "60d", "90d"];
 const STRATEGIES = [
-  { value: "momentum", label: "Momentum" },
+  { value: "momentum", label: "Momentum (recommended)" },
   { value: "session_breakout", label: "Session Breakout" },
   { value: "fvg_retracement", label: "FVG Retracement" },
 ];
+
+const DEFAULT_RISK = {
+  maxDailyLossPct: 2,
+  maxDrawdownPct: 20,
+  maxGrossExposure: 500000,
+  maxTradesPerDay: 20,
+  maxPositionSize: 1,
+};
+const DEFAULT_INITIAL_CASH = 100000;
+
+const RISK_PROFILES = {
+  backtest: {
+    label: "Backtest-friendly",
+    desc: "Allow more trades so you can evaluate strategy fairly.",
+    maxTradesPerDay: 20,
+    maxDailyLossPct: 5,
+    maxDrawdownPct: 25,
+  },
+  strict: {
+    label: "Strict (live-like)",
+    desc: "Tighter caps, closer to live trading.",
+    maxTradesPerDay: 5,
+    maxDailyLossPct: 2,
+    maxDrawdownPct: 15,
+  },
+} as const;
 
 const ARTIFACT_BASE = "/research/latest";
 
@@ -116,13 +142,21 @@ export default function SimulationPage() {
   const [tradesRows, setTradesRows] = useState<string[][]>([]);
   const [rejectionsRows, setRejectionsRows] = useState<string[][]>([]);
   const [artifactsTs, setArtifactsTs] = useState(0);
+  const [riskProfile, setRiskProfile] = useState<keyof typeof RISK_PROFILES>("backtest");
+  const [maxDailyLossPct, setMaxDailyLossPct] = useState(DEFAULT_RISK.maxDailyLossPct);
+  const [maxDrawdownPct, setMaxDrawdownPct] = useState(DEFAULT_RISK.maxDrawdownPct);
+  const [maxGrossExposure, setMaxGrossExposure] = useState(DEFAULT_RISK.maxGrossExposure);
+  const [maxTradesPerDay, setMaxTradesPerDay] = useState(DEFAULT_RISK.maxTradesPerDay);
+  const [maxPositionSize, setMaxPositionSize] = useState(DEFAULT_RISK.maxPositionSize);
+  const [initialCash, setInitialCash] = useState(DEFAULT_INITIAL_CASH);
 
   const effectiveSymbol = customSymbol.trim() || symbol;
   const symbols = INSTRUMENT_GROUPS[instrumentGroup]?.symbols ?? [];
 
-  const fetchSummary = useCallback(async () => {
+  const fetchSummary = useCallback(async (bustCache = false) => {
     try {
-      const res = await fetch(`${ARTIFACT_BASE}/summary.json`, { cache: "no-store" });
+      const url = bustCache ? `${ARTIFACT_BASE}/summary.json?t=${Date.now()}` : `${ARTIFACT_BASE}/summary.json`;
+      const res = await fetch(url, { cache: "no-store" });
       if (res.ok) setSummary((await res.json()) as Summary);
       else setSummary(null);
     } catch {
@@ -130,13 +164,15 @@ export default function SimulationPage() {
     }
   }, []);
 
-  const fetchOutputs = useCallback(async () => {
-    setArtifactsTs(Date.now());
+  const fetchOutputs = useCallback(async (bustCache = false) => {
+    const ts = Date.now();
+    setArtifactsTs(ts);
     try {
+      const q = bustCache ? `?t=${ts}` : "";
       const [metricsRes, tradesRes, rejRes] = await Promise.all([
-        fetch(`${ARTIFACT_BASE}/metrics.json`, { cache: "no-store" }),
-        fetch(`${ARTIFACT_BASE}/trades.csv`, { cache: "no-store" }),
-        fetch(`${ARTIFACT_BASE}/risk_rejections.csv`, { cache: "no-store" }),
+        fetch(`${ARTIFACT_BASE}/metrics.json${q}`, { cache: "no-store" }),
+        fetch(`${ARTIFACT_BASE}/trades.csv${q}`, { cache: "no-store" }),
+        fetch(`${ARTIFACT_BASE}/risk_rejections.csv${q}`, { cache: "no-store" }),
       ]);
       if (metricsRes.ok) setMetrics((await metricsRes.json()) as Metrics);
       else setMetrics(null);
@@ -158,6 +194,10 @@ export default function SimulationPage() {
   const runSimulation = useCallback(async () => {
     setLogs([]);
     setMessage("");
+    setSummary(null);
+    setMetrics(null);
+    setTradesRows([]);
+    setRejectionsRows([]);
     setRunning(true);
     const res = await fetch("/api/simulate", {
       method: "POST",
@@ -167,6 +207,14 @@ export default function SimulationPage() {
         interval,
         period,
         strategy: { name: strategy, qty: 1 },
+        portfolio: { initial_cash: initialCash },
+        risk: {
+          max_daily_loss_pct: maxDailyLossPct / 100,
+          max_drawdown_pct: maxDrawdownPct / 100,
+          max_gross_exposure: maxGrossExposure,
+          max_trades_per_day: maxTradesPerDay,
+          max_position_size: maxPositionSize,
+        },
       }),
     });
 
@@ -191,6 +239,8 @@ export default function SimulationPage() {
         const chunks = buffer.split("\n\n");
         buffer = chunks.pop() ?? "";
         for (const chunk of chunks) {
+          const eventMatch = chunk.match(/^event:\s*(.+)$/m);
+          const eventType = eventMatch?.[1]?.trim();
           const dataLine = chunk.match(/^data:\s*(.+)$/m)?.[1];
           if (!dataLine) continue;
           try {
@@ -199,14 +249,18 @@ export default function SimulationPage() {
               message?: string;
               ok?: boolean;
               error?: string;
+              config?: { symbol?: string; interval?: string; period?: string };
             };
             const msg = payload.message ?? "";
             if (msg) {
               logLines.push(msg.trimEnd());
               setLogs((prev) => [...prev, msg.trimEnd()]);
             }
-            if (payload.ok === true || payload.ok === false) {
-              success = payload.ok;
+            if (eventType === "start") {
+              setMessage(payload.message ?? "Running…");
+            }
+            if (eventType === "end") {
+              success = payload.ok === true;
               setMessage(payload.message ?? "");
               if (!success && payload.error) setMessage(`Run failed: ${payload.error}`);
             }
@@ -231,10 +285,10 @@ export default function SimulationPage() {
     }
     setRunning(false);
     if (success) {
-      await fetchSummary();
-      await fetchOutputs();
+      await fetchSummary(true);
+      await fetchOutputs(true);
     }
-  }, [effectiveSymbol, interval, period, strategy, fetchSummary, fetchOutputs]);
+  }, [effectiveSymbol, interval, period, strategy, initialCash, maxDailyLossPct, maxDrawdownPct, maxGrossExposure, maxTradesPerDay, maxPositionSize, fetchSummary, fetchOutputs]);
 
   useEffect(() => {
     if (summary) fetchOutputs();
@@ -248,7 +302,7 @@ export default function SimulationPage() {
             Simulation
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Run a backtest with your choice of instrument, timeframe, and strategy. Results appear in Research.
+            Run a backtest with your symbol and timeframe. <strong>Momentum</strong> is the default and works best for most symbols. Use the Backtest-friendly risk profile so enough trades run to see real results.
           </Typography>
         </Box>
         <Button component={Link} href="/research" variant="outlined" size="large">
@@ -355,6 +409,48 @@ export default function SimulationPage() {
         </CardContent>
       </Card>
 
+      <Card variant="outlined">
+        <CardHeader
+          title="Risk settings"
+          subheader="Choose a profile or adjust numbers. Backtest-friendly lets more trades run so you can evaluate the strategy."
+        />
+        <CardContent>
+          <Stack spacing={2}>
+            <FormControl size="small" sx={{ minWidth: 220 }}>
+              <InputLabel>Risk profile</InputLabel>
+              <Select
+                value={riskProfile}
+                label="Risk profile"
+                onChange={(e) => {
+                  const p = e.target.value as keyof typeof RISK_PROFILES;
+                  setRiskProfile(p);
+                  const r = RISK_PROFILES[p];
+                  setMaxTradesPerDay(r.maxTradesPerDay);
+                  setMaxDailyLossPct(r.maxDailyLossPct);
+                  setMaxDrawdownPct(r.maxDrawdownPct);
+                }}
+              >
+                <MenuItem value="backtest"><strong>{RISK_PROFILES.backtest.label}</strong> — {RISK_PROFILES.backtest.desc}</MenuItem>
+                <MenuItem value="strict"><strong>{RISK_PROFILES.strict.label}</strong> — {RISK_PROFILES.strict.desc}</MenuItem>
+              </Select>
+            </FormControl>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              flexWrap="wrap"
+              gap={2}
+              sx={{ "& .MuiFormControl-root, & .MuiTextField-root": { width: { xs: "100%", sm: "auto" }, minWidth: { xs: 0, sm: 120 } } }}
+            >
+              <TextField size="small" type="number" label="Max trades/day" inputProps={{ min: 1, max: 50 }} value={maxTradesPerDay} onChange={(e) => setMaxTradesPerDay(Number(e.target.value) || 0)} />
+              <TextField size="small" type="number" label="Daily loss %" inputProps={{ min: 0.5, max: 20, step: 0.5 }} value={maxDailyLossPct} onChange={(e) => setMaxDailyLossPct(Number(e.target.value) || 0)} />
+              <TextField size="small" type="number" label="Max drawdown %" inputProps={{ min: 5, max: 50 }} value={maxDrawdownPct} onChange={(e) => setMaxDrawdownPct(Number(e.target.value) || 0)} />
+              <TextField size="small" type="number" label="Max exposure ($)" inputProps={{ min: 10000, step: 50000 }} value={maxGrossExposure} onChange={(e) => setMaxGrossExposure(Number(e.target.value) || 0)} />
+              <TextField size="small" type="number" label="Position size" inputProps={{ min: 0.1, max: 100, step: 0.1 }} value={maxPositionSize} onChange={(e) => setMaxPositionSize(Number(e.target.value) || 0)} />
+              <TextField size="small" type="number" label="Initial cash ($)" inputProps={{ min: 1000, step: 10000 }} value={initialCash} onChange={(e) => setInitialCash(Number(e.target.value) || 0)} />
+            </Stack>
+          </Stack>
+        </CardContent>
+      </Card>
+
       {message && (
         <Alert severity={message.startsWith("Run failed") ? "error" : "info"}>
           {message}
@@ -399,17 +495,21 @@ export default function SimulationPage() {
             </CardContent>
           </Card>
 
-          <Card variant="outlined">
+          <Card variant="outlined" sx={{ overflow: "hidden" }}>
             <CardHeader title="Charts" subheader="Equity and drawdown" />
-            <CardContent>
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                <Box sx={{ flex: 1 }}>
+            <CardContent sx={{ maxWidth: "100%", overflow: "hidden" }}>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ minWidth: 0 }}>
+                <Box sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}>
                   <Typography variant="caption" color="text.secondary" display="block" gutterBottom>Equity curve</Typography>
-                  <Box component="img" src={`${ARTIFACT_BASE}/equity_curve.png?t=${artifactsTs}`} alt="Equity" sx={{ width: "100%", borderRadius: 1, border: 1, borderColor: "divider" }} />
+                  <Box sx={{ overflow: "hidden", borderRadius: 1, border: 1, borderColor: "divider" }}>
+                    <Box component="img" src={`${ARTIFACT_BASE}/equity_curve.png?t=${artifactsTs}`} alt="Equity" sx={{ maxWidth: "100%", height: "auto", display: "block", objectFit: "contain" }} />
+                  </Box>
                 </Box>
-                <Box sx={{ flex: 1 }}>
+                <Box sx={{ flex: 1, minWidth: 0, maxWidth: "100%" }}>
                   <Typography variant="caption" color="text.secondary" display="block" gutterBottom>Drawdown</Typography>
-                  <Box component="img" src={`${ARTIFACT_BASE}/drawdown.png?t=${artifactsTs}`} alt="Drawdown" sx={{ width: "100%", borderRadius: 1, border: 1, borderColor: "divider" }} />
+                  <Box sx={{ overflow: "hidden", borderRadius: 1, border: 1, borderColor: "divider" }}>
+                    <Box component="img" src={`${ARTIFACT_BASE}/drawdown.png?t=${artifactsTs}`} alt="Drawdown" sx={{ maxWidth: "100%", height: "auto", display: "block", objectFit: "contain" }} />
+                  </Box>
                 </Box>
               </Stack>
             </CardContent>
@@ -434,10 +534,10 @@ export default function SimulationPage() {
           )}
 
           {tradesRows.length > 0 && (
-            <Card variant="outlined">
+            <Card variant="outlined" sx={{ overflow: "hidden" }}>
               <CardHeader title="Trades" subheader="First 20 trades" />
-              <CardContent>
-                <TableContainer sx={{ maxHeight: 340, overflow: "auto", overflowX: "auto", borderRadius: 1, border: 1, borderColor: "divider" }}>
+              <CardContent sx={{ maxWidth: "100%", overflow: "hidden" }}>
+                <TableContainer sx={{ maxHeight: 340, maxWidth: "100%", overflow: "auto", borderRadius: 1, border: 1, borderColor: "divider" }}>
                   <Table size="small" stickyHeader sx={{ minWidth: 420 }}>
                     <TableHead>
                       <TableRow>
@@ -466,16 +566,16 @@ export default function SimulationPage() {
             </Card>
           )}
 
-          <Card variant="outlined">
+          <Card variant="outlined" sx={{ overflow: "hidden" }}>
             <CardHeader title="Risk rejections" subheader="Trades blocked by risk limits" />
-            <CardContent>
+            <CardContent sx={{ maxWidth: "100%", overflow: "hidden" }}>
               {rejectionsRows.length <= 1 ? (
                 <Typography variant="body2" color="text.secondary">
                   {rejectionsRows.length === 0 ? "No trades were blocked by risk." : "No rejection rows (header only)."}
                 </Typography>
               ) : (
                 <>
-                  <TableContainer sx={{ maxHeight: 320, overflow: "auto", overflowX: "auto", borderRadius: 1, border: 1, borderColor: "divider" }}>
+                  <TableContainer sx={{ maxHeight: 320, maxWidth: "100%", overflow: "auto", borderRadius: 1, border: 1, borderColor: "divider" }}>
                     <Table size="small" stickyHeader sx={{ minWidth: 360 }}>
                       <TableHead>
                         <TableRow>

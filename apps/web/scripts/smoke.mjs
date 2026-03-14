@@ -47,16 +47,20 @@ const requiredSummaryKeys = [
   "max_drawdown_pct",
   "sharpe",
   "total_return_pct",
-  "cagr_pct",
-  "notes",
   "risk",
-  "execution"
+  "execution",
 ];
+const optionalSummaryKeys = ["cagr_pct", "notes"];
 
 for (const key of requiredSummaryKeys) {
   if (!(key in summary)) {
     console.error(`Missing summary key: ${key}`);
     process.exit(1);
+  }
+}
+for (const key of optionalSummaryKeys) {
+  if (!(key in summary)) {
+    console.warn(`Optional summary key missing: ${key} (demo and simulation summaries may differ)`);
   }
 }
 

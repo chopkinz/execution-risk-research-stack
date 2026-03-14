@@ -14,7 +14,7 @@ export function Panel({ title, subtitle, right, children, className = "" }: Pane
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <h3 className="panel-title">{title}</h3>
-          {subtitle ? <p className="mt-1 text-xs text-slate-500">{subtitle}</p> : null}
+          {subtitle ? <p className="mt-1 text-xs text-slate-500 dark:text-[var(--meridian-text-secondary)]">{subtitle}</p> : null}
         </div>
         {right}
       </div>

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme fallbacks (match lib/theme LIGHT_PALETTE) until ThemeSync runs */
+:root {
+  --meridian-primary: #0d47a1;
+  --meridian-bg-default: #f5f7fa;
+  --meridian-bg-paper: #ffffff;
+  --meridian-text-primary: #1a1d21;
+  --meridian-text-secondary: #5c636a;
+  --meridian-divider: rgba(0, 0, 0, 0.08);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -15,8 +25,34 @@ html {
   font-variant-numeric: tabular-nums;
 }
 
-/* Accessible focus ring for keyboard nav */
+/* Markets panels: theme-driven (vars set by ThemeProvider) */
+.card {
+  border-radius: 8px;
+  border: 1px solid var(--meridian-divider);
+  background-color: var(--meridian-bg-paper);
+  color: var(--meridian-text-primary);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+[data-theme="dark"] .card {
+  box-shadow: none;
+}
+.panel-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--meridian-text-primary);
+}
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--meridian-text-secondary);
+}
+.metric-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--meridian-text-primary);
+}
+
+/* Accessible focus ring for keyboard nav (uses theme via ThemeProvider) */
 :focus-visible {
-  outline: 2px solid var(--mui-palette-primary-main, currentColor);
+  outline: 2px solid var(--meridian-primary, currentColor);
   outline-offset: 2px;
 }

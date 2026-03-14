@@ -11,8 +11,9 @@ type ButtonProps = {
 };
 
 const styles = {
-  primary: "bg-brand-600 text-white hover:bg-brand-700",
-  secondary: "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"
+  primary: "bg-brand-600 text-white hover:bg-brand-700 dark:bg-[var(--meridian-primary)] dark:hover:opacity-90",
+  secondary:
+    "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-[var(--meridian-bg-paper)] dark:text-[var(--meridian-text-primary)] dark:border-[var(--meridian-divider)] dark:hover:bg-[var(--meridian-bg-default)]"
 };
 
 export function Button({

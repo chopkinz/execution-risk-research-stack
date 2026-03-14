@@ -2,32 +2,36 @@
 
 import { createTheme, type PaletteMode } from '@mui/material/styles';
 
+// Logo-aligned blue family: deep navy (light) / soft blue (dark). Restrained, premium.
+export const LIGHT_PALETTE = {
+	primary: { main: '#0d47a1', light: '#1565c0', dark: '#0a3d8f' },
+	secondary: { main: '#1565c0', light: '#1976d2', dark: '#0d47a1' },
+	background: { default: '#f5f7fa', paper: '#ffffff' },
+	text: { primary: '#1a1d21', secondary: '#5c636a', disabled: '#9ca3af' },
+	success: { main: '#0d7d4a' },
+	error: { main: '#b91c1c' },
+	warning: { main: '#b45309' },
+	info: { main: '#0369a1' },
+	divider: 'rgba(0,0,0,0.08)',
+	action: { hover: 'rgba(13,71,161,0.06)', selected: 'rgba(13,71,161,0.12)' },
+};
+export const DARK_PALETTE = {
+	primary: { main: '#58a6ff', light: '#79b8ff', dark: '#388bfd' },
+	secondary: { main: '#42a5f5', light: '#64b5f6', dark: '#1e88e5' },
+	background: { default: '#0d1117', paper: '#161b22' },
+	text: { primary: '#e6edf3', secondary: '#8b949e', disabled: '#6e7681' },
+	success: { main: '#3fb950' },
+	error: { main: '#f85149' },
+	warning: { main: '#d29922' },
+	info: { main: '#58a6ff' },
+	divider: 'rgba(255,255,255,0.08)',
+	action: { hover: 'rgba(88,166,255,0.08)', selected: 'rgba(88,166,255,0.15)' },
+};
+
 const getDesignTokens = (mode: PaletteMode) => ({
 	palette: {
 		mode,
-		...(mode === 'light'
-			? {
-					primary: { main: '#0d47a1' },
-					secondary: { main: '#1565c0' },
-					background: { default: '#f8f9fa', paper: '#ffffff' },
-					text: { primary: '#1a1a1a', secondary: '#5c5c5c', disabled: '#9ca3af' },
-					success: { main: '#0d7d4a' },
-					error: { main: '#b91c1c' },
-					warning: { main: '#b45309' },
-					info: { main: '#0369a1' },
-					divider: 'rgba(0,0,0,0.08)',
-				}
-			: {
-					primary: { main: '#90caf9' },
-					secondary: { main: '#42a5f5' },
-					background: { default: '#0d1117', paper: '#161b22' },
-					text: { primary: '#e6edf3', secondary: '#8b949e', disabled: '#6e7681' },
-					success: { main: '#3fb950' },
-					error: { main: '#f85149' },
-					warning: { main: '#d29922' },
-					info: { main: '#58a6ff' },
-					divider: 'rgba(255,255,255,0.08)',
-				}),
+		...(mode === 'light' ? LIGHT_PALETTE : DARK_PALETTE),
 	},
 	shape: { borderRadius: 8 },
 	typography: {
@@ -70,7 +74,9 @@ const getDesignTokens = (mode: PaletteMode) => ({
 		MuiCard: {
 			styleOverrides: {
 				root: {
-					boxShadow: mode === 'light' ? '0 1px 2px rgba(0,0,0,0.04)' : 'none',
+					boxShadow: mode === 'light' ? '0 1px 2px rgba(0,0,0,0.04)' : '0 1px 0 rgba(255,255,255,0.05)',
+					border: mode === 'dark' ? '1px solid' : undefined,
+					borderColor: mode === 'dark' ? 'divider' : undefined,
 				},
 			},
 		},
@@ -109,7 +115,8 @@ const getDesignTokens = (mode: PaletteMode) => ({
 		MuiAppBar: {
 			styleOverrides: {
 				root: {
-					boxShadow: mode === 'light' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none',
+					boxShadow: mode === 'light' ? '0 1px 2px rgba(0,0,0,0.05)' : '0 1px 0 rgba(255,255,255,0.05)',
+					...(mode === 'dark' && { borderBottom: '1px solid', borderColor: 'divider' }),
 				},
 			},
 		},

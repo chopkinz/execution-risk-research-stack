@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -24,6 +25,7 @@ export default function ResearchPage() {
   const [logs, setLogs] = useState<string[]>([]);
   const [running, setRunning] = useState(false);
   const [runMessage, setRunMessage] = useState<string>("");
+  const logsEndRef = useRef<HTMLDivElement>(null);
 
   const fetchArtifacts = useCallback(async () => {
     const statusRes = await fetch("/api/research/status", { cache: "no-store" });
@@ -47,6 +49,10 @@ export default function ResearchPage() {
   useEffect(() => {
     fetchArtifacts();
   }, [fetchArtifacts]);
+
+  useEffect(() => {
+    if (logs.length) logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [logs.length]);
 
   const runEngine = useCallback(async () => {
     setLogs([]);
@@ -76,12 +82,17 @@ export default function ResearchPage() {
         for (const chunk of chunks) {
           const dataLine = chunk.match(/^data:\s*(.+)$/m)?.[1];
           if (!dataLine) continue;
-          const payload = JSON.parse(dataLine) as { ok?: boolean; message?: string };
-          const event = chunk.match(/^event:\s*(.+)$/m)?.[1];
-          if (event === "log" && payload.message) setLogs((prev) => [...prev, payload.message!.trimEnd()]);
-          if (event === "end") {
-            success = Boolean(payload.ok);
-            setRunMessage(payload.message ?? "");
+          try {
+            const payload = JSON.parse(dataLine) as { ok?: boolean; message?: string };
+            const event = chunk.match(/^event:\s*(.+)$/m)?.[1];
+            if (event === "start" && payload.message) setRunMessage(payload.message);
+            if (event === "log" && payload.message) setLogs((prev) => [...prev, payload.message!.trimEnd()]);
+            if (event === "end") {
+              success = Boolean(payload.ok);
+              setRunMessage(payload.message ?? "");
+            }
+          } catch {
+            // ignore parse errors for partial chunks
           }
         }
       }
@@ -104,41 +115,69 @@ export default function ResearchPage() {
   const showMetadata = status?.ready && summary;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, md: 4 } }}>
-      <Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" alignItems="flex-start" gap={2}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: { xs: 2, md: 3 },
+        minHeight: 0,
+        flex: 1,
+        overflow: "auto",
+      }}
+    >
+      <Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" alignItems="flex-start" gap={2} flexShrink={0}>
         <Box sx={{ flex: "1 1 auto", minWidth: 0 }}>
           <Typography variant="h4" fontWeight={600} gutterBottom>
             Research
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            View the latest run: equity, drawdown, trades, risk rejections, and report. Run the demo backtest here, or
-            use Simulation with your own symbol.
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            View the latest run: equity, drawdown, trades, risk rejections, and report.
+          </Typography>
+          <Typography variant="caption" display="block" color="text.secondary">
+            Run a backtest with live data (default: ^NDX, 15m, 60d). For custom symbol, interval, and risk, use{" "}
+            <Link href="/simulation" style={{ fontWeight: 600 }}>Simulation</Link>.
           </Typography>
         </Box>
-        <Tooltip title="Runs a full backtest with sample data. Results appear here and in the charts below.">
-          <Button
-            variant="contained"
-            onClick={runEngine}
-            disabled={running}
-            size="large"
-            fullWidth
-            sx={{ width: { sm: "auto" }, minHeight: 44 }}
-          >
-            {running ? "Running…" : "Run demo backtest"}
+        <Stack direction="row" alignItems="center" gap={1} flexShrink={0} flexWrap="wrap">
+          <Button component={Link} href="/simulation" variant="outlined" size="large" sx={{ minHeight: 44 }}>
+            Customize run (Simulation)
           </Button>
-        </Tooltip>
+          <Tooltip title="Runs a backtest with live market data. Results appear in Charts and Report below.">
+            <Button
+              variant="contained"
+              onClick={runEngine}
+              disabled={running}
+              size="large"
+              sx={{ minHeight: 44 }}
+            >
+              {running ? "Running…" : "Run backtest"}
+            </Button>
+          </Tooltip>
+        </Stack>
       </Stack>
 
       {runMessage && (
-        <Card variant="outlined">
-          <CardHeader title="Last run status" subheader="What happened when you ran the backtest" />
+        <Card variant="outlined" sx={{ flexShrink: 0 }}>
+          <CardHeader
+            title="Last run status"
+            subheader={running ? "Live run in progress" : "What happened when you ran the backtest"}
+            action={running ? <Chip label="Live" color="primary" size="small" /> : null}
+          />
           <CardContent>
             <Typography variant="body2">{runMessage}</Typography>
           </CardContent>
         </Card>
       )}
 
-      <Box sx={{ display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", xl: "340px 1fr" } }}>
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: { xs: "1fr", xl: "300px 1fr" },
+          minHeight: 0,
+          flex: 1,
+        }}
+      >
         <Card variant="outlined" sx={{ height: "fit-content" }}>
           <CardHeader title="Run summary" subheader="Key metrics from this run" />
           <CardContent>
@@ -195,7 +234,7 @@ export default function ResearchPage() {
                 {!status?.ready ? (
                   <>
                     No results yet. {status?.missing?.length ? `Missing: ${status.missing.join(", ")}. ` : ""}
-                    Run the demo backtest above or run a simulation with your own symbol.
+                    Run a backtest above or run a simulation with your chosen symbol and settings.
                   </>
                 ) : null}
               </Typography>
@@ -203,25 +242,31 @@ export default function ResearchPage() {
           </CardContent>
         </Card>
 
-        <Stack spacing={2}>
-          <Card variant="outlined">
-            <CardHeader title="Charts" subheader="Equity curve · Drawdown · Risk rejections · Robustness" />
-            <CardContent>
+        <Stack spacing={2} sx={{ minHeight: 0 }}>
+          <Card variant="outlined" sx={{ flex: "1 1 auto", minHeight: 0, display: "flex", flexDirection: "column" }}>
+            <CardHeader title="Charts" subheader="Equity · Drawdown · Risk rejections · Robustness" />
+            <CardContent sx={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
               {status === null ? (
-                <ChartSkeleton height={320} />
+                <ChartSkeleton height={280} />
               ) : (
-                <ResearchArtifactTabs urls={urls} />
+                <Box sx={{ minHeight: 0, flex: 1 }}>
+                  <ResearchArtifactTabs urls={urls} />
+                </Box>
               )}
             </CardContent>
           </Card>
 
-          <Card variant="outlined">
-            <CardHeader title="Logs" subheader="Run log" />
+          <Card variant="outlined" sx={{ flexShrink: 0 }}>
+            <CardHeader
+              title="Logs"
+              subheader={running ? "Streaming output…" : "Run log"}
+              action={running ? <Chip label="Live" color="primary" size="small" /> : null}
+            />
             <CardContent>
               <Box
                 component="pre"
                 sx={{
-                  maxHeight: 280,
+                  maxHeight: 200,
                   overflow: "auto",
                   p: 2,
                   borderRadius: 1,
@@ -231,17 +276,29 @@ export default function ResearchPage() {
                   fontFamily: "ui-monospace, monospace",
                 }}
               >
-                {logs.length ? logs.join("\n") : "No log output yet."}
+                {logs.length ? logs.join("\n") : "No log output yet. Click Run backtest to start."}
+                <div ref={logsEndRef} />
               </Box>
             </CardContent>
           </Card>
 
-          <Card variant="outlined">
+          <Card variant="outlined" sx={{ flexShrink: 0 }}>
             <CardHeader title="Report" subheader="Summary report" />
             <CardContent>
-              <Typography component="div" variant="body2" sx={{ "& p": { mb: 1.5 }, "& ul": { pl: 2.5, mb: 1 }, "& h2": { mt: 2, mb: 1 }, "& h1": { mb: 1 } }}>
-                <ReactMarkdown>{report || "_No report yet. Run a simulation or the demo backtest._"}</ReactMarkdown>
-              </Typography>
+              <Box
+                sx={{
+                  maxHeight: 320,
+                  overflow: "auto",
+                  "& p": { mb: 1.5 },
+                  "& ul": { pl: 2.5, mb: 1 },
+                  "& h2": { mt: 2, mb: 1 },
+                  "& h1": { mb: 1 },
+                }}
+              >
+                <Typography component="div" variant="body2">
+                  <ReactMarkdown>{report || "_No report yet. Run a backtest or simulation to generate results._"}</ReactMarkdown>
+                </Typography>
+              </Box>
             </CardContent>
           </Card>
 
