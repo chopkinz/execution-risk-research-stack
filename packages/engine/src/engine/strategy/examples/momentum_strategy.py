@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+from engine.core.models import Bar
 from engine.core.types import OrderIntent, OrderType, PortfolioState, Side
 from engine.strategy.base import Strategy
 
@@ -12,7 +13,7 @@ class MomentumStrategy(Strategy):
         self.threshold = threshold
         self.qty = qty
 
-    def on_bar(self, market_data: pd.Series, features: pd.Series, portfolio_state: PortfolioState) -> list[OrderIntent]:
+    def on_bar(self, bar: Bar, features: pd.Series, portfolio_state: PortfolioState) -> list[OrderIntent]:
         mom = float(features.get("mom", 0.0))
         intents: list[OrderIntent] = []
         if not bool(features.get("in_session", False)):
@@ -25,8 +26,8 @@ class MomentumStrategy(Strategy):
                     side=Side.BUY,
                     qty=self.qty,
                     order_type=OrderType.MARKET,
-                    timestamp=market_data["time"],
-                    bar_index=int(features["bar_index"]),
+                    timestamp=bar.time,
+                    bar_index=bar.bar_index,
                     metadata={"signal": "momentum_up"},
                 )
             )
@@ -37,8 +38,8 @@ class MomentumStrategy(Strategy):
                     side=Side.SELL,
                     qty=self.qty,
                     order_type=OrderType.MARKET,
-                    timestamp=market_data["time"],
-                    bar_index=int(features["bar_index"]),
+                    timestamp=bar.time,
+                    bar_index=bar.bar_index,
                     metadata={"signal": "momentum_down"},
                 )
             )

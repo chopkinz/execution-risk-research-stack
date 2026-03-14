@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
@@ -11,7 +12,10 @@ def load_config(path: str | Path) -> dict[str, Any]:
     if not cfg_path.exists():
         raise FileNotFoundError(f"Config not found: {cfg_path}")
     with cfg_path.open("r", encoding="utf-8") as f:
-        config = yaml.safe_load(f)
+        if cfg_path.suffix.lower() == ".json":
+            config = json.load(f)
+        else:
+            config = yaml.safe_load(f)
     if not isinstance(config, dict):
         raise ValueError("Config root must be a mapping")
     return config

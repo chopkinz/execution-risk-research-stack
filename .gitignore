@@ -1,14 +1,31 @@
+# Python
 .venv/
+packages/engine/.venv/
 __pycache__/
 *.pyc
-.DS_Store
-outputs/
-data_cache/
-*.log
 *.egg-info/
-ui/node_modules/
-ui/.next/
+.pytest_cache/
+*.log
+
+# Node / Next
+node_modules/
+apps/web/.next/
+apps/web/out/
+
+# Env
 .env
 .env.*
+.env.local
+
+# Data / outputs
+outputs/
+data_cache/
+
+# Legacy / deprecated
+ui/node_modules/
+ui/.next/
 ui/.env
 ui/.env.*
+
+# OS
+.DS_Store

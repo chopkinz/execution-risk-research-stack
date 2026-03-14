@@ -35,14 +35,25 @@ Web API routes in `apps/web`:
 
 Engine writes directly into `apps/web/public/research/latest/`:
 
-- `summary.json`
-- `equity_curve.png`
-- `drawdown.png`
-- `risk_rejections.png`
-- `report.md`
-- optional: `monte_carlo_dd.png`
+- `run_id.txt` — deterministic run id
+- `summary.json` — instrument, timeframe, trades, win_rate, max_drawdown_pct, etc.
+- `metrics.json`, `trades.csv`, `equity_curve.csv`, `ohlcv.csv`
+- `annotations.json` — FVG, session, and market-structure annotations for chart overlays
+- `risk_log.json`, `risk_rejections.csv`
+- `report.md`, `equity_curve.png`, `drawdown.png`, `risk_rejections.png`
+- optional: `monte_carlo_dd.png` (demo pipeline)
 
-`/research` renders run metadata, artifacts, markdown report, and streaming run logs.
+`/research` renders run metadata, artifacts, markdown report, and streaming run logs. See **docs/ARCHITECTURE.md** for full contract and engine lifecycle.
+
+## Simulation Lab
+
+**Web:** Open **Simulation Lab** (`/simulation`) to run a configurable backtest:
+
+- Choose symbol, interval, period, and strategy (momentum, session breakout, FVG retracement).
+- **Run Simulation** triggers the real engine with your parameters; logs stream live.
+- Results appear under Research; `summary.json` and all artifacts are written to `public/research/latest/`.
+
+API: `POST /api/simulate` with JSON body `{ symbol, interval, period, strategy: { name, qty } }`.
 
 ## One-Command Dev Experience
 
@@ -95,3 +106,20 @@ GitHub Actions (`.github/workflows/ci.yml`) runs:
 - engine test suite
 - fast engine smoke run that writes web artifacts
 - Bun install + web verify (`lint` + `build`)
+
+## Deployment
+
+The web app is deployed to **Vercel**. Production URL: **https://ui-tan-psi.vercel.app**
+
+- **Terminal** (session/FVGs/sweeps): https://ui-tan-psi.vercel.app/terminal  
+- **Research** (backtest, artifacts): https://ui-tan-psi.vercel.app/research  
+- **Simulation Lab** (configurable run): https://ui-tan-psi.vercel.app/simulation  
+- **Markets** (charts, watchlist): https://ui-tan-psi.vercel.app/markets  
+
+To redeploy from the repo root (with Vercel CLI and project linked):
+
+```bash
+cd apps/web && vercel --prod --yes
+```
+
+Or push to the connected Git branch; Vercel will build and deploy automatically.

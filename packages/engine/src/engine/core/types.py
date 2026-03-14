@@ -46,6 +46,7 @@ class Fill:
     slippage: float
     timestamp: pd.Timestamp
     bar_index: int
+    expected_price: float | None = None  # mid/limit at order time for audit
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -65,10 +66,12 @@ class PortfolioState:
     positions: dict[str, Position] = field(default_factory=dict)
     exposure: float = 0.0
     daily_pnl: float = 0.0
+    weekly_pnl: float = 0.0
     peak_equity: float = 0.0
     drawdown_pct: float = 0.0
     trades_today: int = 0
     current_date: str | None = None
+    current_week: str | None = None  # ISO week e.g. "2024-W01"
 
 
 @dataclass

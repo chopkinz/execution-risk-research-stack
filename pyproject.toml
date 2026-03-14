@@ -15,4 +15,4 @@ errs-ui-check = "scripts.ui_check:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["src*", "ui*", "scripts*"]
+include = ["src*", "ui_streamlit_deprecated*", "scripts*"]

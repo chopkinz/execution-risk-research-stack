@@ -1,4 +1,4 @@
-time,symbol,reason
-2026-01-06 15:15:00+00:00,SYNTH_NDX,max trades per day reached
-2026-01-06 15:30:00+00:00,SYNTH_NDX,max trades per day reached
-2026-01-07 15:00:00+00:00,SYNTH_NDX,max trades per day reached
+time,symbol,reason,bar_index
+2026-01-06T15:15:00+00:00,SYNTH_NDX,max trades per day reached,99
+2026-01-06T15:30:00+00:00,SYNTH_NDX,max trades per day reached,100
+2026-01-07T15:00:00+00:00,SYNTH_NDX,max trades per day reached,194

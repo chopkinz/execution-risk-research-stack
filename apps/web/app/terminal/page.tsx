@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { getAvailableSymbols } from "../../lib/market";
 
 type SessionLevel = {
   name: string;
@@ -55,14 +56,38 @@ type BacktestSummary = {
   execution?: { spread_model: string; slippage_model: string };
 };
 
-const DEFAULT_SYMBOLS = ["QQQ", "SPY", "GLD", "UUP"];
+const DEFAULT_SYMBOLS = ["QQQ", "SPY", "^GSPC", "ES=F", "GLD", "IWM"];
+
+/** Index proxy scale only for ETFs charted as index (SPY→SPX, QQQ→NDX). Indices/futures (^GSPC, ES=F) already at index level. */
+const INDEX_PROXY_SCALE: Record<string, number> = { SPY: 10, QQQ: 10 };
+
+function formatPrice(symbol: string, price: number): string {
+  const scale = INDEX_PROXY_SCALE[symbol];
+  const value = scale ? price * scale : price;
+  if (value >= 1000) return value.toFixed(1);
+  if (value >= 1) return value.toFixed(2);
+  return value.toFixed(4);
+}
+
+/** Replace price-like numbers in text with index-scale for SPY/QQQ only. */
+function formatPricesInText(symbol: string, text: string): string {
+  const scale = INDEX_PROXY_SCALE[symbol];
+  if (!scale || scale === 1) return text;
+  return text.replace(/\d+\.\d+/g, (m) => {
+    const v = parseFloat(m) * scale;
+    return v >= 1000 ? v.toFixed(1) : v.toFixed(2);
+  });
+}
+
+const AVAILABLE_SYMBOLS = getAvailableSymbols();
 
 export default function TerminalPage() {
   const [data, setData] = useState<SessionPayload | null>(null);
   const [backtest, setBacktest] = useState<BacktestSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [symbols] = useState(DEFAULT_SYMBOLS);
+  const [symbols, setSymbols] = useState<string[]>(DEFAULT_SYMBOLS);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   const fetchSession = useCallback(async () => {
     setLoading(true);
@@ -127,14 +152,55 @@ export default function TerminalPage() {
               session highs · Asia/London/NY · FVGs · sweeps · opportunities · refresh every 1m
             </p>
           </div>
-          <button
-            type="button"
-            onClick={fetchSession}
-            disabled={loading}
-            className="rounded border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs text-slate-400 hover:bg-slate-700 disabled:opacity-50"
-          >
-            {loading ? "…" : "refresh"}
-          </button>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setPickerOpen((o) => !o)}
+                className="rounded border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs text-slate-400 hover:bg-slate-700"
+              >
+                tickers ({symbols.length})
+              </button>
+              {pickerOpen && (
+                <>
+                  <div className="absolute right-0 top-full z-20 mt-1 max-h-64 w-56 overflow-y-auto rounded border border-slate-600 bg-slate-900 py-1 shadow-lg">
+                    {AVAILABLE_SYMBOLS.map(({ value, label }) => (
+                      <label
+                        key={value}
+                        className="flex cursor-pointer items-center gap-2 px-3 py-1.5 text-xs hover:bg-slate-800"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={symbols.includes(value)}
+                          onChange={() => {
+                            setSymbols((prev) =>
+                              prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
+                            );
+                          }}
+                          className="rounded border-slate-600"
+                        />
+                        <span className="font-mono text-slate-200">{value}</span>
+                        <span className="text-slate-500">{label}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <div
+                    className="fixed inset-0 z-10"
+                    aria-hidden
+                    onClick={() => setPickerOpen(false)}
+                  />
+                </>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={fetchSession}
+              disabled={loading}
+              className="rounded border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs text-slate-400 hover:bg-slate-700 disabled:opacity-50"
+            >
+              {loading ? "…" : "refresh"}
+            </button>
+          </div>
         </header>
 
         {error && (
@@ -189,24 +255,29 @@ export default function TerminalPage() {
             >
               <div className="mb-3 flex items-center justify-between border-b border-slate-700 pb-2">
                 <span className="font-bold text-slate-200">{s.symbol}</span>
-                <span className="text-xs text-slate-500">{s.date}</span>
+                <span className="flex items-center gap-2">
+                  {INDEX_PROXY_SCALE[s.symbol] && (
+                    <span className="text-[10px] text-slate-500">index scale (×10)</span>
+                  )}
+                  <span className="text-xs text-slate-500">{s.date}</span>
+                </span>
               </div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs md:grid-cols-3">
                 <div>
                   <span className="text-slate-500">session_high </span>
-                  <span className="text-emerald-400">{s.session_high.toFixed(2)}</span>
+                  <span className="text-emerald-400">{formatPrice(s.symbol, s.session_high)}</span>
                 </div>
                 <div>
                   <span className="text-slate-500">session_low </span>
-                  <span className="text-red-400">{s.session_low.toFixed(2)}</span>
+                  <span className="text-red-400">{formatPrice(s.symbol, s.session_low)}</span>
                 </div>
                 <div>
                   <span className="text-slate-500">open </span>
-                  <span>{s.open.toFixed(2)}</span>
+                  <span>{formatPrice(s.symbol, s.open)}</span>
                 </div>
                 <div>
                   <span className="text-slate-500">close </span>
-                  <span>{s.close.toFixed(2)}</span>
+                  <span>{formatPrice(s.symbol, s.close)}</span>
                 </div>
                 <div>
                   <span className="text-slate-500">change% </span>
@@ -227,7 +298,7 @@ export default function TerminalPage() {
               {s.predicting_ny && (
                 <div className="mt-3 border-t border-slate-700 pt-2">
                   <div className="text-xs font-medium text-cyan-400">Predicting in NY</div>
-                  <p className="mt-0.5 text-xs text-slate-400">{s.predicting_ny}</p>
+                  <p className="mt-0.5 text-xs text-slate-400">{formatPricesInText(s.symbol, s.predicting_ny)}</p>
                 </div>
               )}
 
@@ -241,9 +312,9 @@ export default function TerminalPage() {
                       return (
                         <span key={name}>
                           <span className="text-slate-500">{name}</span>{" "}
-                          <span className="text-emerald-400">{level.high.toFixed(2)}</span>
+                          <span className="text-emerald-400">{formatPrice(s.symbol, level.high)}</span>
                           <span className="text-slate-600"> / </span>
-                          <span className="text-red-400">{level.low.toFixed(2)}</span>
+                          <span className="text-red-400">{formatPrice(s.symbol, level.low)}</span>
                         </span>
                       );
                     })}
@@ -258,9 +329,9 @@ export default function TerminalPage() {
                     {s.fvgs.slice(-3).map((fvg, i) => (
                       <li key={i}>
                         {fvg.kind === "bullish" ? (
-                          <span className="text-emerald-400">{fvg.bottom.toFixed(2)} – {fvg.top.toFixed(2)}</span>
+                          <span className="text-emerald-400">{formatPrice(s.symbol, fvg.bottom)} – {formatPrice(s.symbol, fvg.top)}</span>
                         ) : (
-                          <span className="text-red-400">{fvg.bottom.toFixed(2)} – {fvg.top.toFixed(2)}</span>
+                          <span className="text-red-400">{formatPrice(s.symbol, fvg.bottom)} – {formatPrice(s.symbol, fvg.top)}</span>
                         )}
                         {" "}{fvg.kind}
                       </li>
@@ -276,9 +347,9 @@ export default function TerminalPage() {
                     {s.sweeps.slice(-2).map((sw, i) => (
                       <li key={i}>
                         {sw.kind === "low_sweep" ? (
-                          <span className="text-emerald-400">Lows swept {sw.level.toFixed(2)}</span>
+                          <span className="text-emerald-400">Lows swept {formatPrice(s.symbol, sw.level)}</span>
                         ) : (
-                          <span className="text-red-400">Highs swept {sw.level.toFixed(2)}</span>
+                          <span className="text-red-400">Highs swept {formatPrice(s.symbol, sw.level)}</span>
                         )}
                       </li>
                     ))}
@@ -291,7 +362,7 @@ export default function TerminalPage() {
                   <div className="text-xs font-medium text-emerald-400">Opportunities</div>
                   <ul className="mt-0.5 list-inside list-disc text-xs text-slate-400">
                     {s.opportunities.slice(0, 4).map((opp, i) => (
-                      <li key={i}>{opp}</li>
+                      <li key={i}>{formatPricesInText(s.symbol, opp)}</li>
                     ))}
                   </ul>
                 </div>

@@ -22,6 +22,7 @@ dependencies = [
 dev = ["pytest>=8.0.0"]
 
 [project.scripts]
+meridian = "engine.scripts.meridian_cli:main"
 meridian-demo = "engine.scripts.demo:main"
 meridian-export-artifacts = "engine.scripts.export_artifacts:main"
 meridian-session = "engine.scripts.session_cli:main"

@@ -1,0 +1,23 @@
+{
+  "run_id": "faa1fcd55c1427f4",
+  "rejections": [
+    {
+      "time": "2026-01-06T15:15:00+00:00",
+      "symbol": "SYNTH_NDX",
+      "reason": "max trades per day reached",
+      "bar_index": 99
+    },
+    {
+      "time": "2026-01-06T15:30:00+00:00",
+      "symbol": "SYNTH_NDX",
+      "reason": "max trades per day reached",
+      "bar_index": 100
+    },
+    {
+      "time": "2026-01-07T15:00:00+00:00",
+      "symbol": "SYNTH_NDX",
+      "reason": "max trades per day reached",
+      "bar_index": 194
+    }
+  ]
+}

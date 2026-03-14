@@ -36,6 +36,7 @@ class ExecutionSimulator:
                     slippage=float(slip),
                     timestamp=intent.timestamp,
                     bar_index=effective_bar,
+                    expected_price=float(mid),
                     metadata={"spread": spread},
                 )
             )

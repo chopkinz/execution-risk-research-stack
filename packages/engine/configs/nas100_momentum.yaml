@@ -20,6 +20,7 @@ execution:
   delay_bars: 0
   fee_bps: 0.5
 strategy:
+  name: momentum
   threshold: 0.0005
   qty: 1.0
 montecarlo_paths: 500

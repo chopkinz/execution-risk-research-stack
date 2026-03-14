@@ -30,6 +30,7 @@ def _apply_fill(fill: Fill, state: PortfolioState) -> None:
 
 
 def apply_fills(fills: list[Fill], portfolio_state: PortfolioState, mark_price: float, current_date: str) -> PortfolioState:
+    equity_before = portfolio_state.equity
     state = replace(portfolio_state)
     state.positions = {k: replace(v) for k, v in portfolio_state.positions.items()}
 
@@ -37,6 +38,16 @@ def apply_fills(fills: list[Fill], portfolio_state: PortfolioState, mark_price: 
         state.current_date = current_date
         state.trades_today = 0
         state.daily_pnl = 0.0
+    # ISO week for weekly loss tracking
+    try:
+        from datetime import datetime
+        dt = datetime.fromisoformat(current_date.replace("Z", "+00:00")[:10])
+        iso_week = dt.strftime("%G-W%V")
+        if state.current_week != iso_week:
+            state.current_week = iso_week
+            state.weekly_pnl = 0.0
+    except Exception:
+        pass
 
     for fill in fills:
         _apply_fill(fill, state)
@@ -59,6 +70,7 @@ def apply_fills(fills: list[Fill], portfolio_state: PortfolioState, mark_price: 
     state.equity = state.cash + unrealized + sum(abs(p.qty) * p.avg_price for p in state.positions.values())
     state.exposure = exposure
     state.daily_pnl = realized + unrealized
+    state.weekly_pnl = state.weekly_pnl + (state.equity - equity_before)
     state.peak_equity = max(state.peak_equity, state.equity)
     state.drawdown_pct = (state.equity / max(state.peak_equity, 1e-9)) - 1.0
     return state

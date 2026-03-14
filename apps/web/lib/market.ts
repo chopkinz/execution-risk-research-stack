@@ -35,16 +35,33 @@ type SymbolConfig = {
 };
 
 const SYMBOLS: Record<string, SymbolConfig> = {
-  QQQ: { label: "Nasdaq 100 Proxy", yahoo: "QQQ", stooq: "qqq.us" },
-  SPY: { label: "S&P 500 Proxy", yahoo: "SPY", stooq: "spy.us" },
-  GLD: { label: "Gold Proxy", yahoo: "GLD", stooq: "gld.us" },
-  UUP: { label: "USD Proxy", yahoo: "UUP", stooq: "uup.us" },
-  "NQ=F": { label: "Nasdaq Futures", yahoo: "NQ=F", fallbackSymbol: "QQQ" },
-  "ES=F": { label: "S&P Futures", yahoo: "ES=F", fallbackSymbol: "SPY" },
-  "GC=F": { label: "Gold Futures", yahoo: "GC=F", fallbackSymbol: "GLD" },
-  "EURUSD=X": { label: "EURUSD Spot", yahoo: "EURUSD=X", fallbackSymbol: "UUP" },
+  // ETFs (common proxies)
+  QQQ: { label: "Nasdaq 100 ETF", yahoo: "QQQ", stooq: "qqq.us" },
+  SPY: { label: "S&P 500 ETF", yahoo: "SPY", stooq: "spy.us" },
+  GLD: { label: "Gold ETF", yahoo: "GLD", stooq: "gld.us" },
+  UUP: { label: "USD Bull ETF", yahoo: "UUP", stooq: "uup.us" },
+  IWM: { label: "Russell 2000 ETF", yahoo: "IWM" },
+  DIA: { label: "Dow Jones ETF", yahoo: "DIA" },
+  VTI: { label: "Total US Market", yahoo: "VTI" },
+  EEM: { label: "Emerging Markets", yahoo: "EEM" },
+  VXX: { label: "VIX Short-Term", yahoo: "VXX" },
+  SLV: { label: "Silver ETF", yahoo: "SLV" },
+  // Indices (native level, e.g. 6800)
+  "^GSPC": { label: "S&P 500 Index", yahoo: "^GSPC", fallbackSymbol: "SPY" },
   "^NDX": { label: "Nasdaq 100 Index", yahoo: "^NDX", fallbackSymbol: "QQQ" },
-  "^GSPC": { label: "S&P 500 Index", yahoo: "^GSPC", fallbackSymbol: "SPY" }
+  "^DJI": { label: "Dow Jones Index", yahoo: "^DJI", fallbackSymbol: "DIA" },
+  "^RUT": { label: "Russell 2000 Index", yahoo: "^RUT", fallbackSymbol: "IWM" },
+  "^VIX": { label: "VIX", yahoo: "^VIX" },
+  // Futures
+  "ES=F": { label: "E-mini S&P 500", yahoo: "ES=F", fallbackSymbol: "SPY" },
+  "NQ=F": { label: "E-mini Nasdaq", yahoo: "NQ=F", fallbackSymbol: "QQQ" },
+  "GC=F": { label: "Gold Futures", yahoo: "GC=F", fallbackSymbol: "GLD" },
+  "CL=F": { label: "Crude Oil WTI", yahoo: "CL=F" },
+  "ZN=F": { label: "10Y T-Note", yahoo: "ZN=F" },
+  // Forex
+  "EURUSD=X": { label: "EUR/USD", yahoo: "EURUSD=X", fallbackSymbol: "UUP" },
+  "GBPUSD=X": { label: "GBP/USD", yahoo: "GBPUSD=X" },
+  "USDJPY=X": { label: "USD/JPY", yahoo: "USDJPY=X" },
 };
 
 type CacheEntry = {
@@ -333,4 +350,9 @@ export function getYahooSymbol(inputSymbol: string): string {
   const key = normalizeSymbol(inputSymbol);
   const config = SYMBOLS[key];
   return config?.yahoo ?? inputSymbol;
+}
+
+/** All symbols supported for session/market (key = display, value = label). */
+export function getAvailableSymbols(): { value: string; label: string }[] {
+  return Object.entries(SYMBOLS).map(([value, cfg]) => ({ value, label: cfg.label }));
 }

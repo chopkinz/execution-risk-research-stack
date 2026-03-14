@@ -8,21 +8,23 @@ import { Button } from "../../components/ui/button";
 import { Panel } from "../../components/ui/panel";
 
 type Summary = {
-  timestamp_utc: string;
-  instrument: string;
-  start: string;
-  end: string;
-  trades: number;
-  max_drawdown_pct: number;
-  risk: {
-    max_daily_loss_pct: number;
-    max_exposure_pct: number;
-    kill_switch_drawdown_pct: number;
+  timestamp_utc?: string;
+  instrument?: string;
+  start?: string;
+  end?: string;
+  trades?: number;
+  max_drawdown_pct?: number;
+  risk?: {
+    max_daily_loss_pct?: number;
+    max_exposure_pct?: number;
+    max_gross_exposure?: number;
+    kill_switch_drawdown_pct?: number;
+    max_drawdown_pct?: number;
   };
-  execution: {
-    spread_model: string;
-    slippage_model: string;
-    fees_model: string;
+  execution?: {
+    spread_model?: string;
+    slippage_model?: string;
+    fees_model?: string;
   };
 };
 
@@ -35,21 +37,11 @@ type StatusPayload = {
 };
 
 const ARTIFACT_BASE = "/research/latest";
-type RunSource = "unified" | "risk_lab" | "execution_lab";
-
-const RUN_SOURCES: { id: RunSource; label: string; description: string }[] = [
-  { id: "unified", label: "Unified", description: "Full stack (execution-risk-research-stack)" },
-  { id: "risk_lab", label: "Risk Lab", description: "risk-engine-lab policy demo" },
-  { id: "execution_lab", label: "Execution Sim Lab", description: "execution-sim-lab fill demo" },
-];
 
 export default function ResearchPage() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [report, setReport] = useState<string>("");
-  const [reportRiskLab, setReportRiskLab] = useState<string>("");
-  const [reportExecutionLab, setReportExecutionLab] = useState<string>("");
   const [status, setStatus] = useState<StatusPayload | null>(null);
-  const [runSource, setRunSource] = useState<RunSource>("unified");
   const [logs, setLogs] = useState<string[]>([]);
   const [running, setRunning] = useState(false);
   const [runMessage, setRunMessage] = useState<string>("");
@@ -73,19 +65,6 @@ export default function ResearchPage() {
     } else {
       setSummary(null);
       setReport("");
-    }
-
-    if (statusPayload.readyRiskLab) {
-      const res = await fetch(`${ARTIFACT_BASE}/risk_lab/report.md`, { cache: "no-store" });
-      if (res.ok) setReportRiskLab(await res.text());
-    } else {
-      setReportRiskLab("");
-    }
-    if (statusPayload.readyExecutionLab) {
-      const res = await fetch(`${ARTIFACT_BASE}/execution_lab/report.md`, { cache: "no-store" });
-      if (res.ok) setReportExecutionLab(await res.text());
-    } else {
-      setReportExecutionLab("");
     }
   }, []);
 
@@ -146,30 +125,17 @@ export default function ResearchPage() {
     }
   }, [fetchArtifacts]);
 
-  const artifactBase = useMemo(() => {
-    if (runSource === "risk_lab") return `${ARTIFACT_BASE}/risk_lab`;
-    if (runSource === "execution_lab") return `${ARTIFACT_BASE}/execution_lab`;
-    return ARTIFACT_BASE;
-  }, [runSource]);
-
   const urls = useMemo(
     () => ({
-      equity: `${artifactBase}/equity_curve.png`,
-      drawdown: `${artifactBase}/drawdown.png`,
-      risk: `${artifactBase}/risk_rejections.png`,
-      monteCarlo: runSource === "unified" ? `${ARTIFACT_BASE}/monte_carlo_dd.png` : undefined,
+      equity: `${ARTIFACT_BASE}/equity_curve.png`,
+      drawdown: `${ARTIFACT_BASE}/drawdown.png`,
+      risk: `${ARTIFACT_BASE}/risk_rejections.png`,
+      monteCarlo: `${ARTIFACT_BASE}/monte_carlo_dd.png`,
     }),
-    [artifactBase, runSource]
+    []
   );
 
-  const activeReport =
-    runSource === "unified"
-      ? report
-      : runSource === "risk_lab"
-        ? reportRiskLab
-        : reportExecutionLab;
-
-  const showMetadata = runSource === "unified" && summary;
+  const showMetadata = status?.ready && summary;
 
   return (
     <div className="space-y-5">
@@ -177,7 +143,7 @@ export default function ResearchPage() {
         <div>
           <h1 className="text-2xl font-semibold text-slate-900 md:text-3xl">Research</h1>
           <p className="mt-1 text-sm text-slate-600">
-            Run and inspect execution-risk-research-stack, risk-engine-lab, and execution-sim-lab artifacts.
+            Inspect the latest run: equity, drawdown, trades, risk rejections, and report. Run from Simulation Lab (configurable) or &quot;Run Latest Backtest&quot; (demo pipeline).
           </p>
         </div>
         <Button onClick={runEngine} disabled={running}>
@@ -191,55 +157,27 @@ export default function ResearchPage() {
         </Panel>
       ) : null}
 
-      <Panel title="Run source" subtitle="Unified stack, Risk Lab, or Execution Sim Lab">
-        <div className="flex flex-wrap gap-2">
-          {RUN_SOURCES.map((src) => (
-            <button
-              key={src.id}
-              type="button"
-              onClick={() => setRunSource(src.id)}
-              className={`rounded-lg border px-4 py-2 text-sm font-medium ${
-                runSource === src.id
-                  ? "border-brand-600 bg-brand-50 text-brand-700"
-                  : "border-slate-200 text-slate-700 hover:bg-slate-50"
-              }`}
-            >
-              {src.label}
-            </button>
-          ))}
-        </div>
-        <p className="mt-2 text-xs text-slate-500">
-          {RUN_SOURCES.find((s) => s.id === runSource)?.description}
-        </p>
-        {runSource === "risk_lab" && !status?.readyRiskLab && (
-          <p className="mt-2 text-xs text-amber-600">Run the engine to generate Risk Lab artifacts.</p>
-        )}
-        {runSource === "execution_lab" && !status?.readyExecutionLab && (
-          <p className="mt-2 text-xs text-amber-600">Run the engine to generate Execution Sim Lab artifacts.</p>
-        )}
-      </Panel>
-
       <div className="grid gap-4 xl:grid-cols-[340px_minmax(0,1fr)]">
-        <Panel title="Run Metadata" subtitle={runSource === "unified" ? "Loaded from summary.json" : "Lab demo"}>
+        <Panel title="Run Metadata" subtitle="Loaded from summary.json">
           {showMetadata ? (
             <div className="space-y-3 text-sm text-slate-700">
               <div className="flex items-center justify-between">
                 <span>Instrument</span>
-                <span className="tabular font-medium">{summary.instrument}</span>
+                <span className="tabular font-medium">{summary.instrument ?? "—"}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Date Range</span>
                 <span className="tabular font-medium">
-                  {summary.start} to {summary.end}
+                  {summary.start ?? "—"} to {summary.end ?? "—"}
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Trades</span>
-                <span className="tabular font-medium">{summary.trades}</span>
+                <span className="tabular font-medium">{summary.trades ?? "—"}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Max Drawdown</span>
-                <span className="tabular font-medium">{summary.max_drawdown_pct.toFixed(2)}%</span>
+                <span className="tabular font-medium">{summary.max_drawdown_pct != null ? `${summary.max_drawdown_pct.toFixed(2)}%` : "n/a"}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>Last Run</span>
@@ -247,41 +185,40 @@ export default function ResearchPage() {
                   {status?.lastRunAtUtc ?? summary.timestamp_utc ?? "n/a"}
                 </span>
               </div>
-              <div className="pt-2">
-                <Badge tone="gray">Risk Constraints</Badge>
-                <p className="mt-2 text-xs">
-                  Daily Loss {summary.risk.max_daily_loss_pct}% • Exposure {summary.risk.max_exposure_pct}% • Kill
-                  Switch {summary.risk.kill_switch_drawdown_pct}%
-                </p>
-              </div>
-              <div className="pt-2">
-                <Badge tone="gray">Execution Assumptions</Badge>
-                <p className="mt-2 text-xs">
-                  {summary.execution.spread_model} • {summary.execution.slippage_model} •{" "}
-                  {summary.execution.fees_model}
-                </p>
-              </div>
+              {summary.risk && (
+                <div className="pt-2">
+                  <Badge tone="gray">Risk Constraints</Badge>
+                  <p className="mt-2 text-xs">
+                    Daily Loss {summary.risk.max_daily_loss_pct ?? "—"}% • Exposure {summary.risk.max_exposure_pct ?? summary.risk.max_gross_exposure ?? "—"} • Kill
+                    Switch {summary.risk.kill_switch_drawdown_pct ?? summary.risk.max_drawdown_pct ?? "—"}%
+                  </p>
+                </div>
+              )}
+              {summary.execution && (
+                <div className="pt-2">
+                  <Badge tone="gray">Execution Assumptions</Badge>
+                  <p className="mt-2 text-xs">
+                    {summary.execution.spread_model ?? "—"} • {summary.execution.slippage_model ?? "—"} •{" "}
+                    {summary.execution.fees_model ?? "—"}
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             <div className="space-y-2 text-sm text-slate-600">
-              {runSource === "unified" && !status?.ready && (
+              {!status?.ready && (
                 <>
                   <p>Artifacts not ready.</p>
                   {status?.missing?.length ? <p>Missing: {status.missing.join(", ")}</p> : null}
+                  <p>Run a simulation from Simulation Lab or run the demo via &quot;Run Latest Backtest&quot;.</p>
                 </>
-              )}
-              {runSource === "risk_lab" && (
-                <p>Policy-driven risk limits and rejection audit from risk-engine-lab.</p>
-              )}
-              {runSource === "execution_lab" && (
-                <p>Fill simulation with spread, slippage, and latency from execution-sim-lab.</p>
               )}
             </div>
           )}
         </Panel>
 
         <div className="space-y-4">
-          <Panel title="Artifact Viewer" subtitle="Overview / Risk / Execution / Robustness">
+          <Panel title="Artifact Viewer" subtitle="Equity, drawdown, risk rejections, Monte Carlo">
             <ResearchArtifactTabs urls={urls} />
           </Panel>
 
@@ -291,22 +228,31 @@ export default function ResearchPage() {
             </pre>
           </Panel>
 
-          <Panel
-            title="Report"
-            subtitle={
-              runSource === "unified"
-                ? "Markdown from unified run"
-                : runSource === "risk_lab"
-                  ? "risk-engine-lab report"
-                  : "execution-sim-lab report"
-            }
-          >
+          <Panel title="Report" subtitle="Markdown tear sheet from run">
             <article className="prose prose-slate max-w-none text-sm">
               <ReactMarkdown>
-                {activeReport || "_Run the engine to generate reports for all run sources._"}
+                {report || "_No report yet. Run a simulation or Run Latest Backtest._"}
               </ReactMarkdown>
             </article>
           </Panel>
+
+          {status?.ready && (
+            <Panel title="Download artifacts" subtitle="All run outputs">
+              <div className="flex flex-wrap gap-2">
+                <a href={`${ARTIFACT_BASE}/summary.json`} download="summary.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">summary.json</a>
+                <a href={`${ARTIFACT_BASE}/metrics.json`} download="metrics.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">metrics.json</a>
+                <a href={`${ARTIFACT_BASE}/trades.csv`} download="trades.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">trades.csv</a>
+                <a href={`${ARTIFACT_BASE}/equity_curve.csv`} download="equity_curve.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">equity_curve.csv</a>
+                <a href={`${ARTIFACT_BASE}/drawdown.csv`} download="drawdown.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">drawdown.csv</a>
+                <a href={`${ARTIFACT_BASE}/ohlcv.csv`} download="ohlcv.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">ohlcv.csv</a>
+                <a href={`${ARTIFACT_BASE}/annotations.json`} download="annotations.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">annotations.json</a>
+                <a href={`${ARTIFACT_BASE}/risk_log.json`} download="risk_log.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">risk_log.json</a>
+                <a href={`${ARTIFACT_BASE}/risk_rejections.csv`} download="risk_rejections.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">risk_rejections.csv</a>
+                <a href={`${ARTIFACT_BASE}/report.md`} download="report.md" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">report.md</a>
+                <a href={`${ARTIFACT_BASE}/report.html`} download="report.html" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">report.html</a>
+              </div>
+            </Panel>
+          )}
         </div>
       </div>
     </div>

@@ -11,3 +11,4 @@ def test_demo_pipeline_generates_required_artifacts() -> None:
     assert (run_dir / "drawdown.png").exists()
     assert (run_dir / "risk_rejections.png").exists()
     assert (run_dir / "report.md").exists()
+    assert (run_dir / "summary.json").exists()

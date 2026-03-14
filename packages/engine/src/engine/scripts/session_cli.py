@@ -19,7 +19,7 @@ from engine.session_analysis import run_session_analysis
 
 console = Console(force_terminal=True)
 
-DEFAULT_SYMBOLS = ["QQQ", "SPY", "GLD", "UUP"]
+DEFAULT_SYMBOLS = ["QQQ", "SPY", "^GSPC", "ES=F", "GLD", "IWM"]
 BLOCKS = "▁▂▃▄▅▆▇█"
 
 

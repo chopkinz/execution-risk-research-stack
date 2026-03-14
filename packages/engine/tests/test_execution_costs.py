@@ -12,7 +12,7 @@ def test_costs_and_latency_applied() -> None:
         latency_model=LatencyModel(delay_bars=2),
         fee_bps=10.0,
     )
-    intent = OrderIntent(symbol="S", side=Side.BUY, qty=1.0, timestamp=pd.Timestamp.utcnow(), bar_index=1)
+    intent = OrderIntent(symbol="S", side=Side.BUY, qty=1.0, timestamp=pd.Timestamp.now("UTC"), bar_index=1)
     fill = sim.simulate_fills([intent], {"mid_price": 100.0, "volatility": 0.0})[0]
     assert abs(fill.fill_price - 100.05) < 1e-9
     assert fill.bar_index == 3

@@ -55,3 +55,26 @@ class MaxGrossExposure:
         if portfolio.exposure >= self.max_gross_exposure:
             return "max gross exposure reached"
         return None
+
+
+@dataclass
+class MaxWeeklyLoss:
+    max_weekly_loss_pct: float
+
+    def check(self, intent: OrderIntent, portfolio: PortfolioState) -> str | None:
+        if portfolio.equity <= 0:
+            return "invalid equity"
+        if portfolio.weekly_pnl / max(portfolio.equity, 1e-9) <= -abs(self.max_weekly_loss_pct):
+            return "max weekly loss reached"
+        return None
+
+
+@dataclass
+class MaxOpenPositions:
+    max_open_positions: int
+
+    def check(self, intent: OrderIntent, portfolio: PortfolioState) -> str | None:
+        n = len([p for p in portfolio.positions.values() if p.qty != 0])
+        if n >= self.max_open_positions:
+            return "max open positions reached"
+        return None

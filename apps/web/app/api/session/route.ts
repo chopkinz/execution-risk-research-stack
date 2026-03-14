@@ -34,7 +34,7 @@ function detectPattern(
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_SYMBOLS = ["QQQ", "SPY", "GLD", "UUP"];
+const DEFAULT_SYMBOLS = ["QQQ", "SPY", "^GSPC", "ES=F", "GLD", "IWM"];
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

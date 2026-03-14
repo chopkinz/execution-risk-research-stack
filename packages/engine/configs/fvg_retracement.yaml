@@ -1,0 +1,28 @@
+seed: 42
+symbol: "^NDX"
+interval: "15m"
+period: "60d"
+session:
+  start: "08:30"
+  end: "10:30"
+portfolio:
+  initial_cash: 100000.0
+risk:
+  max_position_size: 1.0
+  max_trades_per_day: 4
+  max_daily_loss_pct: 0.02
+  max_drawdown_pct: 0.2
+  max_gross_exposure: 500000.0
+execution:
+  spread_bps: 1.0
+  min_spread: 0.01
+  slippage_k: 0.1
+  delay_bars: 0
+  fee_bps: 0.5
+strategy:
+  name: fvg_retracement
+  qty: 1.0
+  only_in_session: true
+  use_bullish: true
+  use_bearish: true
+montecarlo_paths: 500

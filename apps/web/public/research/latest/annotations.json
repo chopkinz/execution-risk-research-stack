@@ -1,0 +1,3397 @@
+{
+  "run_id": "faa1fcd55c1427f4",
+  "fvgs": [
+    {
+      "id": "fvg_bear_5_322923515",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-05T15:30:00+00:00",
+      "end_ts": "2026-01-05T16:00:00+00:00",
+      "upper": 19981.55666313708,
+      "lower": 19977.745753967778,
+      "midpoint": 19979.65120855243,
+      "size": 3.81090916930043,
+      "size_ticks": 381.090916930043,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8601143754637265,
+      "bar_index": 5,
+      "metadata": {
+        "center_bar": 5
+      }
+    },
+    {
+      "id": "fvg_bull_29_633959606",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-05T21:30:00+00:00",
+      "end_ts": "2026-01-05T22:00:00+00:00",
+      "upper": 20003.75930123184,
+      "lower": 20003.707679034913,
+      "midpoint": 20003.733490133374,
+      "size": 0.05162219692647341,
+      "size_ticks": 5.162219692647341,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8724763629613754,
+      "bar_index": 29,
+      "metadata": {
+        "center_bar": 29
+      }
+    },
+    {
+      "id": "fvg_bull_30_269606560",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-05T21:45:00+00:00",
+      "end_ts": "2026-01-05T22:15:00+00:00",
+      "upper": 20023.46866360196,
+      "lower": 20013.806364966236,
+      "midpoint": 20018.6375142841,
+      "size": 9.662298635725165,
+      "size_ticks": 966.2298635725165,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9847344314094966,
+      "bar_index": 30,
+      "metadata": {
+        "center_bar": 30
+      }
+    },
+    {
+      "id": "fvg_bull_40_85836489",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-06T00:15:00+00:00",
+      "end_ts": "2026-01-06T00:45:00+00:00",
+      "upper": 20023.8603011248,
+      "lower": 20021.394949075082,
+      "midpoint": 20022.627625099944,
+      "size": 2.465352049719513,
+      "size_ticks": 246.53520497195132,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.5762853832140398,
+      "bar_index": 40,
+      "metadata": {
+        "center_bar": 40
+      }
+    },
+    {
+      "id": "fvg_bear_52_1004019124",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T03:15:00+00:00",
+      "end_ts": "2026-01-06T03:45:00+00:00",
+      "upper": 20055.68718153267,
+      "lower": 20052.797289756625,
+      "midpoint": 20054.242235644648,
+      "size": 2.8898917760452605,
+      "size_ticks": 288.98917760452605,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.49239348049969583,
+      "bar_index": 52,
+      "metadata": {
+        "center_bar": 52
+      }
+    },
+    {
+      "id": "fvg_bull_64_1691080511",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-06T06:15:00+00:00",
+      "end_ts": "2026-01-06T06:45:00+00:00",
+      "upper": 20035.33340143112,
+      "lower": 20034.666882285637,
+      "midpoint": 20035.000141858378,
+      "size": 0.6665191454812884,
+      "size_ticks": 66.65191454812884,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9367167772454128,
+      "bar_index": 64,
+      "metadata": {
+        "center_bar": 64
+      }
+    },
+    {
+      "id": "fvg_bear_70_1555777548",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T07:45:00+00:00",
+      "end_ts": "2026-01-06T08:15:00+00:00",
+      "upper": 20044.890329901715,
+      "lower": 20037.670185632538,
+      "midpoint": 20041.280257767125,
+      "size": 7.2201442691766715,
+      "size_ticks": 722.0144269176672,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 1.0059177814906668,
+      "bar_index": 70,
+      "metadata": {
+        "center_bar": 70
+      }
+    },
+    {
+      "id": "fvg_bear_71_1016774925",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T08:00:00+00:00",
+      "end_ts": "2026-01-06T08:30:00+00:00",
+      "upper": 20030.687955561792,
+      "lower": 20023.452678520636,
+      "midpoint": 20027.070317041216,
+      "size": 7.235277041156223,
+      "size_ticks": 723.5277041156223,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9793269731099469,
+      "bar_index": 71,
+      "metadata": {
+        "center_bar": 71
+      }
+    },
+    {
+      "id": "fvg_bear_94_232883207",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T13:45:00+00:00",
+      "end_ts": "2026-01-06T14:15:00+00:00",
+      "upper": 20005.82870795257,
+      "lower": 19997.971010589525,
+      "midpoint": 20001.89985927105,
+      "size": 7.857697363044281,
+      "size_ticks": 785.7697363044281,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9374476016202669,
+      "bar_index": 94,
+      "metadata": {
+        "center_bar": 94
+      }
+    },
+    {
+      "id": "fvg_bear_95_1665096146",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T14:00:00+00:00",
+      "end_ts": "2026-01-06T14:30:00+00:00",
+      "upper": 19984.19778456071,
+      "lower": 19976.22279863371,
+      "midpoint": 19980.21029159721,
+      "size": 7.9749859270013985,
+      "size_ticks": 797.4985927001399,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8976904223558905,
+      "bar_index": 95,
+      "metadata": {
+        "center_bar": 95
+      }
+    },
+    {
+      "id": "fvg_bear_96_374191542",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T14:15:00+00:00",
+      "end_ts": "2026-01-06T14:45:00+00:00",
+      "upper": 19966.881336786224,
+      "lower": 19965.706514477075,
+      "midpoint": 19966.29392563165,
+      "size": 1.1748223091490217,
+      "size_ticks": 117.48223091490217,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8118545212825992,
+      "bar_index": 96,
+      "metadata": {
+        "center_bar": 96
+      }
+    },
+    {
+      "id": "fvg_bear_106_982140084",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T16:45:00+00:00",
+      "end_ts": "2026-01-06T17:15:00+00:00",
+      "upper": 19939.02424651478,
+      "lower": 19937.69917616253,
+      "midpoint": 19938.361711338654,
+      "size": 1.3250703522498952,
+      "size_ticks": 132.50703522498952,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.7626672738677287,
+      "bar_index": 106,
+      "metadata": {
+        "center_bar": 106
+      }
+    },
+    {
+      "id": "fvg_bear_113_554761675",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T18:30:00+00:00",
+      "end_ts": "2026-01-06T19:00:00+00:00",
+      "upper": 19913.84089783751,
+      "lower": 19903.40309070596,
+      "midpoint": 19908.621994271736,
+      "size": 10.437807131547743,
+      "size_ticks": 1043.7807131547743,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8987537185551577,
+      "bar_index": 113,
+      "metadata": {
+        "center_bar": 113
+      }
+    },
+    {
+      "id": "fvg_bull_118_1340482643",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-06T19:45:00+00:00",
+      "end_ts": "2026-01-06T20:15:00+00:00",
+      "upper": 19910.715517826695,
+      "lower": 19903.47798467782,
+      "midpoint": 19907.096751252255,
+      "size": 7.237533148876537,
+      "size_ticks": 723.7533148876537,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8734972276968871,
+      "bar_index": 118,
+      "metadata": {
+        "center_bar": 118
+      }
+    },
+    {
+      "id": "fvg_bear_120_1320252010",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T20:15:00+00:00",
+      "end_ts": "2026-01-06T20:45:00+00:00",
+      "upper": 19910.715517826695,
+      "lower": 19909.91849974209,
+      "midpoint": 19910.31700878439,
+      "size": 0.797018084605952,
+      "size_ticks": 79.7018084605952,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.31082795860683465,
+      "bar_index": 120,
+      "metadata": {
+        "center_bar": 120
+      }
+    },
+    {
+      "id": "fvg_bull_123_1803120522",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-06T21:00:00+00:00",
+      "end_ts": "2026-01-06T21:30:00+00:00",
+      "upper": 19918.598706291552,
+      "lower": 19907.7714864351,
+      "midpoint": 19913.185096363326,
+      "size": 10.827219856451848,
+      "size_ticks": 1082.7219856451848,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8935747331803968,
+      "bar_index": 123,
+      "metadata": {
+        "center_bar": 123
+      }
+    },
+    {
+      "id": "fvg_bull_124_1913994934",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-06T21:15:00+00:00",
+      "end_ts": "2026-01-06T21:45:00+00:00",
+      "upper": 19928.049735078977,
+      "lower": 19925.051522205016,
+      "midpoint": 19926.550628642,
+      "size": 2.9982128739611653,
+      "size_ticks": 299.82128739611653,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.7996010600844993,
+      "bar_index": 124,
+      "metadata": {
+        "center_bar": 124
+      }
+    },
+    {
+      "id": "fvg_bear_128_1933184219",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T22:15:00+00:00",
+      "end_ts": "2026-01-06T22:45:00+00:00",
+      "upper": 19934.939437445817,
+      "lower": 19934.69335480588,
+      "midpoint": 19934.816396125847,
+      "size": 0.24608263993650326,
+      "size_ticks": 24.608263993650326,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.7598672063326166,
+      "bar_index": 128,
+      "metadata": {
+        "center_bar": 128
+      }
+    },
+    {
+      "id": "fvg_bear_129_161216757",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T22:30:00+00:00",
+      "end_ts": "2026-01-06T23:00:00+00:00",
+      "upper": 19929.752112605187,
+      "lower": 19927.05089210598,
+      "midpoint": 19928.401502355584,
+      "size": 2.7012204992061015,
+      "size_ticks": 270.12204992061015,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.7935069251966727,
+      "bar_index": 129,
+      "metadata": {
+        "center_bar": 129
+      }
+    },
+    {
+      "id": "fvg_bear_134_387986052",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-06T23:45:00+00:00",
+      "end_ts": "2026-01-07T00:15:00+00:00",
+      "upper": 19899.46334110337,
+      "lower": 19892.419939244242,
+      "midpoint": 19895.941640173805,
+      "size": 7.043401859125879,
+      "size_ticks": 704.3401859125879,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.39280916378508374,
+      "bar_index": 134,
+      "metadata": {
+        "center_bar": 134
+      }
+    },
+    {
+      "id": "fvg_bear_135_1109447660",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T00:00:00+00:00",
+      "end_ts": "2026-01-07T00:30:00+00:00",
+      "upper": 19882.752112642316,
+      "lower": 19880.652896693242,
+      "midpoint": 19881.70250466778,
+      "size": 2.099215949074278,
+      "size_ticks": 209.9215949074278,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.3761507101538538,
+      "bar_index": 135,
+      "metadata": {
+        "center_bar": 135
+      }
+    },
+    {
+      "id": "fvg_bull_137_147655317",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T00:30:00+00:00",
+      "end_ts": "2026-01-07T01:00:00+00:00",
+      "upper": 19884.821322357533,
+      "lower": 19880.652896693242,
+      "midpoint": 19882.737109525387,
+      "size": 4.168425664291135,
+      "size_ticks": 416.8425664291135,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8924015208345705,
+      "bar_index": 137,
+      "metadata": {
+        "center_bar": 137
+      }
+    },
+    {
+      "id": "fvg_bull_138_484434662",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T00:45:00+00:00",
+      "end_ts": "2026-01-07T01:15:00+00:00",
+      "upper": 19908.409241672518,
+      "lower": 19894.08126743759,
+      "midpoint": 19901.245254555055,
+      "size": 14.32797423492957,
+      "size_ticks": 1432.797423492957,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9227384461808746,
+      "bar_index": 138,
+      "metadata": {
+        "center_bar": 138
+      }
+    },
+    {
+      "id": "fvg_bull_139_423929703",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T01:00:00+00:00",
+      "end_ts": "2026-01-07T01:30:00+00:00",
+      "upper": 19943.855636792247,
+      "lower": 19914.598287627807,
+      "midpoint": 19929.22696221003,
+      "size": 29.257349164439802,
+      "size_ticks": 2925.73491644398,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8932495238561275,
+      "bar_index": 139,
+      "metadata": {
+        "center_bar": 139
+      }
+    },
+    {
+      "id": "fvg_bear_141_880232030",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T01:30:00+00:00",
+      "end_ts": "2026-01-07T02:00:00+00:00",
+      "upper": 19943.855636792247,
+      "lower": 19942.95931570429,
+      "midpoint": 19943.40747624827,
+      "size": 0.8963210879555845,
+      "size_ticks": 89.63210879555845,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.2663345456609363,
+      "bar_index": 141,
+      "metadata": {
+        "center_bar": 141
+      }
+    },
+    {
+      "id": "fvg_bear_142_1422628739",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T01:45:00+00:00",
+      "end_ts": "2026-01-07T02:15:00+00:00",
+      "upper": 19935.529809266038,
+      "lower": 19921.138171221977,
+      "midpoint": 19928.333990244006,
+      "size": 14.391638044060528,
+      "size_ticks": 1439.1638044060528,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.39633384401274296,
+      "bar_index": 142,
+      "metadata": {
+        "center_bar": 142
+      }
+    },
+    {
+      "id": "fvg_bull_148_573620016",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T03:15:00+00:00",
+      "end_ts": "2026-01-07T03:45:00+00:00",
+      "upper": 19904.151778057207,
+      "lower": 19901.770680046742,
+      "midpoint": 19902.961229051973,
+      "size": 2.381098010464484,
+      "size_ticks": 238.1098010464484,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.33859946355544157,
+      "bar_index": 148,
+      "metadata": {
+        "center_bar": 148
+      }
+    },
+    {
+      "id": "fvg_bear_151_1159469913",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T04:00:00+00:00",
+      "end_ts": "2026-01-07T04:30:00+00:00",
+      "upper": 19904.751222771396,
+      "lower": 19900.07572515237,
+      "midpoint": 19902.413473961882,
+      "size": 4.6754976190277375,
+      "size_ticks": 467.54976190277375,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8597991884030836,
+      "bar_index": 151,
+      "metadata": {
+        "center_bar": 151
+      }
+    },
+    {
+      "id": "fvg_bear_152_727838971",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T04:15:00+00:00",
+      "end_ts": "2026-01-07T04:45:00+00:00",
+      "upper": 19891.77838962769,
+      "lower": 19880.7100821886,
+      "midpoint": 19886.244235908147,
+      "size": 11.06830743908722,
+      "size_ticks": 1106.830743908722,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.44648284324331083,
+      "bar_index": 152,
+      "metadata": {
+        "center_bar": 152
+      }
+    },
+    {
+      "id": "fvg_bull_155_1556370807",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T05:00:00+00:00",
+      "end_ts": "2026-01-07T05:30:00+00:00",
+      "upper": 19886.581723159954,
+      "lower": 19874.57113054366,
+      "midpoint": 19880.576426851807,
+      "size": 12.010592616294161,
+      "size_ticks": 1201.0592616294161,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.4654578775597427,
+      "bar_index": 155,
+      "metadata": {
+        "center_bar": 155
+      }
+    },
+    {
+      "id": "fvg_bear_159_1315911883",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T06:00:00+00:00",
+      "end_ts": "2026-01-07T06:30:00+00:00",
+      "upper": 19893.160287720373,
+      "lower": 19885.10610113299,
+      "midpoint": 19889.133194426682,
+      "size": 8.054186587381992,
+      "size_ticks": 805.4186587381992,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.41452702419751886,
+      "bar_index": 159,
+      "metadata": {
+        "center_bar": 159
+      }
+    },
+    {
+      "id": "fvg_bear_160_1959281935",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T06:15:00+00:00",
+      "end_ts": "2026-01-07T06:45:00+00:00",
+      "upper": 19876.97552367322,
+      "lower": 19873.613962488253,
+      "midpoint": 19875.294743080736,
+      "size": 3.361561184967286,
+      "size_ticks": 336.1561184967286,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8993208564977364,
+      "bar_index": 160,
+      "metadata": {
+        "center_bar": 160
+      }
+    },
+    {
+      "id": "fvg_bear_173_1146933426",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T09:30:00+00:00",
+      "end_ts": "2026-01-07T10:00:00+00:00",
+      "upper": 19874.575620769985,
+      "lower": 19872.621044857024,
+      "midpoint": 19873.598332813504,
+      "size": 1.9545759129614453,
+      "size_ticks": 195.45759129614453,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8901379758731169,
+      "bar_index": 173,
+      "metadata": {
+        "center_bar": 173
+      }
+    },
+    {
+      "id": "fvg_bear_174_1465368545",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T09:45:00+00:00",
+      "end_ts": "2026-01-07T10:15:00+00:00",
+      "upper": 19863.607032334647,
+      "lower": 19857.86561013654,
+      "midpoint": 19860.736321235592,
+      "size": 5.741422198105283,
+      "size_ticks": 574.1422198105283,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9476834216778004,
+      "bar_index": 174,
+      "metadata": {
+        "center_bar": 174
+      }
+    },
+    {
+      "id": "fvg_bull_176_749389932",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T10:15:00+00:00",
+      "end_ts": "2026-01-07T10:45:00+00:00",
+      "upper": 19867.856744491066,
+      "lower": 19857.86561013654,
+      "midpoint": 19862.861177313804,
+      "size": 9.991134354524547,
+      "size_ticks": 999.1134354524547,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8688570262701575,
+      "bar_index": 176,
+      "metadata": {
+        "center_bar": 176
+      }
+    },
+    {
+      "id": "fvg_bull_180_138164052",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T11:15:00+00:00",
+      "end_ts": "2026-01-07T11:45:00+00:00",
+      "upper": 19890.59067167103,
+      "lower": 19883.274992022238,
+      "midpoint": 19886.932831846636,
+      "size": 7.315679648792866,
+      "size_ticks": 731.5679648792866,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9121781816754995,
+      "bar_index": 180,
+      "metadata": {
+        "center_bar": 180
+      }
+    },
+    {
+      "id": "fvg_bull_185_1888270037",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T12:30:00+00:00",
+      "end_ts": "2026-01-07T13:00:00+00:00",
+      "upper": 19921.25929903698,
+      "lower": 19913.769836229214,
+      "midpoint": 19917.514567633098,
+      "size": 7.489462807767268,
+      "size_ticks": 748.9462807767268,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8560814010566041,
+      "bar_index": 185,
+      "metadata": {
+        "center_bar": 185
+      }
+    },
+    {
+      "id": "fvg_bull_190_414635192",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T13:45:00+00:00",
+      "end_ts": "2026-01-07T14:15:00+00:00",
+      "upper": 19931.475583425767,
+      "lower": 19925.82722594427,
+      "midpoint": 19928.65140468502,
+      "size": 5.648357481495623,
+      "size_ticks": 564.8357481495623,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.3189233193767738,
+      "bar_index": 190,
+      "metadata": {
+        "center_bar": 190
+      }
+    },
+    {
+      "id": "fvg_bull_201_1518706452",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T16:30:00+00:00",
+      "end_ts": "2026-01-07T17:00:00+00:00",
+      "upper": 19945.09747790248,
+      "lower": 19933.302562921268,
+      "midpoint": 19939.200020411874,
+      "size": 11.79491498121206,
+      "size_ticks": 1179.491498121206,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.35412312251776823,
+      "bar_index": 201,
+      "metadata": {
+        "center_bar": 201
+      }
+    },
+    {
+      "id": "fvg_bear_204_701030397",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T17:15:00+00:00",
+      "end_ts": "2026-01-07T17:45:00+00:00",
+      "upper": 19941.562143439885,
+      "lower": 19938.527312345715,
+      "midpoint": 19940.0447278928,
+      "size": 3.034831094169931,
+      "size_ticks": 303.4831094169931,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.7787820955482322,
+      "bar_index": 204,
+      "metadata": {
+        "center_bar": 204
+      }
+    },
+    {
+      "id": "fvg_bear_207_929719328",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T18:00:00+00:00",
+      "end_ts": "2026-01-07T18:30:00+00:00",
+      "upper": 19915.63702069952,
+      "lower": 19913.88130429505,
+      "midpoint": 19914.759162497285,
+      "size": 1.7557164044701494,
+      "size_ticks": 175.57164044701494,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8108887542671388,
+      "bar_index": 207,
+      "metadata": {
+        "center_bar": 207
+      }
+    },
+    {
+      "id": "fvg_bear_208_402427545",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T18:15:00+00:00",
+      "end_ts": "2026-01-07T18:45:00+00:00",
+      "upper": 19903.102893004598,
+      "lower": 19900.437757189604,
+      "midpoint": 19901.770325097103,
+      "size": 2.665135814993846,
+      "size_ticks": 266.5135814993846,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8433386806501773,
+      "bar_index": 208,
+      "metadata": {
+        "center_bar": 208
+      }
+    },
+    {
+      "id": "fvg_bull_217_557990421",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T20:30:00+00:00",
+      "end_ts": "2026-01-07T21:00:00+00:00",
+      "upper": 19904.914859422835,
+      "lower": 19903.01740043206,
+      "midpoint": 19903.96612992745,
+      "size": 1.8974589907738846,
+      "size_ticks": 189.74589907738846,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8324562855750178,
+      "bar_index": 217,
+      "metadata": {
+        "center_bar": 217
+      }
+    },
+    {
+      "id": "fvg_bull_226_349098598",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T22:45:00+00:00",
+      "end_ts": "2026-01-07T23:15:00+00:00",
+      "upper": 19920.504855489828,
+      "lower": 19898.365173176284,
+      "midpoint": 19909.435014333056,
+      "size": 22.139682313543744,
+      "size_ticks": 2213.9682313543744,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.6655352270835972,
+      "bar_index": 226,
+      "metadata": {
+        "center_bar": 226
+      }
+    },
+    {
+      "id": "fvg_bull_227_1921512707",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-07T23:00:00+00:00",
+      "end_ts": "2026-01-07T23:30:00+00:00",
+      "upper": 19935.80074966217,
+      "lower": 19928.5877950084,
+      "midpoint": 19932.194272335284,
+      "size": 7.212954653768975,
+      "size_ticks": 721.2954653768975,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8259917085185278,
+      "bar_index": 227,
+      "metadata": {
+        "center_bar": 227
+      }
+    },
+    {
+      "id": "fvg_bear_230_1564922114",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-07T23:45:00+00:00",
+      "end_ts": "2026-01-08T00:15:00+00:00",
+      "upper": 19927.65079725336,
+      "lower": 19924.80759455514,
+      "midpoint": 19926.22919590425,
+      "size": 2.84320269822274,
+      "size_ticks": 284.320269822274,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.29884475132438215,
+      "bar_index": 230,
+      "metadata": {
+        "center_bar": 230
+      }
+    },
+    {
+      "id": "fvg_bear_236_1428473422",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-08T01:15:00+00:00",
+      "end_ts": "2026-01-08T01:45:00+00:00",
+      "upper": 19905.34043097237,
+      "lower": 19890.271126368698,
+      "midpoint": 19897.805778670532,
+      "size": 15.069304603672208,
+      "size_ticks": 1506.9304603672208,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9598708979688233,
+      "bar_index": 236,
+      "metadata": {
+        "center_bar": 236
+      }
+    },
+    {
+      "id": "fvg_bear_238_1795747754",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-08T01:45:00+00:00",
+      "end_ts": "2026-01-08T02:15:00+00:00",
+      "upper": 19875.947163380977,
+      "lower": 19873.87152605879,
+      "midpoint": 19874.909344719883,
+      "size": 2.0756373221884132,
+      "size_ticks": 207.56373221884132,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8887344176391567,
+      "bar_index": 238,
+      "metadata": {
+        "center_bar": 238
+      }
+    },
+    {
+      "id": "fvg_bear_239_710487207",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-08T02:00:00+00:00",
+      "end_ts": "2026-01-08T02:30:00+00:00",
+      "upper": 19867.896837644977,
+      "lower": 19867.6997750009,
+      "midpoint": 19867.79830632294,
+      "size": 0.1970626440779597,
+      "size_ticks": 19.70626440779597,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.8855956366151798,
+      "bar_index": 239,
+      "metadata": {
+        "center_bar": 239
+      }
+    },
+    {
+      "id": "fvg_bear_242_481499135",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-08T02:45:00+00:00",
+      "end_ts": "2026-01-08T03:15:00+00:00",
+      "upper": 19845.48523863362,
+      "lower": 19835.265108111857,
+      "midpoint": 19840.37517337274,
+      "size": 10.220130521764077,
+      "size_ticks": 1022.0130521764077,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 1.0254854600388028,
+      "bar_index": 242,
+      "metadata": {
+        "center_bar": 242
+      }
+    },
+    {
+      "id": "fvg_bull_248_1874881655",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-08T04:15:00+00:00",
+      "end_ts": "2026-01-08T04:45:00+00:00",
+      "upper": 19847.662071850016,
+      "lower": 19838.20662108006,
+      "midpoint": 19842.934346465037,
+      "size": 9.455450769957679,
+      "size_ticks": 945.5450769957679,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 1.0139269427008386,
+      "bar_index": 248,
+      "metadata": {
+        "center_bar": 248
+      }
+    },
+    {
+      "id": "fvg_bear_259_2043288585",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-08T07:00:00+00:00",
+      "end_ts": "2026-01-08T07:30:00+00:00",
+      "upper": 19861.651212666926,
+      "lower": 19856.509500208656,
+      "midpoint": 19859.080356437793,
+      "size": 5.141712458269467,
+      "size_ticks": 514.1712458269467,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9455245846224195,
+      "bar_index": 259,
+      "metadata": {
+        "center_bar": 259
+      }
+    },
+    {
+      "id": "fvg_bull_273_1925574404",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-08T10:30:00+00:00",
+      "end_ts": "2026-01-08T11:00:00+00:00",
+      "upper": 19880.942773572453,
+      "lower": 19868.860860977114,
+      "midpoint": 19874.901817274782,
+      "size": 12.081912595338508,
+      "size_ticks": 1208.1912595338508,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9767846503280916,
+      "bar_index": 273,
+      "metadata": {
+        "center_bar": 273
+      }
+    },
+    {
+      "id": "fvg_bull_274_1874746518",
+      "type": "fvg",
+      "direction": "bullish",
+      "start_ts": "2026-01-08T10:45:00+00:00",
+      "end_ts": "2026-01-08T11:15:00+00:00",
+      "upper": 19901.40102213956,
+      "lower": 19891.0924089102,
+      "midpoint": 19896.24671552488,
+      "size": 10.308613229357434,
+      "size_ticks": 1030.8613229357434,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.9209456309262907,
+      "bar_index": 274,
+      "metadata": {
+        "center_bar": 274
+      }
+    },
+    {
+      "id": "fvg_bear_298_1253641408",
+      "type": "fvg",
+      "direction": "bearish",
+      "start_ts": "2026-01-08T16:45:00+00:00",
+      "end_ts": "2026-01-08T17:15:00+00:00",
+      "upper": 19865.492017481894,
+      "lower": 19858.04056005106,
+      "midpoint": 19861.766288766477,
+      "size": 7.451457430834125,
+      "size_ticks": 745.1457430834125,
+      "atr_multiple": 0.0,
+      "status": "created",
+      "fill_percent": 0.0,
+      "score": 0.46079362057681383,
+      "bar_index": 298,
+      "metadata": {
+        "center_bar": 298
+      }
+    }
+  ],
+  "structure": [
+    {
+      "id": "swh_4_1317031471",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-05T15:30:00+00:00",
+      "price": 20015.745771106904,
+      "bar_index": 4,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "sequence": 0
+      }
+    },
+    {
+      "id": "swh_14_67128870",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-05T18:00:00+00:00",
+      "price": 20006.373447843856,
+      "bar_index": 14,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 1
+      }
+    },
+    {
+      "id": "swh_23_1358974498",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-05T20:15:00+00:00",
+      "price": 20002.06356981642,
+      "bar_index": 23,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 2
+      }
+    },
+    {
+      "id": "swh_30_763383366",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-05T22:00:00+00:00",
+      "price": 20038.558159757737,
+      "bar_index": 30,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 3
+      }
+    },
+    {
+      "id": "swh_36_1325420101",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-05T23:30:00+00:00",
+      "price": 20037.443564972484,
+      "bar_index": 36,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 4
+      }
+    },
+    {
+      "id": "swh_41_2130726471",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T00:45:00+00:00",
+      "price": 20039.238685608834,
+      "bar_index": 41,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 5
+      }
+    },
+    {
+      "id": "swh_48_2046840413",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T02:30:00+00:00",
+      "price": 20061.50308687608,
+      "bar_index": 48,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 6
+      }
+    },
+    {
+      "id": "swh_52_83906151",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T03:30:00+00:00",
+      "price": 20071.71868950039,
+      "bar_index": 52,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 7
+      }
+    },
+    {
+      "id": "swh_57_1602244181",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-06T04:45:00+00:00",
+      "price": 20053.16636732942,
+      "bar_index": 57,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 8
+      }
+    },
+    {
+      "id": "swh_65_209735254",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T06:45:00+00:00",
+      "price": 20054.462492053488,
+      "bar_index": 65,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 9
+      }
+    },
+    {
+      "id": "swh_69_914378330",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T07:45:00+00:00",
+      "price": 20058.014695947455,
+      "bar_index": 69,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 10
+      }
+    },
+    {
+      "id": "swh_75_478170687",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-06T09:15:00+00:00",
+      "price": 20031.82912421806,
+      "bar_index": 75,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 11
+      }
+    },
+    {
+      "id": "swh_81_1921011268",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T10:45:00+00:00",
+      "price": 20036.290208087205,
+      "bar_index": 81,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 12
+      }
+    },
+    {
+      "id": "swh_92_1056984633",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-06T13:30:00+00:00",
+      "price": 20025.216050541487,
+      "bar_index": 92,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 13
+      }
+    },
+    {
+      "id": "swh_103_1971342838",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-06T16:15:00+00:00",
+      "price": 19958.749242661444,
+      "bar_index": 103,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 14
+      }
+    },
+    {
+      "id": "swh_112_209735129",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-06T18:30:00+00:00",
+      "price": 19929.22426447654,
+      "bar_index": 112,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 15
+      }
+    },
+    {
+      "id": "swh_118_1493192147",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-06T20:00:00+00:00",
+      "price": 19923.460320832855,
+      "bar_index": 118,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 16
+      }
+    },
+    {
+      "id": "swh_126_620776952",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-06T22:00:00+00:00",
+      "price": 19960.175380666078,
+      "bar_index": 126,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 17
+      }
+    },
+    {
+      "id": "swh_140_629165558",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-07T01:30:00+00:00",
+      "price": 19958.54091682033,
+      "bar_index": 140,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 18
+      }
+    },
+    {
+      "id": "swh_150_1786793420",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-07T04:00:00+00:00",
+      "price": 19916.615231657244,
+      "bar_index": 150,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 19
+      }
+    },
+    {
+      "id": "swh_157_2004897219",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-07T05:45:00+00:00",
+      "price": 19907.65178478596,
+      "bar_index": 157,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 20
+      }
+    },
+    {
+      "id": "swh_167_889212345",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-07T08:15:00+00:00",
+      "price": 19897.287576128183,
+      "bar_index": 167,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 21
+      }
+    },
+    {
+      "id": "swh_187_998264286",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-07T13:15:00+00:00",
+      "price": 19934.885647676387,
+      "bar_index": 187,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 22
+      }
+    },
+    {
+      "id": "swh_190_251678186",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-07T14:00:00+00:00",
+      "price": 19946.7191404571,
+      "bar_index": 190,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 23
+      }
+    },
+    {
+      "id": "swh_193_914378228",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-07T14:45:00+00:00",
+      "price": 19956.776872831793,
+      "bar_index": 193,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 24
+      }
+    },
+    {
+      "id": "swh_204_427838968",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-07T17:30:00+00:00",
+      "price": 19960.556582376546,
+      "bar_index": 204,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 25
+      }
+    },
+    {
+      "id": "swh_211_620776900",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-07T19:15:00+00:00",
+      "price": 19908.79057941799,
+      "bar_index": 211,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 26
+      }
+    },
+    {
+      "id": "swh_218_511725006",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-07T21:00:00+00:00",
+      "price": 19918.559538668243,
+      "bar_index": 218,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 27
+      }
+    },
+    {
+      "id": "swh_228_335564276",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-07T23:30:00+00:00",
+      "price": 19956.049287152622,
+      "bar_index": 228,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 28
+      }
+    },
+    {
+      "id": "swh_233_696274396",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T00:45:00+00:00",
+      "price": 19932.72415757489,
+      "bar_index": 233,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 29
+      }
+    },
+    {
+      "id": "swh_245_209735044",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T03:45:00+00:00",
+      "price": 19844.75560205625,
+      "bar_index": 245,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 30
+      }
+    },
+    {
+      "id": "swh_249_1946176927",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-08T04:45:00+00:00",
+      "price": 19871.56969198017,
+      "bar_index": 249,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 31
+      }
+    },
+    {
+      "id": "swh_253_1560300968",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-08T05:45:00+00:00",
+      "price": 19880.49415810474,
+      "bar_index": 253,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 32
+      }
+    },
+    {
+      "id": "swh_257_184569255",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T06:45:00+00:00",
+      "price": 19879.469727898097,
+      "bar_index": 257,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 33
+      }
+    },
+    {
+      "id": "swh_269_2097171871",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T09:45:00+00:00",
+      "price": 19871.40606645027,
+      "bar_index": 269,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 34
+      }
+    },
+    {
+      "id": "swh_275_1652575688",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-08T11:15:00+00:00",
+      "price": 19912.850966742048,
+      "bar_index": 275,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 35
+      }
+    },
+    {
+      "id": "swh_281_1518357963",
+      "type": "structure",
+      "label": "HH",
+      "ts": "2026-01-08T12:45:00+00:00",
+      "price": 19915.111498877133,
+      "bar_index": 281,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 36
+      }
+    },
+    {
+      "id": "swh_284_511724999",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T13:30:00+00:00",
+      "price": 19911.386110515556,
+      "bar_index": 284,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 37
+      }
+    },
+    {
+      "id": "swh_292_922766789",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T15:30:00+00:00",
+      "price": 19909.47493102907,
+      "bar_index": 292,
+      "is_high": true,
+      "internal": true,
+      "metadata": {
+        "sequence": 38
+      }
+    },
+    {
+      "id": "swh_296_2055228840",
+      "type": "structure",
+      "label": "HL",
+      "ts": "2026-01-08T16:30:00+00:00",
+      "price": 19880.118117173162,
+      "bar_index": 296,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "sequence": 39
+      }
+    },
+    {
+      "id": "swl_10_671108591",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-05T17:00:00+00:00",
+      "price": 19951.818201974325,
+      "bar_index": 10,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "sequence": 0
+      }
+    },
+    {
+      "id": "swl_18_1535135238",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-05T19:00:00+00:00",
+      "price": 19974.6057955173,
+      "bar_index": 18,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 1
+      }
+    },
+    {
+      "id": "swl_21_1677741577",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-05T19:45:00+00:00",
+      "price": 19977.470581261237,
+      "bar_index": 21,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 2
+      }
+    },
+    {
+      "id": "swl_26_2088783370",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-05T21:00:00+00:00",
+      "price": 19978.515077020016,
+      "bar_index": 26,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 3
+      }
+    },
+    {
+      "id": "swl_33_1694518819",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-05T22:45:00+00:00",
+      "price": 20003.814937189025,
+      "bar_index": 33,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 4
+      }
+    },
+    {
+      "id": "swl_39_645942819",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T00:15:00+00:00",
+      "price": 20003.186278508325,
+      "bar_index": 39,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 5
+      }
+    },
+    {
+      "id": "swl_55_142626359",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-06T04:15:00+00:00",
+      "price": 20023.14611910476,
+      "bar_index": 55,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 6
+      }
+    },
+    {
+      "id": "swl_61_1241534000",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T05:45:00+00:00",
+      "price": 20016.587191232087,
+      "bar_index": 61,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 7
+      }
+    },
+    {
+      "id": "swl_72_964709922",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T08:30:00+00:00",
+      "price": 20002.35385265802,
+      "bar_index": 72,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 8
+      }
+    },
+    {
+      "id": "swl_84_1627409944",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T11:30:00+00:00",
+      "price": 19992.489034273436,
+      "bar_index": 84,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 9
+      }
+    },
+    {
+      "id": "swl_101_1593855447",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T15:45:00+00:00",
+      "price": 19927.723191755584,
+      "bar_index": 101,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 10
+      }
+    },
+    {
+      "id": "swl_109_1535135174",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T17:45:00+00:00",
+      "price": 19910.92496750291,
+      "bar_index": 109,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 11
+      }
+    },
+    {
+      "id": "swl_116_503336368",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-06T19:30:00+00:00",
+      "price": 19888.88715421896,
+      "bar_index": 116,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 12
+      }
+    },
+    {
+      "id": "swl_121_880823736",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-06T20:45:00+00:00",
+      "price": 19896.43228454274,
+      "bar_index": 121,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 13
+      }
+    },
+    {
+      "id": "swl_136_570445211",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-07T00:30:00+00:00",
+      "price": 19867.88024180873,
+      "bar_index": 136,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 14
+      }
+    },
+    {
+      "id": "swl_148_1568689583",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-07T03:30:00+00:00",
+      "price": 19887.993391107517,
+      "bar_index": 148,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 15
+      }
+    },
+    {
+      "id": "swl_154_1778404760",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-07T05:00:00+00:00",
+      "price": 19864.900409153503,
+      "bar_index": 154,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 16
+      }
+    },
+    {
+      "id": "swl_161_754994575",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-07T06:45:00+00:00",
+      "price": 19855.01007005605,
+      "bar_index": 161,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 17
+      }
+    },
+    {
+      "id": "swl_166_1619021214",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-07T08:00:00+00:00",
+      "price": 19870.380798672097,
+      "bar_index": 166,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 18
+      }
+    },
+    {
+      "id": "swl_174_327175557",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-07T10:00:00+00:00",
+      "price": 19845.562041839727,
+      "bar_index": 174,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 19
+      }
+    },
+    {
+      "id": "swl_183_394284462",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-07T12:15:00+00:00",
+      "price": 19886.68191334343,
+      "bar_index": 183,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 20
+      }
+    },
+    {
+      "id": "swl_188_25185716",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-07T13:30:00+00:00",
+      "price": 19892.266191118408,
+      "bar_index": 188,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 21
+      }
+    },
+    {
+      "id": "swl_196_1887456720",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-07T15:30:00+00:00",
+      "price": 19920.912621745727,
+      "bar_index": 196,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 22
+      }
+    },
+    {
+      "id": "swl_200_1577078222",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-07T16:30:00+00:00",
+      "price": 19918.959753342657,
+      "bar_index": 200,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 23
+      }
+    },
+    {
+      "id": "swl_214_1543523744",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-07T20:00:00+00:00",
+      "price": 19872.320009288116,
+      "bar_index": 214,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 24
+      }
+    },
+    {
+      "id": "swl_225_427838892",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-07T22:45:00+00:00",
+      "price": 19884.74342293311,
+      "bar_index": 225,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 25
+      }
+    },
+    {
+      "id": "swl_231_1870679489",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-08T00:15:00+00:00",
+      "price": 19905.329411819457,
+      "bar_index": 231,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 26
+      }
+    },
+    {
+      "id": "swl_247_1098927454",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-08T04:15:00+00:00",
+      "price": 19806.101801964,
+      "bar_index": 247,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 27
+      }
+    },
+    {
+      "id": "swl_263_1224756602",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-08T08:15:00+00:00",
+      "price": 19834.356015868085,
+      "bar_index": 263,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 28
+      }
+    },
+    {
+      "id": "swl_270_302009737",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-08T10:00:00+00:00",
+      "price": 19849.946615584326,
+      "bar_index": 270,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 29
+      }
+    },
+    {
+      "id": "swl_277_1837125032",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-08T11:45:00+00:00",
+      "price": 19880.20483630789,
+      "bar_index": 277,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 30
+      }
+    },
+    {
+      "id": "swl_282_939543978",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-08T13:00:00+00:00",
+      "price": 19882.06457650609,
+      "bar_index": 282,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 31
+      }
+    },
+    {
+      "id": "swl_285_880823722",
+      "type": "structure",
+      "label": "LH",
+      "ts": "2026-01-08T13:45:00+00:00",
+      "price": 19882.971915209117,
+      "bar_index": 285,
+      "is_high": false,
+      "internal": true,
+      "metadata": {
+        "sequence": 32
+      }
+    },
+    {
+      "id": "swl_294_1568689559",
+      "type": "structure",
+      "label": "LL",
+      "ts": "2026-01-08T16:00:00+00:00",
+      "price": 19863.08051988271,
+      "bar_index": 294,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "sequence": 33
+      }
+    },
+    {
+      "id": "choch_bear_14",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-05T18:00:00+00:00",
+      "price": 20006.373447843856,
+      "bar_index": 14,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 4,
+        "prior_price": 20015.745771106904
+      }
+    },
+    {
+      "id": "choch_bear_23",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-05T20:15:00+00:00",
+      "price": 20002.06356981642,
+      "bar_index": 23,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 14,
+        "prior_price": 20006.373447843856
+      }
+    },
+    {
+      "id": "bos_bull_30",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-05T22:00:00+00:00",
+      "price": 20038.558159757737,
+      "bar_index": 30,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 23,
+        "prior_price": 20002.06356981642
+      }
+    },
+    {
+      "id": "choch_bear_36",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-05T23:30:00+00:00",
+      "price": 20037.443564972484,
+      "bar_index": 36,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 30,
+        "prior_price": 20038.558159757737
+      }
+    },
+    {
+      "id": "bos_bull_41",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T00:45:00+00:00",
+      "price": 20039.238685608834,
+      "bar_index": 41,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 36,
+        "prior_price": 20037.443564972484
+      }
+    },
+    {
+      "id": "bos_bull_48",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T02:30:00+00:00",
+      "price": 20061.50308687608,
+      "bar_index": 48,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 41,
+        "prior_price": 20039.238685608834
+      }
+    },
+    {
+      "id": "bos_bull_52",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T03:30:00+00:00",
+      "price": 20071.71868950039,
+      "bar_index": 52,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 48,
+        "prior_price": 20061.50308687608
+      }
+    },
+    {
+      "id": "choch_bear_57",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-06T04:45:00+00:00",
+      "price": 20053.16636732942,
+      "bar_index": 57,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 52,
+        "prior_price": 20071.71868950039
+      }
+    },
+    {
+      "id": "bos_bull_65",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T06:45:00+00:00",
+      "price": 20054.462492053488,
+      "bar_index": 65,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 57,
+        "prior_price": 20053.16636732942
+      }
+    },
+    {
+      "id": "bos_bull_69",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T07:45:00+00:00",
+      "price": 20058.014695947455,
+      "bar_index": 69,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 65,
+        "prior_price": 20054.462492053488
+      }
+    },
+    {
+      "id": "choch_bear_75",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-06T09:15:00+00:00",
+      "price": 20031.82912421806,
+      "bar_index": 75,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 69,
+        "prior_price": 20058.014695947455
+      }
+    },
+    {
+      "id": "bos_bull_81",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T10:45:00+00:00",
+      "price": 20036.290208087205,
+      "bar_index": 81,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 75,
+        "prior_price": 20031.82912421806
+      }
+    },
+    {
+      "id": "choch_bear_92",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-06T13:30:00+00:00",
+      "price": 20025.216050541487,
+      "bar_index": 92,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 81,
+        "prior_price": 20036.290208087205
+      }
+    },
+    {
+      "id": "choch_bear_103",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-06T16:15:00+00:00",
+      "price": 19958.749242661444,
+      "bar_index": 103,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 92,
+        "prior_price": 20025.216050541487
+      }
+    },
+    {
+      "id": "choch_bear_112",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-06T18:30:00+00:00",
+      "price": 19929.22426447654,
+      "bar_index": 112,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 103,
+        "prior_price": 19958.749242661444
+      }
+    },
+    {
+      "id": "choch_bear_118",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-06T20:00:00+00:00",
+      "price": 19923.460320832855,
+      "bar_index": 118,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 112,
+        "prior_price": 19929.22426447654
+      }
+    },
+    {
+      "id": "bos_bull_126",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-06T22:00:00+00:00",
+      "price": 19960.175380666078,
+      "bar_index": 126,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 118,
+        "prior_price": 19923.460320832855
+      }
+    },
+    {
+      "id": "choch_bear_140",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-07T01:30:00+00:00",
+      "price": 19958.54091682033,
+      "bar_index": 140,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 126,
+        "prior_price": 19960.175380666078
+      }
+    },
+    {
+      "id": "choch_bear_150",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-07T04:00:00+00:00",
+      "price": 19916.615231657244,
+      "bar_index": 150,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 140,
+        "prior_price": 19958.54091682033
+      }
+    },
+    {
+      "id": "choch_bear_157",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-07T05:45:00+00:00",
+      "price": 19907.65178478596,
+      "bar_index": 157,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 150,
+        "prior_price": 19916.615231657244
+      }
+    },
+    {
+      "id": "choch_bear_167",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-07T08:15:00+00:00",
+      "price": 19897.287576128183,
+      "bar_index": 167,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 157,
+        "prior_price": 19907.65178478596
+      }
+    },
+    {
+      "id": "bos_bull_187",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-07T13:15:00+00:00",
+      "price": 19934.885647676387,
+      "bar_index": 187,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 167,
+        "prior_price": 19897.287576128183
+      }
+    },
+    {
+      "id": "bos_bull_190",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-07T14:00:00+00:00",
+      "price": 19946.7191404571,
+      "bar_index": 190,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 187,
+        "prior_price": 19934.885647676387
+      }
+    },
+    {
+      "id": "bos_bull_193",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-07T14:45:00+00:00",
+      "price": 19956.776872831793,
+      "bar_index": 193,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 190,
+        "prior_price": 19946.7191404571
+      }
+    },
+    {
+      "id": "bos_bull_204",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-07T17:30:00+00:00",
+      "price": 19960.556582376546,
+      "bar_index": 204,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 193,
+        "prior_price": 19956.776872831793
+      }
+    },
+    {
+      "id": "choch_bear_211",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-07T19:15:00+00:00",
+      "price": 19908.79057941799,
+      "bar_index": 211,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 204,
+        "prior_price": 19960.556582376546
+      }
+    },
+    {
+      "id": "bos_bull_218",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-07T21:00:00+00:00",
+      "price": 19918.559538668243,
+      "bar_index": 218,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 211,
+        "prior_price": 19908.79057941799
+      }
+    },
+    {
+      "id": "bos_bull_228",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-07T23:30:00+00:00",
+      "price": 19956.049287152622,
+      "bar_index": 228,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 218,
+        "prior_price": 19918.559538668243
+      }
+    },
+    {
+      "id": "choch_bear_233",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T00:45:00+00:00",
+      "price": 19932.72415757489,
+      "bar_index": 233,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 228,
+        "prior_price": 19956.049287152622
+      }
+    },
+    {
+      "id": "choch_bear_245",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T03:45:00+00:00",
+      "price": 19844.75560205625,
+      "bar_index": 245,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 233,
+        "prior_price": 19932.72415757489
+      }
+    },
+    {
+      "id": "bos_bull_249",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-08T04:45:00+00:00",
+      "price": 19871.56969198017,
+      "bar_index": 249,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 245,
+        "prior_price": 19844.75560205625
+      }
+    },
+    {
+      "id": "bos_bull_253",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-08T05:45:00+00:00",
+      "price": 19880.49415810474,
+      "bar_index": 253,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 249,
+        "prior_price": 19871.56969198017
+      }
+    },
+    {
+      "id": "choch_bear_257",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T06:45:00+00:00",
+      "price": 19879.469727898097,
+      "bar_index": 257,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 253,
+        "prior_price": 19880.49415810474
+      }
+    },
+    {
+      "id": "choch_bear_269",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T09:45:00+00:00",
+      "price": 19871.40606645027,
+      "bar_index": 269,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 257,
+        "prior_price": 19879.469727898097
+      }
+    },
+    {
+      "id": "bos_bull_275",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-08T11:15:00+00:00",
+      "price": 19912.850966742048,
+      "bar_index": 275,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 269,
+        "prior_price": 19871.40606645027
+      }
+    },
+    {
+      "id": "bos_bull_281",
+      "type": "structure",
+      "label": "BOS_bull",
+      "ts": "2026-01-08T12:45:00+00:00",
+      "price": 19915.111498877133,
+      "bar_index": 281,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 275,
+        "prior_price": 19912.850966742048
+      }
+    },
+    {
+      "id": "choch_bear_284",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T13:30:00+00:00",
+      "price": 19911.386110515556,
+      "bar_index": 284,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 281,
+        "prior_price": 19915.111498877133
+      }
+    },
+    {
+      "id": "choch_bear_292",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T15:30:00+00:00",
+      "price": 19909.47493102907,
+      "bar_index": 292,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 284,
+        "prior_price": 19911.386110515556
+      }
+    },
+    {
+      "id": "choch_bear_296",
+      "type": "structure",
+      "label": "CHoCH_bear",
+      "ts": "2026-01-08T16:30:00+00:00",
+      "price": 19880.118117173162,
+      "bar_index": 296,
+      "is_high": true,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 292,
+        "prior_price": 19909.47493102907
+      }
+    },
+    {
+      "id": "choch_bull_18",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-05T19:00:00+00:00",
+      "price": 19974.6057955173,
+      "bar_index": 18,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 10,
+        "prior_price": 19951.818201974325
+      }
+    },
+    {
+      "id": "choch_bull_21",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-05T19:45:00+00:00",
+      "price": 19977.470581261237,
+      "bar_index": 21,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 18,
+        "prior_price": 19974.6057955173
+      }
+    },
+    {
+      "id": "choch_bull_26",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-05T21:00:00+00:00",
+      "price": 19978.515077020016,
+      "bar_index": 26,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 21,
+        "prior_price": 19977.470581261237
+      }
+    },
+    {
+      "id": "choch_bull_33",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-05T22:45:00+00:00",
+      "price": 20003.814937189025,
+      "bar_index": 33,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 26,
+        "prior_price": 19978.515077020016
+      }
+    },
+    {
+      "id": "bos_bear_39",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T00:15:00+00:00",
+      "price": 20003.186278508325,
+      "bar_index": 39,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 33,
+        "prior_price": 20003.814937189025
+      }
+    },
+    {
+      "id": "choch_bull_55",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-06T04:15:00+00:00",
+      "price": 20023.14611910476,
+      "bar_index": 55,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 39,
+        "prior_price": 20003.186278508325
+      }
+    },
+    {
+      "id": "bos_bear_61",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T05:45:00+00:00",
+      "price": 20016.587191232087,
+      "bar_index": 61,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 55,
+        "prior_price": 20023.14611910476
+      }
+    },
+    {
+      "id": "bos_bear_72",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T08:30:00+00:00",
+      "price": 20002.35385265802,
+      "bar_index": 72,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 61,
+        "prior_price": 20016.587191232087
+      }
+    },
+    {
+      "id": "bos_bear_84",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T11:30:00+00:00",
+      "price": 19992.489034273436,
+      "bar_index": 84,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 72,
+        "prior_price": 20002.35385265802
+      }
+    },
+    {
+      "id": "bos_bear_101",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T15:45:00+00:00",
+      "price": 19927.723191755584,
+      "bar_index": 101,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 84,
+        "prior_price": 19992.489034273436
+      }
+    },
+    {
+      "id": "bos_bear_109",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T17:45:00+00:00",
+      "price": 19910.92496750291,
+      "bar_index": 109,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 101,
+        "prior_price": 19927.723191755584
+      }
+    },
+    {
+      "id": "bos_bear_116",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-06T19:30:00+00:00",
+      "price": 19888.88715421896,
+      "bar_index": 116,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 109,
+        "prior_price": 19910.92496750291
+      }
+    },
+    {
+      "id": "choch_bull_121",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-06T20:45:00+00:00",
+      "price": 19896.43228454274,
+      "bar_index": 121,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 116,
+        "prior_price": 19888.88715421896
+      }
+    },
+    {
+      "id": "bos_bear_136",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-07T00:30:00+00:00",
+      "price": 19867.88024180873,
+      "bar_index": 136,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 121,
+        "prior_price": 19896.43228454274
+      }
+    },
+    {
+      "id": "choch_bull_148",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-07T03:30:00+00:00",
+      "price": 19887.993391107517,
+      "bar_index": 148,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 136,
+        "prior_price": 19867.88024180873
+      }
+    },
+    {
+      "id": "bos_bear_154",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-07T05:00:00+00:00",
+      "price": 19864.900409153503,
+      "bar_index": 154,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 148,
+        "prior_price": 19887.993391107517
+      }
+    },
+    {
+      "id": "bos_bear_161",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-07T06:45:00+00:00",
+      "price": 19855.01007005605,
+      "bar_index": 161,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 154,
+        "prior_price": 19864.900409153503
+      }
+    },
+    {
+      "id": "choch_bull_166",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-07T08:00:00+00:00",
+      "price": 19870.380798672097,
+      "bar_index": 166,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 161,
+        "prior_price": 19855.01007005605
+      }
+    },
+    {
+      "id": "bos_bear_174",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-07T10:00:00+00:00",
+      "price": 19845.562041839727,
+      "bar_index": 174,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 166,
+        "prior_price": 19870.380798672097
+      }
+    },
+    {
+      "id": "choch_bull_183",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-07T12:15:00+00:00",
+      "price": 19886.68191334343,
+      "bar_index": 183,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 174,
+        "prior_price": 19845.562041839727
+      }
+    },
+    {
+      "id": "choch_bull_188",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-07T13:30:00+00:00",
+      "price": 19892.266191118408,
+      "bar_index": 188,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 183,
+        "prior_price": 19886.68191334343
+      }
+    },
+    {
+      "id": "choch_bull_196",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-07T15:30:00+00:00",
+      "price": 19920.912621745727,
+      "bar_index": 196,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 188,
+        "prior_price": 19892.266191118408
+      }
+    },
+    {
+      "id": "bos_bear_200",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-07T16:30:00+00:00",
+      "price": 19918.959753342657,
+      "bar_index": 200,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 196,
+        "prior_price": 19920.912621745727
+      }
+    },
+    {
+      "id": "bos_bear_214",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-07T20:00:00+00:00",
+      "price": 19872.320009288116,
+      "bar_index": 214,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 200,
+        "prior_price": 19918.959753342657
+      }
+    },
+    {
+      "id": "choch_bull_225",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-07T22:45:00+00:00",
+      "price": 19884.74342293311,
+      "bar_index": 225,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 214,
+        "prior_price": 19872.320009288116
+      }
+    },
+    {
+      "id": "choch_bull_231",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-08T00:15:00+00:00",
+      "price": 19905.329411819457,
+      "bar_index": 231,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 225,
+        "prior_price": 19884.74342293311
+      }
+    },
+    {
+      "id": "bos_bear_247",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-08T04:15:00+00:00",
+      "price": 19806.101801964,
+      "bar_index": 247,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 231,
+        "prior_price": 19905.329411819457
+      }
+    },
+    {
+      "id": "choch_bull_263",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-08T08:15:00+00:00",
+      "price": 19834.356015868085,
+      "bar_index": 263,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 247,
+        "prior_price": 19806.101801964
+      }
+    },
+    {
+      "id": "choch_bull_270",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-08T10:00:00+00:00",
+      "price": 19849.946615584326,
+      "bar_index": 270,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 263,
+        "prior_price": 19834.356015868085
+      }
+    },
+    {
+      "id": "choch_bull_277",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-08T11:45:00+00:00",
+      "price": 19880.20483630789,
+      "bar_index": 277,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 270,
+        "prior_price": 19849.946615584326
+      }
+    },
+    {
+      "id": "choch_bull_282",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-08T13:00:00+00:00",
+      "price": 19882.06457650609,
+      "bar_index": 282,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 277,
+        "prior_price": 19880.20483630789
+      }
+    },
+    {
+      "id": "choch_bull_285",
+      "type": "structure",
+      "label": "CHoCH_bull",
+      "ts": "2026-01-08T13:45:00+00:00",
+      "price": 19882.971915209117,
+      "bar_index": 285,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 282,
+        "prior_price": 19882.06457650609
+      }
+    },
+    {
+      "id": "bos_bear_294",
+      "type": "structure",
+      "label": "BOS_bear",
+      "ts": "2026-01-08T16:00:00+00:00",
+      "price": 19863.08051988271,
+      "bar_index": 294,
+      "is_high": false,
+      "internal": false,
+      "metadata": {
+        "prior_swing_bar": 285,
+        "prior_price": 19882.971915209117
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "id": "session_2026-01-05_London",
+      "type": "session",
+      "name": "London",
+      "open_ts": "2026-01-05T14:30:00+00:00",
+      "close_ts": "2026-01-05T16:00:00+00:00",
+      "open_price": 20000.0,
+      "close_price": 19973.96449512035,
+      "high": 20015.745771106904,
+      "low": 19968.351453114465,
+      "range": 47.39431799243903,
+      "midpoint": 19992.048612110684,
+      "metadata": {
+        "date_ct": "2026-01-05"
+      }
+    },
+    {
+      "id": "day_2026-01-05",
+      "type": "session",
+      "name": "current_day",
+      "open_ts": "2026-01-05T14:30:00+00:00",
+      "close_ts": "2026-01-06T05:45:00+00:00",
+      "open_price": 20000.0,
+      "close_price": 20022.792477292813,
+      "high": 20071.71868950039,
+      "low": 19951.818201974325,
+      "range": 119.90048752606526,
+      "midpoint": 20011.768445737358,
+      "metadata": {
+        "date_ct": "2026-01-05",
+        "day_high": 20071.71868950039,
+        "day_low": 19951.818201974325
+      }
+    },
+    {
+      "id": "session_2026-01-05_NY",
+      "type": "session",
+      "name": "NY",
+      "open_ts": "2026-01-05T16:15:00+00:00",
+      "close_ts": "2026-01-05T21:00:00+00:00",
+      "open_price": 19973.96449512035,
+      "close_price": 19991.545111343163,
+      "high": 20006.373447843856,
+      "low": 19951.818201974325,
+      "range": 54.55524586953106,
+      "midpoint": 19979.09582490909,
+      "metadata": {
+        "date_ct": "2026-01-05"
+      }
+    },
+    {
+      "id": "session_2026-01-05_Asia",
+      "type": "session",
+      "name": "Asia",
+      "open_ts": "2026-01-06T00:00:00+00:00",
+      "close_ts": "2026-01-06T05:45:00+00:00",
+      "open_price": 20020.453862384926,
+      "close_price": 20022.792477292813,
+      "high": 20071.71868950039,
+      "low": 20003.186278508325,
+      "range": 68.5324109920657,
+      "midpoint": 20037.45248400436,
+      "metadata": {
+        "date_ct": "2026-01-05"
+      }
+    },
+    {
+      "id": "session_2026-01-06_Asia",
+      "type": "session",
+      "name": "Asia",
+      "open_ts": "2026-01-06T06:00:00+00:00",
+      "close_ts": "2026-01-07T05:45:00+00:00",
+      "open_price": 20022.792477292813,
+      "close_price": 19902.60166835528,
+      "high": 20058.014695947455,
+      "low": 19864.900409153503,
+      "range": 193.1142867939525,
+      "midpoint": 19961.457552550477,
+      "metadata": {
+        "date_ct": "2026-01-06"
+      }
+    },
+    {
+      "id": "day_2026-01-06",
+      "type": "session",
+      "name": "current_day",
+      "open_ts": "2026-01-06T06:00:00+00:00",
+      "close_ts": "2026-01-07T05:45:00+00:00",
+      "open_price": 20022.792477292813,
+      "close_price": 19902.60166835528,
+      "high": 20058.014695947455,
+      "low": 19864.900409153503,
+      "range": 193.1142867939525,
+      "midpoint": 19961.457552550477,
+      "metadata": {
+        "date_ct": "2026-01-06",
+        "day_high": 20058.014695947455,
+        "day_low": 19864.900409153503
+      }
+    },
+    {
+      "id": "prev_day_2026-01-06",
+      "type": "session",
+      "name": "prev_day",
+      "open_ts": "2026-01-06T06:00:00+00:00",
+      "close_ts": "2026-01-07T05:45:00+00:00",
+      "open_price": 20071.71868950039,
+      "close_price": 19951.818201974325,
+      "high": 20071.71868950039,
+      "low": 19951.818201974325,
+      "range": 119.90048752606526,
+      "midpoint": 20011.768445737358,
+      "metadata": {
+        "date_ct": "2026-01-06",
+        "prev_high": 20071.71868950039,
+        "prev_low": 19951.818201974325
+      }
+    },
+    {
+      "id": "session_2026-01-06_London",
+      "type": "session",
+      "name": "London",
+      "open_ts": "2026-01-06T08:15:00+00:00",
+      "close_ts": "2026-01-06T16:00:00+00:00",
+      "open_price": 20032.79396824779,
+      "close_price": 19946.454087491595,
+      "high": 20037.670185632538,
+      "low": 19927.723191755584,
+      "range": 109.94699387695437,
+      "midpoint": 19982.69668869406,
+      "metadata": {
+        "date_ct": "2026-01-06"
+      }
+    },
+    {
+      "id": "session_2026-01-06_NY",
+      "type": "session",
+      "name": "NY",
+      "open_ts": "2026-01-06T16:15:00+00:00",
+      "close_ts": "2026-01-06T21:00:00+00:00",
+      "open_price": 19946.454087491595,
+      "close_price": 19905.53057863782,
+      "high": 19958.749242661444,
+      "low": 19888.88715421896,
+      "range": 69.8620884424854,
+      "midpoint": 19923.818198440204,
+      "metadata": {
+        "date_ct": "2026-01-06"
+      }
+    },
+    {
+      "id": "session_2026-01-07_Asia",
+      "type": "session",
+      "name": "Asia",
+      "open_ts": "2026-01-07T06:00:00+00:00",
+      "close_ts": "2026-01-08T05:45:00+00:00",
+      "open_price": 19902.60166835528,
+      "close_price": 19862.63065363149,
+      "high": 19941.461386976516,
+      "low": 19806.101801964,
+      "range": 135.35958501251662,
+      "midpoint": 19873.78159447026,
+      "metadata": {
+        "date_ct": "2026-01-07"
+      }
+    },
+    {
+      "id": "day_2026-01-07",
+      "type": "session",
+      "name": "current_day",
+      "open_ts": "2026-01-07T06:00:00+00:00",
+      "close_ts": "2026-01-08T05:45:00+00:00",
+      "open_price": 19902.60166835528,
+      "close_price": 19862.63065363149,
+      "high": 19960.556582376546,
+      "low": 19806.101801964,
+      "range": 154.45478041254682,
+      "midpoint": 19883.329192170273,
+      "metadata": {
+        "date_ct": "2026-01-07",
+        "day_high": 19960.556582376546,
+        "day_low": 19806.101801964
+      }
+    },
+    {
+      "id": "prev_day_2026-01-07",
+      "type": "session",
+      "name": "prev_day",
+      "open_ts": "2026-01-07T06:00:00+00:00",
+      "close_ts": "2026-01-08T05:45:00+00:00",
+      "open_price": 20058.014695947455,
+      "close_price": 19864.900409153503,
+      "high": 20058.014695947455,
+      "low": 19864.900409153503,
+      "range": 193.1142867939525,
+      "midpoint": 19961.457552550477,
+      "metadata": {
+        "date_ct": "2026-01-07",
+        "prev_high": 20058.014695947455,
+        "prev_low": 19864.900409153503
+      }
+    },
+    {
+      "id": "session_2026-01-07_London",
+      "type": "session",
+      "name": "London",
+      "open_ts": "2026-01-07T08:15:00+00:00",
+      "close_ts": "2026-01-07T16:00:00+00:00",
+      "open_price": 19888.1972991554,
+      "close_price": 19928.879575616535,
+      "high": 19956.776872831793,
+      "low": 19845.562041839727,
+      "range": 111.21483099206671,
+      "midpoint": 19901.16945733576,
+      "metadata": {
+        "date_ct": "2026-01-07"
+      }
+    },
+    {
+      "id": "session_2026-01-07_NY",
+      "type": "session",
+      "name": "NY",
+      "open_ts": "2026-01-07T16:15:00+00:00",
+      "close_ts": "2026-01-07T21:00:00+00:00",
+      "open_price": 19928.879575616535,
+      "close_price": 19910.579480222248,
+      "high": 19960.556582376546,
+      "low": 19872.320009288116,
+      "range": 88.2365730884303,
+      "midpoint": 19916.438295832333,
+      "metadata": {
+        "date_ct": "2026-01-07"
+      }
+    },
+    {
+      "id": "session_2026-01-08_Asia",
+      "type": "session",
+      "name": "Asia",
+      "open_ts": "2026-01-08T06:00:00+00:00",
+      "close_ts": "2026-01-08T08:00:00+00:00",
+      "open_price": 19862.63065363149,
+      "close_price": 19848.345369024846,
+      "high": 19879.469727898097,
+      "low": 19839.243455147185,
+      "range": 40.22627275091145,
+      "midpoint": 19859.356591522643,
+      "metadata": {
+        "date_ct": "2026-01-08"
+      }
+    },
+    {
+      "id": "day_2026-01-08",
+      "type": "session",
+      "name": "current_day",
+      "open_ts": "2026-01-08T06:00:00+00:00",
+      "close_ts": "2026-01-08T17:15:00+00:00",
+      "open_price": 19862.63065363149,
+      "close_price": 19852.115945594167,
+      "high": 19915.111498877133,
+      "low": 19834.356015868085,
+      "range": 80.75548300904848,
+      "midpoint": 19874.73375737261,
+      "metadata": {
+        "date_ct": "2026-01-08",
+        "day_high": 19915.111498877133,
+        "day_low": 19834.356015868085
+      }
+    },
+    {
+      "id": "prev_day_2026-01-08",
+      "type": "session",
+      "name": "prev_day",
+      "open_ts": "2026-01-08T06:00:00+00:00",
+      "close_ts": "2026-01-08T17:15:00+00:00",
+      "open_price": 19960.556582376546,
+      "close_price": 19806.101801964,
+      "high": 19960.556582376546,
+      "low": 19806.101801964,
+      "range": 154.45478041254682,
+      "midpoint": 19883.329192170273,
+      "metadata": {
+        "date_ct": "2026-01-08",
+        "prev_high": 19960.556582376546,
+        "prev_low": 19806.101801964
+      }
+    },
+    {
+      "id": "session_2026-01-08_London",
+      "type": "session",
+      "name": "London",
+      "open_ts": "2026-01-08T08:15:00+00:00",
+      "close_ts": "2026-01-08T16:00:00+00:00",
+      "open_price": 19848.345369024846,
+      "close_price": 19868.053559222484,
+      "high": 19915.111498877133,
+      "low": 19834.356015868085,
+      "range": 80.75548300904848,
+      "midpoint": 19874.73375737261,
+      "metadata": {
+        "date_ct": "2026-01-08"
+      }
+    },
+    {
+      "id": "session_2026-01-08_NY",
+      "type": "session",
+      "name": "NY",
+      "open_ts": "2026-01-08T16:15:00+00:00",
+      "close_ts": "2026-01-08T17:15:00+00:00",
+      "open_price": 19868.053559222484,
+      "close_price": 19852.115945594167,
+      "high": 19880.118117173162,
+      "low": 19840.91973500601,
+      "range": 39.198382167152886,
+      "midpoint": 19860.518926089586,
+      "metadata": {
+        "date_ct": "2026-01-08"
+      }
+    }
+  ]
+}
