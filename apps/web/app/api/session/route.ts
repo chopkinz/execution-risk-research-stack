@@ -1,6 +1,12 @@
 import { fetchMarketData, fetchYahooCandles1h, getYahooSymbol } from "../../../lib/market";
 import { runSessionAnalysis } from "../../../lib/sessionAnalysis";
-import type { SessionLevel, FairValueGap, LiquiditySweep } from "../../../lib/sessionAnalysis";
+import type {
+  SessionLevel,
+  FairValueGap,
+  LiquiditySweep,
+  TimeOfDayBucket,
+  TradeSuggestion,
+} from "../../../lib/sessionAnalysis";
 
 export type SessionSummary = {
   symbol: string;
@@ -18,6 +24,8 @@ export type SessionSummary = {
   sweeps?: LiquiditySweep[];
   predicting_ny?: string;
   opportunities?: string[];
+  time_of_day?: TimeOfDayBucket[];
+  trades?: TradeSuggestion[];
 };
 
 function detectPattern(
@@ -87,6 +95,8 @@ export async function GET(request: Request) {
           entry.sweeps = analysis.sweeps;
           entry.predicting_ny = analysis.predicting_ny;
           entry.opportunities = analysis.opportunities;
+          entry.time_of_day = analysis.time_of_day;
+          entry.trades = analysis.trades;
         }
       } catch {
         // keep entry without 1h analysis

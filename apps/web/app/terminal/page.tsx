@@ -20,6 +20,25 @@ type SessionLevel = {
 type FairValueGap = { kind: "bullish" | "bearish"; top: number; bottom: number; label: string };
 type LiquiditySweep = { kind: "high_sweep" | "low_sweep"; level: number; label: string };
 
+type TimeOfDayBucket = {
+  hourUtc: number;
+  label: string;
+  days: number;
+  avgReturnPct: number;
+  winRate: number;
+  avgRangePct: number;
+};
+
+type TradeSuggestion = {
+  timeLabel: string;
+  side: "long" | "short";
+  entry: number;
+  sl: number;
+  tp: number;
+  rr: number;
+  reason: string;
+};
+
 type SessionSummary = {
   symbol: string;
   session_high: number;
@@ -36,6 +55,8 @@ type SessionSummary = {
   sweeps?: LiquiditySweep[];
   predicting_ny?: string;
   opportunities?: string[];
+  time_of_day?: TimeOfDayBucket[];
+  trades?: TradeSuggestion[];
 };
 
 type SessionPayload = {
@@ -417,6 +438,62 @@ export default function TerminalPage() {
                       <li key={i}>{formatPricesInText(s.symbol, opp)}</li>
                     ))}
                   </Box>
+                </Box>
+              )}
+
+              {s.time_of_day && s.time_of_day.length > 0 && (
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "info.main" }}>Same time every day</Box>
+                  <Box sx={{ mt: 0.5, fontSize: "0.75rem", color: "text.secondary" }}>
+                    What price has done at that hour across recent days (win rate, avg move).
+                  </Box>
+                  <Box component="ul" sx={{ mt: 0.5, pl: 2, listStyle: "none", fontSize: "0.75rem", display: "flex", flexWrap: "wrap", gap: 1 }}>
+                    {s.time_of_day.slice(0, 6).map((t, i) => (
+                      <li key={i}>
+                        <Box component="span" sx={{ color: "text.primary" }}>{t.label}</Box>
+                        {" "}
+                        <Box component="span" sx={{ color: t.avgReturnPct >= 0 ? "success.main" : "error.main" }}>
+                          {(t.avgReturnPct >= 0 ? "+" : "") + t.avgReturnPct.toFixed(2)}%
+                        </Box>
+                        {" · "}
+                        <Box component="span" sx={{ color: "text.secondary" }}>{(t.winRate * 100).toFixed(0)}% up</Box>
+                      </li>
+                    ))}
+                  </Box>
+                </Box>
+              )}
+
+              {s.trades && s.trades.length > 0 && (
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "primary.main" }}>Exact trades (entry · SL · TP)</Box>
+                  <Box sx={{ mt: 0.5, fontSize: "0.75rem", color: "text.secondary" }}>
+                    Suggested plays from pattern at same time; SL/TP auto from structure.
+                  </Box>
+                  <Stack spacing={1} sx={{ mt: 1 }}>
+                    {s.trades.map((tr, i) => (
+                      <Box
+                        key={i}
+                        sx={{
+                          p: 1.25,
+                          borderRadius: 1,
+                          border: 1,
+                          borderColor: tr.side === "long" ? "success.main" : "error.main",
+                          bgcolor: tr.side === "long" ? "rgba(0, 127, 0, 0.08)" : "rgba(211, 47, 47, 0.08)",
+                          fontSize: "0.75rem",
+                        }}
+                      >
+                        <Box sx={{ fontWeight: 600, color: "text.primary" }}>
+                          {tr.timeLabel} · {tr.side.toUpperCase()} @ {formatPrice(s.symbol, tr.entry)}
+                        </Box>
+                        <Box sx={{ mt: 0.5, display: "flex", flexWrap: "wrap", gap: 1, color: "text.secondary" }}>
+                          <Box component="span">SL {formatPrice(s.symbol, tr.sl)}</Box>
+                          <Box component="span">TP {formatPrice(s.symbol, tr.tp)}</Box>
+                          <Box component="span">~{tr.rr.toFixed(1)}R</Box>
+                        </Box>
+                        <Box sx={{ mt: 0.5, color: "text.secondary", fontStyle: "italic" }}>{formatPricesInText(s.symbol, tr.reason)}</Box>
+                      </Box>
+                    ))}
+                  </Stack>
                 </Box>
               )}
             </Box>
