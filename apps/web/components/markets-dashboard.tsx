@@ -2,6 +2,7 @@
 
 import { ColorType, createChart, type IChartApi, type ISeriesApi, type UTCTimestamp } from "lightweight-charts";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ChartSkeleton } from "./chart-skeleton";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Panel } from "./ui/panel";
@@ -207,7 +208,7 @@ export function MarketsDashboard() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-end">
-        <Badge tone={statusDegraded ? "amber" : "green"}>{statusDegraded ? "Data: Degraded" : "Data: Online"}</Badge>
+        <Badge tone={statusDegraded ? "amber" : "green"}>{statusDegraded ? "Data: Limited" : "Data: Live"}</Badge>
       </div>
       <div className="grid gap-4 xl:grid-cols-[260px_minmax(0,1fr)_300px]">
         <Panel title="Watchlist" subtitle="Quick symbols and advanced instruments">
@@ -247,7 +248,7 @@ export function MarketsDashboard() {
 
         <Panel
           title="Chart"
-          subtitle="Daily candles with clean tooling for review and research."
+          subtitle="Daily candles for review and research."
           right={<Tabs options={STYLE_OPTIONS.map((o) => ({ id: o.id, label: o.label }))} active={styleMode} onChange={(id) => setStyleMode(id as StyleMode)} />}
         >
           <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-6">
@@ -274,11 +275,11 @@ export function MarketsDashboard() {
             <Badge tone={data?.source === "fallback_proxy" ? "amber" : "gray"}>
               {data ? sourceLabel(data.source) : "Source pending"}
             </Badge>
-            {data?.source === "fallback_proxy" ? <Badge tone="amber">Degraded (proxy)</Badge> : null}
+            {data?.source === "fallback_proxy" ? <Badge tone="amber">Limited (proxy)</Badge> : null}
           </div>
-          <div className="h-[480px] rounded-lg border border-slate-200 bg-white">
+          <div className="h-[480px] rounded-lg border border-slate-200 bg-white overflow-hidden">
             {loading ? (
-              <div className="flex h-full items-center justify-center text-sm text-slate-500">Loading data...</div>
+              <ChartSkeleton height={480} />
             ) : error ? (
               <div className="flex h-full flex-col items-center justify-center gap-3">
                 <p className="text-sm text-amber-700">Data temporarily unavailable</p>
@@ -303,11 +304,11 @@ export function MarketsDashboard() {
               <p className="tabular font-medium">{data?.resolvedSymbol ?? "n/a"}</p>
             </div>
             <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
-              <p className="text-xs uppercase tracking-wide text-slate-500">OHLC (crosshair)</p>
+              <p className="text-xs uppercase tracking-wide text-slate-500">OHLC at crosshair</p>
               <p className="tabular text-xs">
                 {hover
-                  ? `O ${numberFmt(hover.open)} · H ${numberFmt(hover.high)} · L ${numberFmt(hover.low)} · C ${numberFmt(hover.close)}`
-                  : "Move crosshair over chart"}
+                  ? `Open ${numberFmt(hover.open)} · High ${numberFmt(hover.high)} · Low ${numberFmt(hover.low)} · Close ${numberFmt(hover.close)}`
+                  : "Hover over the chart to see values"}
               </p>
             </div>
             {data?.note ? <div className="rounded-md border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800">{data.note}</div> : null}

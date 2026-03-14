@@ -1,24 +1,34 @@
-import type { Metadata } from "next";
-import { TopNav } from "../components/top-nav";
+import type { Metadata, Viewport } from "next";
+import { ThemeProvider } from "../components/providers/ThemeProvider";
+import { AppLayout } from "../components/providers/AppLayout";
 import "./globals.css";
+
+
+const FAVICON_URL = '/assets/favicon/meridian-favicon.png';
 
 export const metadata: Metadata = {
   title: "Meridian Terminal",
+  description: "Research platform: markets, backtests, and risk analytics.",
+  icons: {
+    icon: FAVICON_URL,
+    shortcut: FAVICON_URL,
+    apple: FAVICON_URL,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <div className="min-h-screen bg-white">
-          <TopNav />
-          <main className="mx-auto w-full max-w-[1480px] px-4 py-6 md:px-8 md:py-8">{children}</main>
-          <footer className="border-t border-slate-200 bg-white px-4 py-4 text-xs text-slate-500 md:px-8">
-            <div className="mx-auto flex w-full max-w-[1480px] items-center justify-between">
-              <span>v0.1 • Data: Yahoo Finance / Stooq • For visualization and research workflows.</span>
-            </div>
-          </footer>
-        </div>
+        <ThemeProvider>
+          <AppLayout>{children}</AppLayout>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,7 +1,10 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { Tabs } from "./ui/tabs";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
 
 type ArtifactTabsProps = {
   urls: {
@@ -16,7 +19,7 @@ const TAB_OPTIONS = [
   { id: "equity", label: "Equity" },
   { id: "drawdown", label: "Drawdown" },
   { id: "risk_rejections", label: "Risk rejections" },
-  { id: "monte_carlo", label: "Monte Carlo" },
+  { id: "monte_carlo", label: "Robustness" },
 ] as const;
 
 export function ResearchArtifactTabs({ urls }: ArtifactTabsProps) {
@@ -30,36 +33,61 @@ export function ResearchArtifactTabs({ urls }: ArtifactTabsProps) {
     return urls.monteCarlo;
   }, [tab, urls]);
 
-  const onImageError = useCallback(() => {
-    setImageError(true);
-  }, []);
+  const onImageError = useCallback(() => setImageError(true), []);
 
-  const onTabChange = useCallback((id: string) => {
-    setTab(id as (typeof TAB_OPTIONS)[number]["id"]);
+  const onTabChange = useCallback((_: React.SyntheticEvent, value: string) => {
+    setTab(value as (typeof TAB_OPTIONS)[number]["id"]);
     setImageError(false);
   }, []);
 
   const showPlaceholder = !content || imageError;
 
   return (
-    <div className="space-y-3">
-      <Tabs active={tab} onChange={onTabChange} options={[...TAB_OPTIONS]} />
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+    <Box>
+      <Tabs value={tab} onChange={onTabChange} variant="fullWidth" sx={{ mb: 2 }}>
+        {TAB_OPTIONS.map((t) => (
+          <Tab key={t.id} value={t.id} label={t.label} />
+        ))}
+      </Tabs>
+      <Box
+        sx={{
+          overflow: "hidden",
+          borderRadius: 1,
+          border: 1,
+          borderColor: "divider",
+          bgcolor: "background.paper",
+          minHeight: 320,
+        }}
+      >
         {content && !showPlaceholder ? (
-          <img
+          <Box
+            component="img"
             src={content}
-            alt={`${tab} artifact`}
-            className="h-auto w-full"
+            alt={`${tab} chart`}
             onError={onImageError}
+            sx={{ width: "100%", height: "auto", display: "block", verticalAlign: "middle" }}
           />
         ) : (
-          <div className="flex h-[320px] items-center justify-center px-4 text-center text-sm text-slate-500">
-            {tab === "monte_carlo"
-              ? "Monte Carlo drawdown distribution not available for this run. Run a backtest with Monte Carlo resampling to generate it."
-              : "Artifact not available for this run."}
-          </div>
+          <Box
+            sx={{
+              height: 320,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              px: 3,
+              py: 4,
+              textAlign: "center",
+              bgcolor: "action.hover",
+            }}
+          >
+            <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>
+              {tab === "monte_carlo"
+                ? "Run a backtest with robustness analysis to see this chart."
+                : "Run a backtest to see this chart."}
+            </Typography>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

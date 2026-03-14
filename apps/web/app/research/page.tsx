@@ -2,53 +2,32 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import { ResearchArtifactTabs } from "../../components/research-artifact-tabs";
-import { Badge } from "../../components/ui/badge";
-import { Button } from "../../components/ui/button";
-import { Panel } from "../../components/ui/panel";
-
-type Summary = {
-  timestamp_utc?: string;
-  instrument?: string;
-  start?: string;
-  end?: string;
-  trades?: number;
-  max_drawdown_pct?: number;
-  risk?: {
-    max_daily_loss_pct?: number;
-    max_exposure_pct?: number;
-    max_gross_exposure?: number;
-    kill_switch_drawdown_pct?: number;
-    max_drawdown_pct?: number;
-  };
-  execution?: {
-    spread_model?: string;
-    slippage_model?: string;
-    fees_model?: string;
-  };
-};
-
-type StatusPayload = {
-  ready: boolean;
-  lastRunAtUtc: string | null;
-  missing: string[];
-  readyRiskLab?: boolean;
-  readyExecutionLab?: boolean;
-};
+import { ChartSkeleton } from "../../components/chart-skeleton";
+import type { RunSummary, ResearchStatus } from "../../lib/domain";
 
 const ARTIFACT_BASE = "/research/latest";
 
 export default function ResearchPage() {
-  const [summary, setSummary] = useState<Summary | null>(null);
+  const [summary, setSummary] = useState<RunSummary | null>(null);
   const [report, setReport] = useState<string>("");
-  const [status, setStatus] = useState<StatusPayload | null>(null);
+  const [status, setStatus] = useState<ResearchStatus | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
   const [running, setRunning] = useState(false);
   const [runMessage, setRunMessage] = useState<string>("");
 
   const fetchArtifacts = useCallback(async () => {
     const statusRes = await fetch("/api/research/status", { cache: "no-store" });
-    const statusPayload = (await statusRes.json()) as StatusPayload;
+    const statusPayload = (await statusRes.json()) as ResearchStatus;
     setStatus(statusPayload);
 
     if (statusPayload.ready) {
@@ -56,12 +35,9 @@ export default function ResearchPage() {
         fetch(`${ARTIFACT_BASE}/summary.json`, { cache: "no-store" }),
         fetch(`${ARTIFACT_BASE}/report.md`, { cache: "no-store" }),
       ]);
-      if (summaryRes.ok) {
-        setSummary((await summaryRes.json()) as Summary);
-      }
-      if (reportRes.ok) {
-        setReport(await reportRes.text());
-      }
+      if (summaryRes.ok) setSummary((await summaryRes.json()) as RunSummary);
+      else setSummary(null);
+      if (reportRes.ok) setReport(await reportRes.text());
     } else {
       setSummary(null);
       setReport("");
@@ -80,7 +56,7 @@ export default function ResearchPage() {
 
     if (res.headers.get("content-type")?.includes("application/json")) {
       const payload = (await res.json()) as { message?: string };
-      setRunMessage(payload.message ?? "Engine run unavailable.");
+      setRunMessage(payload.message ?? "Backtest service isn’t available. Try again in a moment.");
       setRunning(false);
       return;
     }
@@ -97,164 +73,217 @@ export default function ResearchPage() {
         buffer += decoder.decode(value, { stream: true });
         const chunks = buffer.split("\n\n");
         buffer = chunks.pop() ?? "";
-
         for (const chunk of chunks) {
-          const event = chunk.match(/^event:\s*(.+)$/m)?.[1];
           const dataLine = chunk.match(/^data:\s*(.+)$/m)?.[1];
           if (!dataLine) continue;
-          const payload = JSON.parse(dataLine) as {
-            ok?: boolean;
-            message?: string;
-            stream?: string;
-          };
-          const message = payload.message ?? "";
-          if (event === "log" && message) {
-            setLogs((prev) => [...prev, message.trimEnd()]);
-          }
+          const payload = JSON.parse(dataLine) as { ok?: boolean; message?: string };
+          const event = chunk.match(/^event:\s*(.+)$/m)?.[1];
+          if (event === "log" && payload.message) setLogs((prev) => [...prev, payload.message!.trimEnd()]);
           if (event === "end") {
             success = Boolean(payload.ok);
-            setRunMessage(message);
+            setRunMessage(payload.message ?? "");
           }
         }
       }
     }
-
     setRunning(false);
-    if (success) {
-      await fetchArtifacts();
-    }
+    if (success) fetchArtifacts();
   }, [fetchArtifacts]);
 
-  const urls = useMemo(
-    () => ({
-      equity: `${ARTIFACT_BASE}/equity_curve.png`,
-      drawdown: `${ARTIFACT_BASE}/drawdown.png`,
-      risk: `${ARTIFACT_BASE}/risk_rejections.png`,
-      monteCarlo: `${ARTIFACT_BASE}/monte_carlo_dd.png`,
-    }),
-    []
-  );
+  const urls = useMemo(() => {
+    const t = summary?.timestamp_utc ?? status?.lastRunAtUtc ?? "";
+    const q = t ? `?t=${encodeURIComponent(t)}` : "";
+    return {
+      equity: `${ARTIFACT_BASE}/equity_curve.png${q}`,
+      drawdown: `${ARTIFACT_BASE}/drawdown.png${q}`,
+      risk: `${ARTIFACT_BASE}/risk_rejections.png${q}`,
+      monteCarlo: `${ARTIFACT_BASE}/monte_carlo_dd.png${q}`,
+    };
+  }, [summary?.timestamp_utc, status?.lastRunAtUtc]);
 
   const showMetadata = status?.ready && summary;
 
   return (
-    <div className="space-y-5">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-semibold text-slate-900 md:text-3xl">Research</h1>
-          <p className="mt-1 text-sm text-slate-600">
-            Inspect the latest run: equity, drawdown, trades, risk rejections, and report. Run from Simulation Lab (configurable) or &quot;Run Latest Backtest&quot; (demo pipeline).
-          </p>
-        </div>
-        <Button onClick={runEngine} disabled={running}>
-          {running ? "Running..." : "Run Latest Backtest"}
-        </Button>
-      </header>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, md: 4 } }}>
+      <Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" alignItems="flex-start" gap={2}>
+        <Box sx={{ flex: "1 1 auto", minWidth: 0 }}>
+          <Typography variant="h4" fontWeight={600} gutterBottom>
+            Research
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            View the latest run: equity, drawdown, trades, risk rejections, and report. Run the demo backtest here, or
+            use Simulation with your own symbol.
+          </Typography>
+        </Box>
+        <Tooltip title="Runs a full backtest with sample data. Results appear here and in the charts below.">
+          <Button
+            variant="contained"
+            onClick={runEngine}
+            disabled={running}
+            size="large"
+            fullWidth
+            sx={{ width: { sm: "auto" }, minHeight: 44 }}
+          >
+            {running ? "Running…" : "Run demo backtest"}
+          </Button>
+        </Tooltip>
+      </Stack>
 
-      {runMessage ? (
-        <Panel title="Run Status" subtitle="Engine execution gate and latest response">
-          <p className="text-sm text-slate-700">{runMessage}</p>
-        </Panel>
-      ) : null}
+      {runMessage && (
+        <Card variant="outlined">
+          <CardHeader title="Last run status" subheader="What happened when you ran the backtest" />
+          <CardContent>
+            <Typography variant="body2">{runMessage}</Typography>
+          </CardContent>
+        </Card>
+      )}
 
-      <div className="grid gap-4 xl:grid-cols-[340px_minmax(0,1fr)]">
-        <Panel title="Run Metadata" subtitle="Loaded from summary.json">
-          {showMetadata ? (
-            <div className="space-y-3 text-sm text-slate-700">
-              <div className="flex items-center justify-between">
-                <span>Instrument</span>
-                <span className="tabular font-medium">{summary.instrument ?? "—"}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Date Range</span>
-                <span className="tabular font-medium">
-                  {summary.start ?? "—"} to {summary.end ?? "—"}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Trades</span>
-                <span className="tabular font-medium">{summary.trades ?? "—"}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Max Drawdown</span>
-                <span className="tabular font-medium">{summary.max_drawdown_pct != null ? `${summary.max_drawdown_pct.toFixed(2)}%` : "n/a"}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Last Run</span>
-                <span className="tabular text-xs font-medium">
-                  {status?.lastRunAtUtc ?? summary.timestamp_utc ?? "n/a"}
-                </span>
-              </div>
-              {summary.risk && (
-                <div className="pt-2">
-                  <Badge tone="gray">Risk Constraints</Badge>
-                  <p className="mt-2 text-xs">
-                    Daily Loss {summary.risk.max_daily_loss_pct ?? "—"}% • Exposure {summary.risk.max_exposure_pct ?? summary.risk.max_gross_exposure ?? "—"} • Kill
-                    Switch {summary.risk.kill_switch_drawdown_pct ?? summary.risk.max_drawdown_pct ?? "—"}%
-                  </p>
-                </div>
+      <Box sx={{ display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", xl: "340px 1fr" } }}>
+        <Card variant="outlined" sx={{ height: "fit-content" }}>
+          <CardHeader title="Run summary" subheader="Key metrics from this run" />
+          <CardContent>
+            {showMetadata ? (
+              <Stack spacing={1.5} divider={<Box sx={{ borderBottom: 1, borderColor: "divider" }} />}>
+                <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+                  <Typography variant="body2" color="text.secondary">Instrument</Typography>
+                  <Typography variant="body2" fontWeight={500} className="tabular">{summary!.instrument ?? "—"}</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+                  <Typography variant="body2" color="text.secondary">Date range</Typography>
+                  <Typography variant="body2" fontWeight={500} className="tabular">
+                    {summary!.start ?? "—"} – {summary!.end ?? "—"}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+                  <Typography variant="body2" color="text.secondary">Trades</Typography>
+                  <Typography variant="body2" fontWeight={500} className="tabular">{summary!.trades ?? "—"}</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+                  <Typography variant="body2" color="text.secondary">Max drawdown</Typography>
+                  <Typography variant="body2" fontWeight={500} className="tabular">
+                    {summary!.max_drawdown_pct != null ? `${summary!.max_drawdown_pct.toFixed(2)}%` : "—"}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between" alignItems="baseline">
+                  <Typography variant="body2" color="text.secondary">Last run</Typography>
+                  <Typography variant="caption" fontWeight={500} className="tabular">
+                    {status?.lastRunAtUtc ?? summary!.timestamp_utc ?? "—"}
+                  </Typography>
+                </Stack>
+                {summary!.risk && (
+                  <Box>
+                    <Chip label="Risk limits" size="small" sx={{ mb: 1 }} />
+                    <Typography variant="caption" display="block" color="text.secondary">
+                      Daily loss {summary!.risk.max_daily_loss_pct ?? "—"}% · Exposure{" "}
+                      {summary!.risk.max_exposure_pct ?? summary!.risk.max_gross_exposure ?? "—"} · Kill switch{" "}
+                      {summary!.risk.kill_switch_drawdown_pct ?? summary!.risk.max_drawdown_pct ?? "—"}%
+                    </Typography>
+                  </Box>
+                )}
+                {summary!.execution && (
+                  <Box>
+                    <Chip label="Execution" size="small" sx={{ mb: 1 }} />
+                    <Typography variant="caption" display="block" color="text.secondary">
+                      {summary!.execution.spread_model ?? "—"} · {summary!.execution.slippage_model ?? "—"} ·{" "}
+                      {summary!.execution.fees_model ?? "—"}
+                    </Typography>
+                  </Box>
+                )}
+              </Stack>
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                {!status?.ready ? (
+                  <>
+                    No results yet. {status?.missing?.length ? `Missing: ${status.missing.join(", ")}. ` : ""}
+                    Run the demo backtest above or run a simulation with your own symbol.
+                  </>
+                ) : null}
+              </Typography>
+            )}
+          </CardContent>
+        </Card>
+
+        <Stack spacing={2}>
+          <Card variant="outlined">
+            <CardHeader title="Charts" subheader="Equity curve · Drawdown · Risk rejections · Robustness" />
+            <CardContent>
+              {status === null ? (
+                <ChartSkeleton height={320} />
+              ) : (
+                <ResearchArtifactTabs urls={urls} />
               )}
-              {summary.execution && (
-                <div className="pt-2">
-                  <Badge tone="gray">Execution Assumptions</Badge>
-                  <p className="mt-2 text-xs">
-                    {summary.execution.spread_model ?? "—"} • {summary.execution.slippage_model ?? "—"} •{" "}
-                    {summary.execution.fees_model ?? "—"}
-                  </p>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="space-y-2 text-sm text-slate-600">
-              {!status?.ready && (
-                <>
-                  <p>Artifacts not ready.</p>
-                  {status?.missing?.length ? <p>Missing: {status.missing.join(", ")}</p> : null}
-                  <p>Run a simulation from Simulation Lab or run the demo via &quot;Run Latest Backtest&quot;.</p>
-                </>
-              )}
-            </div>
-          )}
-        </Panel>
+            </CardContent>
+          </Card>
 
-        <div className="space-y-4">
-          <Panel title="Artifact Viewer" subtitle="Equity, drawdown, risk rejections, Monte Carlo">
-            <ResearchArtifactTabs urls={urls} />
-          </Panel>
+          <Card variant="outlined">
+            <CardHeader title="Logs" subheader="Run log" />
+            <CardContent>
+              <Box
+                component="pre"
+                sx={{
+                  maxHeight: 280,
+                  overflow: "auto",
+                  p: 2,
+                  borderRadius: 1,
+                  bgcolor: "action.hover",
+                  fontSize: "0.8125rem",
+                  lineHeight: 1.5,
+                  fontFamily: "ui-monospace, monospace",
+                }}
+              >
+                {logs.length ? logs.join("\n") : "No log output yet."}
+              </Box>
+            </CardContent>
+          </Card>
 
-          <Panel title="Streaming Logs" subtitle="Live output from engine run">
-            <pre className="max-h-64 overflow-auto rounded-md bg-slate-950 p-3 text-xs text-slate-100">
-              {logs.length ? logs.join("\n") : "No logs yet."}
-            </pre>
-          </Panel>
-
-          <Panel title="Report" subtitle="Markdown tear sheet from run">
-            <article className="prose prose-slate max-w-none text-sm">
-              <ReactMarkdown>
-                {report || "_No report yet. Run a simulation or Run Latest Backtest._"}
-              </ReactMarkdown>
-            </article>
-          </Panel>
+          <Card variant="outlined">
+            <CardHeader title="Report" subheader="Summary report" />
+            <CardContent>
+              <Typography component="div" variant="body2" sx={{ "& p": { mb: 1.5 }, "& ul": { pl: 2.5, mb: 1 }, "& h2": { mt: 2, mb: 1 }, "& h1": { mb: 1 } }}>
+                <ReactMarkdown>{report || "_No report yet. Run a simulation or the demo backtest._"}</ReactMarkdown>
+              </Typography>
+            </CardContent>
+          </Card>
 
           {status?.ready && (
-            <Panel title="Download artifacts" subtitle="All run outputs">
-              <div className="flex flex-wrap gap-2">
-                <a href={`${ARTIFACT_BASE}/summary.json`} download="summary.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">summary.json</a>
-                <a href={`${ARTIFACT_BASE}/metrics.json`} download="metrics.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">metrics.json</a>
-                <a href={`${ARTIFACT_BASE}/trades.csv`} download="trades.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">trades.csv</a>
-                <a href={`${ARTIFACT_BASE}/equity_curve.csv`} download="equity_curve.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">equity_curve.csv</a>
-                <a href={`${ARTIFACT_BASE}/drawdown.csv`} download="drawdown.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">drawdown.csv</a>
-                <a href={`${ARTIFACT_BASE}/ohlcv.csv`} download="ohlcv.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">ohlcv.csv</a>
-                <a href={`${ARTIFACT_BASE}/annotations.json`} download="annotations.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">annotations.json</a>
-                <a href={`${ARTIFACT_BASE}/risk_log.json`} download="risk_log.json" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">risk_log.json</a>
-                <a href={`${ARTIFACT_BASE}/risk_rejections.csv`} download="risk_rejections.csv" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">risk_rejections.csv</a>
-                <a href={`${ARTIFACT_BASE}/report.md`} download="report.md" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">report.md</a>
-                <a href={`${ARTIFACT_BASE}/report.html`} download="report.html" className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">report.html</a>
-              </div>
-            </Panel>
+            <Card variant="outlined">
+              <CardHeader title="Downloads" subheader="Export run data" />
+              <CardContent>
+                <Stack direction="row" flexWrap="wrap" gap={1}>
+                  {[
+                    "summary.json",
+                    "metrics.json",
+                    "trades.csv",
+                    "equity_curve.csv",
+                    "drawdown.csv",
+                    "ohlcv.csv",
+                    "annotations.json",
+                    "risk_log.json",
+                    "risk_rejections.csv",
+                    "report.md",
+                    "report.html",
+                  ].map((file) => (
+                    <Button
+                      key={file}
+                      size="small"
+                      variant="outlined"
+                      href={`${ARTIFACT_BASE}/${file}`}
+                      download={file}
+                      sx={{
+                        textTransform: "none",
+                        minHeight: 44,
+                        flex: { xs: "1 1 140px", sm: "0 0 auto" },
+                      }}
+                    >
+                      {file}
+                    </Button>
+                  ))}
+                </Stack>
+              </CardContent>
+            </Card>
           )}
-        </div>
-      </div>
-    </div>
+        </Stack>
+      </Box>
+    </Box>
   );
 }

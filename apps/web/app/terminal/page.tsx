@@ -1,5 +1,8 @@
 "use client";
 
+import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { getAvailableSymbols } from "../../lib/market";
@@ -134,40 +137,84 @@ export default function TerminalPage() {
     return () => clearInterval(t);
   }, [fetchSession, fetchBacktest]);
 
-  const colorClass = (c: string) => {
-    if (c === "green") return "text-emerald-400";
-    if (c === "red") return "text-red-400";
-    if (c === "yellow") return "text-amber-400";
-    if (c === "blue") return "text-sky-400";
-    return "text-slate-500";
-  };
-
   return (
-    <div className="min-h-screen bg-[#0d1117] text-slate-300 font-mono text-sm md:text-base">
-      <div className="mx-auto max-w-2xl px-4 py-6">
-        <header className="mb-6 flex items-center justify-between border-b border-slate-700 pb-3">
-          <div>
-            <h1 className="text-lg font-bold text-emerald-400">meridian session</h1>
-            <p className="text-xs text-slate-500">
-              session highs · Asia/London/NY · FVGs · sweeps · opportunities · refresh every 1m
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              <button
+    <Box
+      sx={{
+        minHeight: "100%",
+        bgcolor: "background.default",
+        color: "text.primary",
+        fontFamily: "monospace",
+        fontSize: { xs: "0.875rem", md: "1rem" },
+      }}
+    >
+      <Box sx={{ mx: "auto", maxWidth: 672, px: { xs: 1.5, sm: 2 }, py: { xs: 2, md: 3 } }}>
+        <Box sx={{ mb: 3, pb: 2, borderBottom: 1, borderColor: "divider", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 2 }}>
+          <Box>
+            <Box component="h1" sx={{ m: 0, fontSize: { xs: "1rem", sm: "1.125rem" }, fontWeight: 700, color: "primary.main" }}>
+              meridian session
+            </Box>
+            <Box component="p" sx={{ m: 0, mt: 0.5, fontSize: "0.75rem", color: "text.secondary" }}>
+              Session highs and lows · Asia, London, NY · Refreshes every minute
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ position: "relative" }}>
+              <Box
+                component="button"
                 type="button"
                 onClick={() => setPickerOpen((o) => !o)}
-                className="rounded border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs text-slate-400 hover:bg-slate-700"
+                sx={{
+                  minHeight: 44,
+                  minWidth: 44,
+                  px: 1.5,
+                  borderRadius: 1,
+                  border: 1,
+                  borderColor: "divider",
+                  bgcolor: "action.hover",
+                  color: "text.secondary",
+                  fontSize: "0.75rem",
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  "&:hover": { bgcolor: "action.selected" },
+                }}
               >
                 tickers ({symbols.length})
-              </button>
+              </Box>
               {pickerOpen && (
                 <>
-                  <div className="absolute right-0 top-full z-20 mt-1 max-h-64 w-56 overflow-y-auto rounded border border-slate-600 bg-slate-900 py-1 shadow-lg">
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      right: 0,
+                      top: "100%",
+                      zIndex: 20,
+                      mt: 0.5,
+                      maxHeight: 320,
+                      width: 224,
+                      overflowY: "auto",
+                      borderRadius: 1,
+                      border: 1,
+                      borderColor: "divider",
+                      bgcolor: "background.paper",
+                      boxShadow: 2,
+                      py: 0.5,
+                    }}
+                  >
                     {AVAILABLE_SYMBOLS.map(({ value, label }) => (
-                      <label
+                      <Box
+                        component="label"
                         key={value}
-                        className="flex cursor-pointer items-center gap-2 px-3 py-1.5 text-xs hover:bg-slate-800"
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1.5,
+                          px: 1.5,
+                          py: 1.25,
+                          minHeight: 44,
+                          cursor: "pointer",
+                          "&:hover": { bgcolor: "action.hover" },
+                          fontSize: "0.8125rem",
+                        }}
                       >
                         <input
                           type="checkbox"
@@ -177,209 +224,215 @@ export default function TerminalPage() {
                               prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
                             );
                           }}
-                          className="rounded border-slate-600"
+                          style={{ width: 18, height: 18 }}
                         />
-                        <span className="font-mono text-slate-200">{value}</span>
-                        <span className="text-slate-500">{label}</span>
-                      </label>
+                        <Box component="span" sx={{ fontFamily: "monospace", color: "text.primary" }}>
+                          {value}
+                        </Box>
+                        <Box component="span" sx={{ color: "text.secondary" }}>{label}</Box>
+                      </Box>
                     ))}
-                  </div>
-                  <div
-                    className="fixed inset-0 z-10"
+                  </Box>
+                  <Box
+                    component="div"
                     aria-hidden
                     onClick={() => setPickerOpen(false)}
+                    sx={{ position: "fixed", inset: 0, zIndex: 10 }}
                   />
                 </>
               )}
-            </div>
-            <button
+            </Box>
+            <Box
+              component="button"
               type="button"
               onClick={fetchSession}
               disabled={loading}
-              className="rounded border border-slate-600 bg-slate-800 px-3 py-1.5 text-xs text-slate-400 hover:bg-slate-700 disabled:opacity-50"
+              sx={{
+                minHeight: 44,
+                minWidth: 44,
+                px: 1.5,
+                borderRadius: 1,
+                border: 1,
+                borderColor: "divider",
+                bgcolor: "action.hover",
+                color: "text.secondary",
+                fontSize: "0.75rem",
+                fontFamily: "inherit",
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading ? 0.6 : 1,
+                "&:hover": !loading ? { bgcolor: "action.selected" } : undefined,
+              }}
             >
               {loading ? "…" : "refresh"}
-            </button>
-          </div>
-        </header>
+            </Box>
+          </Box>
+        </Box>
 
         {error && (
-          <div className="mb-4 rounded border border-red-900/50 bg-red-950/30 px-4 py-2 text-red-400">
+          <Box sx={{ mb: 2, p: 2, borderRadius: 1, border: 1, borderColor: "error.main", bgcolor: "action.hover", color: "error.main", fontSize: "0.875rem" }}>
             {error}
-          </div>
+          </Box>
         )}
 
         {backtest && (
-          <div className="mb-6 rounded-lg border border-slate-700 bg-slate-900/50 p-4">
-            <div className="mb-3 flex items-center justify-between border-b border-slate-700 pb-2">
-              <span className="font-bold text-emerald-400">last backtest</span>
+          <Box sx={{ mb: 3, p: 2, borderRadius: 2, border: 1, borderColor: "divider", bgcolor: "background.paper" }}>
+            <Box sx={{ mb: 2, pb: 1.5, borderBottom: 1, borderColor: "divider", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
+              <Box component="span" sx={{ fontWeight: 700, color: "success.main" }}>Latest backtest</Box>
               <Link
                 href="/research"
-                className="text-xs text-sky-400 hover:underline"
+                style={{ fontSize: "0.75rem", color: "var(--mui-palette-primary-main)", fontWeight: 500 }}
               >
-                view full →
+                View full →
               </Link>
-            </div>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs md:grid-cols-3">
-              <div><span className="text-slate-500">instrument </span><span>{backtest.instrument}</span></div>
-              <div><span className="text-slate-500">timeframe </span><span>{backtest.timeframe}</span></div>
-              <div><span className="text-slate-500">trades </span><span>{backtest.trades}</span></div>
-              <div><span className="text-slate-500">win_rate% </span><span>{(backtest.win_rate * 100).toFixed(1)}</span></div>
-              <div><span className="text-slate-500">profit_factor </span><span>{backtest.profit_factor.toFixed(2)}</span></div>
-              <div><span className="text-slate-500">max_dd% </span><span className="text-red-400">{backtest.max_drawdown_pct.toFixed(2)}</span></div>
-              <div><span className="text-slate-500">total_return% </span><span className="text-emerald-400">{backtest.total_return_pct.toFixed(2)}</span></div>
-              <div><span className="text-slate-500">sharpe </span><span>{backtest.sharpe != null ? backtest.sharpe.toFixed(2) : "—"}</span></div>
-              <div><span className="text-slate-500">run </span><span className="text-slate-500">{backtest.timestamp_utc.slice(0, 19)}</span></div>
-            </div>
-            <p className="mt-2 text-xs text-slate-500">
-              Strategy → risk engine → execution sim; artifacts in Research (Unified / Risk Lab / Execution Sim).
-            </p>
-          </div>
+            </Box>
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "1fr 1fr 1fr" }, gap: 0.75, fontSize: "0.75rem" }}>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Instrument </Box><Box component="span">{backtest.instrument}</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Timeframe </Box><Box component="span">{backtest.timeframe}</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Trades </Box><Box component="span">{backtest.trades}</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Win rate </Box><Box component="span">{(backtest.win_rate * 100).toFixed(1)}%</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Profit factor </Box><Box component="span">{backtest.profit_factor.toFixed(2)}</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Max drawdown </Box><Box component="span" sx={{ color: "error.main" }}>{backtest.max_drawdown_pct.toFixed(2)}%</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Total return </Box><Box component="span" sx={{ color: "success.main" }}>{backtest.total_return_pct.toFixed(2)}%</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Sharpe </Box><Box component="span">{backtest.sharpe != null ? backtest.sharpe.toFixed(2) : "—"}</Box></Box>
+              <Box><Box component="span" sx={{ color: "text.secondary" }}>Run </Box><Box component="span" sx={{ color: "text.secondary" }}>{backtest.timestamp_utc.slice(0, 19)}</Box></Box>
+            </Box>
+            <Box sx={{ mt: 1.5, fontSize: "0.75rem", color: "text.secondary" }}>
+              Strategy, risk, and execution; full artifacts in Research.
+            </Box>
+          </Box>
         )}
 
         {!backtest && (
-          <p className="mb-4 text-xs text-slate-500">
-            No backtest yet. Run one from <Link href="/research" className="text-sky-400 hover:underline">Research</Link> or CLI: <code className="rounded bg-slate-800 px-1">meridian-backtest</code>
-          </p>
+          <Box sx={{ mb: 2, fontSize: "0.75rem", color: "text.secondary" }}>
+            No backtest yet. Run one from <Link href="/research" style={{ color: "var(--mui-palette-primary-main)", fontWeight: 500 }}>Research</Link> or use the CLI: <Box component="code" sx={{ borderRadius: 0.5, px: 0.5, bgcolor: "action.hover" }}>meridian-backtest</Box>
+          </Box>
         )}
 
         {data?.symbols.length === 0 && !loading && (
-          <p className="text-slate-500">No session data. Check symbols or try again.</p>
+          <Box sx={{ color: "text.secondary", fontSize: "0.875rem" }}>No data for the selected symbols. Try refreshing or changing symbols.</Box>
         )}
 
-        <div className="space-y-4">
+        {loading && !data?.symbols?.length ? (
+          <Stack spacing={2}>
+            {[1, 2, 3].map((i) => (
+              <Skeleton key={i} variant="rounded" height={120} sx={{ borderRadius: 2 }} />
+            ))}
+          </Stack>
+        ) : (
+        <Stack spacing={2}>
           {data?.symbols.map((s) => (
-            <div
+            <Box
               key={s.symbol}
-              className="rounded-lg border border-slate-700 bg-slate-900/50 p-4"
+              sx={{ borderRadius: 2, border: 1, borderColor: "divider", bgcolor: "background.paper", p: 2 }}
             >
-              <div className="mb-3 flex items-center justify-between border-b border-slate-700 pb-2">
-                <span className="font-bold text-slate-200">{s.symbol}</span>
-                <span className="flex items-center gap-2">
+              <Box sx={{ mb: 2, pb: 1.5, borderBottom: 1, borderColor: "divider", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
+                <Box component="span" sx={{ fontWeight: 700, color: "text.primary" }}>{s.symbol}</Box>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   {INDEX_PROXY_SCALE[s.symbol] && (
-                    <span className="text-[10px] text-slate-500">index scale (×10)</span>
+                    <Box component="span" sx={{ fontSize: "10px", color: "text.secondary" }}>index scale (×10)</Box>
                   )}
-                  <span className="text-xs text-slate-500">{s.date}</span>
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs md:grid-cols-3">
-                <div>
-                  <span className="text-slate-500">session_high </span>
-                  <span className="text-emerald-400">{formatPrice(s.symbol, s.session_high)}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">session_low </span>
-                  <span className="text-red-400">{formatPrice(s.symbol, s.session_low)}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">open </span>
-                  <span>{formatPrice(s.symbol, s.open)}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">close </span>
-                  <span>{formatPrice(s.symbol, s.close)}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">change% </span>
-                  <span className={s.change_pct >= 0 ? "text-emerald-400" : "text-red-400"}>
-                    {s.change_pct >= 0 ? "+" : ""}{s.change_pct.toFixed(2)}%
-                  </span>
-                </div>
-                <div>
-                  <span className="text-slate-500">volume </span>
-                  <span>{s.volume.toLocaleString()}</span>
-                </div>
-              </div>
-              <div className="mt-2 border-t border-slate-700 pt-2">
-                <span className="text-slate-500">pattern </span>
-                <span className={colorClass(s.pattern_color)}>{s.pattern}</span>
-              </div>
+                  <Box component="span" sx={{ fontSize: "0.75rem", color: "text.secondary" }}>{s.date}</Box>
+                </Box>
+              </Box>
+              <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "1fr 1fr 1fr" }, gap: 0.75, fontSize: "0.75rem" }}>
+                <Box><Box component="span" sx={{ color: "text.secondary" }}>Session high </Box><Box component="span" sx={{ color: "success.main" }}>{formatPrice(s.symbol, s.session_high)}</Box></Box>
+                <Box><Box component="span" sx={{ color: "text.secondary" }}>Session low </Box><Box component="span" sx={{ color: "error.main" }}>{formatPrice(s.symbol, s.session_low)}</Box></Box>
+                <Box><Box component="span" sx={{ color: "text.secondary" }}>Open </Box><Box component="span">{formatPrice(s.symbol, s.open)}</Box></Box>
+                <Box><Box component="span" sx={{ color: "text.secondary" }}>Close </Box><Box component="span">{formatPrice(s.symbol, s.close)}</Box></Box>
+                <Box><Box component="span" sx={{ color: "text.secondary" }}>Change % </Box><Box component="span" sx={{ color: s.change_pct >= 0 ? "success.main" : "error.main" }}>{s.change_pct >= 0 ? "+" : ""}{s.change_pct.toFixed(2)}%</Box></Box>
+                <Box><Box component="span" sx={{ color: "text.secondary" }}>Volume </Box><Box component="span">{s.volume.toLocaleString()}</Box></Box>
+              </Box>
+              <Box sx={{ mt: 1.5, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                <Box component="span" sx={{ color: "text.secondary" }}>Pattern </Box>
+                <Box component="span" sx={{ color: s.pattern_color === "green" ? "success.main" : s.pattern_color === "red" ? "error.main" : s.pattern_color === "yellow" ? "warning.main" : "info.main" }}>{s.pattern}</Box>
+              </Box>
 
               {s.predicting_ny && (
-                <div className="mt-3 border-t border-slate-700 pt-2">
-                  <div className="text-xs font-medium text-cyan-400">Predicting in NY</div>
-                  <p className="mt-0.5 text-xs text-slate-400">{formatPricesInText(s.symbol, s.predicting_ny)}</p>
-                </div>
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "info.main" }}>Predicting in NY</Box>
+                  <Box sx={{ mt: 0.5, fontSize: "0.75rem", color: "text.secondary" }}>{formatPricesInText(s.symbol, s.predicting_ny)}</Box>
+                </Box>
               )}
 
               {s.session_levels && s.session_levels.length > 0 && (
-                <div className="mt-3 border-t border-slate-700 pt-2">
-                  <div className="text-xs font-medium text-slate-300">Session summary</div>
-                  <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "text.primary" }}>Session summary</Box>
+                  <Box sx={{ mt: 0.5, display: "flex", flexWrap: "wrap", gap: 0.5, fontSize: "0.75rem" }}>
                     {["Asia", "London", "NY"].map((name) => {
                       const level = [...s.session_levels!].reverse().find((l) => l.name === name);
                       if (!level) return null;
                       return (
-                        <span key={name}>
-                          <span className="text-slate-500">{name}</span>{" "}
-                          <span className="text-emerald-400">{formatPrice(s.symbol, level.high)}</span>
-                          <span className="text-slate-600"> / </span>
-                          <span className="text-red-400">{formatPrice(s.symbol, level.low)}</span>
-                        </span>
+                        <Box component="span" key={name}>
+                          <Box component="span" sx={{ color: "text.secondary" }}>{name} </Box>
+                          <Box component="span" sx={{ color: "success.main" }}>{formatPrice(s.symbol, level.high)}</Box>
+                          <Box component="span" sx={{ color: "text.disabled" }}> / </Box>
+                          <Box component="span" sx={{ color: "error.main" }}>{formatPrice(s.symbol, level.low)}</Box>
+                        </Box>
                       );
                     })}
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               )}
 
               {s.fvgs && s.fvgs.length > 0 && (
-                <div className="mt-3 border-t border-slate-700 pt-2">
-                  <div className="text-xs font-medium text-amber-400">Fair value gaps</div>
-                  <ul className="mt-0.5 list-inside list-disc text-xs text-slate-400">
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "warning.main" }}>Fair value gaps</Box>
+                  <Box component="ul" sx={{ mt: 0.5, pl: 2, listStyle: "disc", fontSize: "0.75rem", color: "text.secondary" }}>
                     {s.fvgs.slice(-3).map((fvg, i) => (
                       <li key={i}>
                         {fvg.kind === "bullish" ? (
-                          <span className="text-emerald-400">{formatPrice(s.symbol, fvg.bottom)} – {formatPrice(s.symbol, fvg.top)}</span>
+                          <Box component="span" sx={{ color: "success.main" }}>{formatPrice(s.symbol, fvg.bottom)} – {formatPrice(s.symbol, fvg.top)}</Box>
                         ) : (
-                          <span className="text-red-400">{formatPrice(s.symbol, fvg.bottom)} – {formatPrice(s.symbol, fvg.top)}</span>
+                          <Box component="span" sx={{ color: "error.main" }}>{formatPrice(s.symbol, fvg.bottom)} – {formatPrice(s.symbol, fvg.top)}</Box>
                         )}
                         {" "}{fvg.kind}
                       </li>
                     ))}
-                  </ul>
-                </div>
+                  </Box>
+                </Box>
               )}
 
               {s.sweeps && s.sweeps.length > 0 && (
-                <div className="mt-3 border-t border-slate-700 pt-2">
-                  <div className="text-xs font-medium text-fuchsia-400">Liquidity sweeps</div>
-                  <ul className="mt-0.5 list-inside list-disc text-xs text-slate-400">
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "secondary.main" }}>Liquidity sweeps</Box>
+                  <Box component="ul" sx={{ mt: 0.5, pl: 2, listStyle: "disc", fontSize: "0.75rem", color: "text.secondary" }}>
                     {s.sweeps.slice(-2).map((sw, i) => (
                       <li key={i}>
                         {sw.kind === "low_sweep" ? (
-                          <span className="text-emerald-400">Lows swept {formatPrice(s.symbol, sw.level)}</span>
+                          <Box component="span" sx={{ color: "success.main" }}>Lows swept {formatPrice(s.symbol, sw.level)}</Box>
                         ) : (
-                          <span className="text-red-400">Highs swept {formatPrice(s.symbol, sw.level)}</span>
+                          <Box component="span" sx={{ color: "error.main" }}>Highs swept {formatPrice(s.symbol, sw.level)}</Box>
                         )}
                       </li>
                     ))}
-                  </ul>
-                </div>
+                  </Box>
+                </Box>
               )}
 
               {s.opportunities && s.opportunities.length > 0 && (
-                <div className="mt-3 border-t border-slate-700 pt-2">
-                  <div className="text-xs font-medium text-emerald-400">Opportunities</div>
-                  <ul className="mt-0.5 list-inside list-disc text-xs text-slate-400">
+                <Box sx={{ mt: 2, pt: 1.5, borderTop: 1, borderColor: "divider" }}>
+                  <Box sx={{ fontSize: "0.75rem", fontWeight: 600, color: "success.main" }}>Opportunities</Box>
+                  <Box component="ul" sx={{ mt: 0.5, pl: 2, listStyle: "disc", fontSize: "0.75rem", color: "text.secondary" }}>
                     {s.opportunities.slice(0, 4).map((opp, i) => (
                       <li key={i}>{formatPricesInText(s.symbol, opp)}</li>
                     ))}
-                  </ul>
-                </div>
+                  </Box>
+                </Box>
               )}
-            </div>
+            </Box>
           ))}
-        </div>
+        </Stack>
+        )}
 
-        <footer className="mt-8 border-t border-slate-700 pt-4 text-xs text-slate-500">
-          <p>Session CLI: <code className="rounded bg-slate-800 px-1">meridian-session QQQ SPY</code></p>
-          <p className="mt-1">Backtest CLI: <code className="rounded bg-slate-800 px-1">meridian-backtest</code> or <code className="rounded bg-slate-800 px-1">make backtest</code></p>
-          <p className="mt-2">Or: python -m engine.scripts.session_cli | python -m engine.scripts.backtest_cli</p>
-          <p className="mt-1">
+        <Box component="footer" sx={{ mt: 4, pt: 2, borderTop: 1, borderColor: "divider", fontSize: "0.75rem", color: "text.secondary" }}>
+          <p style={{ margin: 0 }}>Session CLI: <code style={{ borderRadius: 4, padding: "0 4px", backgroundColor: "var(--mui-palette-action-hover)" }}>meridian-session QQQ SPY</code></p>
+          <p style={{ margin: "4px 0 0" }}>Backtest CLI: <code style={{ borderRadius: 4, padding: "0 4px", backgroundColor: "var(--mui-palette-action-hover)" }}>meridian-backtest</code> or <code style={{ borderRadius: 4, padding: "0 4px", backgroundColor: "var(--mui-palette-action-hover)" }}>make backtest</code></p>
+          <p style={{ margin: "8px 0 0" }}>Or: python -m engine.scripts.session_cli | python -m engine.scripts.backtest_cli</p>
+          <p style={{ margin: "4px 0 0" }}>
             Session updated: {data?.refreshedAtUtc ? new Date(data.refreshedAtUtc).toLocaleTimeString() : "—"}
           </p>
-        </footer>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }
