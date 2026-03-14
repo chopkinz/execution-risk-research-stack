@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+env:
+  # Headless Linux: matplotlib must use Agg backend (no display)
+  MPLBACKEND: Agg
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -39,7 +43,9 @@ jobs:
         run: mkdir -p apps/web/public/research/latest
 
       - name: Engine smoke run
-        run: PYTHONPATH=packages/engine/src python -m engine.scripts.demo --out apps/web/public/research/latest
+        run: |
+          OUT_DIR="${{ github.workspace }}/apps/web/public/research/latest"
+          PYTHONPATH=packages/engine/src python -m engine.scripts.demo --out "$OUT_DIR"
 
       - name: Web verify
         working-directory: apps/web

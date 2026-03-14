@@ -4,6 +4,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from engine.risk.lab import MaxDailyLoss, MaxPositionSize, MaxTradesPerDay, RiskEngine

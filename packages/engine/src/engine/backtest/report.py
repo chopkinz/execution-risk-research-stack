@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -85,7 +87,7 @@ def build_report(
             fig.savefig(output_dir / "r_distribution.png", dpi=140)
             plt.close(fig)
 
-    lines = ["# Trading Buddy Tear Sheet", "", "## Metrics"]
+    lines = ["# Tear Sheet", "", "## Metrics"]
     for k, v in metrics.items():
         lines.append(f"- **{k}**: {v}")
     lines += ["", "## Notes", "- Deterministic seed used for Monte Carlo resampling.", "- Execution costs include spread, slippage, fees, and optional latency."]
